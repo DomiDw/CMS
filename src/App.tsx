@@ -1,5 +1,5 @@
 import React from 'react'
-import './App.css'
+import './App.scss'
 import { Video } from './components/Video/Video'
 import { Team } from './components/Team/Team';
 

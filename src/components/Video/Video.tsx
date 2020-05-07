@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactPlayer from 'react-player'
 import { IVideoProps } from './IVideo'
-import './video.css'
+import './video.scss'
 
 export function Video(props: IVideoProps) {
     return (

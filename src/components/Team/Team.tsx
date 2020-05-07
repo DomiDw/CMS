@@ -1,6 +1,6 @@
 import React from 'react'
 import { ITeamProps } from './ITeam'
-import './team.css'
+import './team.scss'
 
 export function Team(props: ITeamProps) {
     const team = <>
