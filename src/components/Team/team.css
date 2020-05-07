@@ -1,0 +1,14 @@
+.team-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 0 0 50%;
+}
+.img-home {
+    display: block;
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 100px;
+    height:auto;
+    flex-shrink: 0;
+}
