@@ -1,14 +1,40 @@
-.team-wrapper {
+.team-block {
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    flex: 0 0 50%;
-}
-.img-home {
-    display: block;
-    padding-left: 5%;
-    padding-right: 5%;
-    width: 100px;
-    height:auto;
-    flex-shrink: 0;
+    background-color: red;
+    border-radius: 0.25rem;
+    padding: 0rem 1rem;
+    height: 100%;
+    .team-home,
+    .team-guest {
+        display: flex;
+        align-items: center;
+        flex: 0 50%;
+        padding: 1rem 0rem;
+    }
+    .team-home-name {
+        margin-left: 1rem;
+    }
+    .team-guest-name {
+        margin-right: 1rem;
+    }
+    .team-score {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        color: white;
+        background-color: grey;
+        height: 100%;
+    }
+    .team-home-score {
+        margin-right: 0.5rem;
+    }
+    .team-guest-score {
+        margin-left: 0.5rem;
+    }
+    .team-img {
+        display: block;
+        width: auto;
+        height: 55px;
+        flex-shrink: 0;
+    }
 }
