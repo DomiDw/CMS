@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <div className="container-fluid">
-        <div className="col-xs-12 center-content">
+        <div className="col-xs-6 center-content">
           <div className="row">
             <div className="col-xs-12">
               <Video url={"https://www.youtube.com/watch?v=WydJXOYrmkg"} />
@@ -18,7 +18,7 @@ function App() {
           </div>
           <div className="row">
             <Team
-              size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+              size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
               home={{ name: 'TSV Meerbusch', logo: logo }}
               score={{ home: "0", guest: "0" }}
               guest={{ name: 'TSV Meerbusch', logo: logo }}
