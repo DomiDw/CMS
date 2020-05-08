@@ -1,8 +1,8 @@
 .textbox-block {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-.textbox {
-    border-radius: 0.25rem;
-    padding: 0.25rem 0.25rem;   
+    .textbox {
+        display: flex;
+        width: 100%;
+        border-radius: 0.25rem;
+        padding: 0.25rem 0.25rem;   
+    }
 }
