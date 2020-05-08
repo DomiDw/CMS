@@ -87,8 +87,6 @@ export function Team(props: ITeamProps) {
         size = `${xsSize}${smSize}${mdSize}${lgSize}`
     }
 
-    console.log(xsSize)
-
     return (
         <div className={size}>
             <div className="team-block">
@@ -99,8 +97,3 @@ export function Team(props: ITeamProps) {
         </div>
     );
 }
-
-// Wir brauchen 
-// - Logo
-// - Name
-// - Tore

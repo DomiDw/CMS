@@ -3,8 +3,10 @@ import './App.scss'
 import '../node_modules/flexboxgrid/css/flexboxgrid.min.css'
 import { Video } from './components/Video/Video'
 import { Team } from './components/Team/Team';
+import { Textbox } from './components/Textbox/Textbox';
 
-const logo = 'https://www.tsv-meerbusch.de/wp-content/uploads/TSV_Wappen.png'
+const logoHome = 'https://www.tsv-meerbusch.de/wp-content/uploads/TSV_Wappen.png'
+const logoGuest = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/FC_Schalke_04_Logo.svg/2000px-FC_Schalke_04_Logo.svg.png'
 
 function App() {
   return (
@@ -19,9 +21,12 @@ function App() {
           <div className="row">
             <Team
               size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
-              home={{ name: 'TSV Meerbusch', logo: logo }}
+              home={{ name: 'TSV Meerbusch', logo: logoHome }}
               score={{ home: "0", guest: "0" }}
-              guest={{ name: 'TSV Meerbusch', logo: logo }}
+              guest={{ name: 'FC Schalke 04', logo: logoGuest }}
+            />
+            <Textbox
+              inputField={'Teeeeeeeeeeeeeest'}
             />
           </div>
         </div>
