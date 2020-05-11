@@ -1,4 +1,5 @@
 interface ITextboxBase {
-    inputField: string;
+    descriptionText: string;
 }
+
 export type ITextboxProps = ITextboxBase

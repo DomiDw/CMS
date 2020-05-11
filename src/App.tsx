@@ -2,8 +2,10 @@ import React from 'react'
 import './App.scss'
 import '../node_modules/flexboxgrid/css/flexboxgrid.min.css'
 import { Video } from './components/Video/Video'
-import { Team } from './components/Team/Team';
-import { Textbox } from './components/Textbox/Textbox';
+import { Team } from './components/Team/Team'
+import DescriptionBox from './components/Textbox/Textbox'
+// import { descriptionText } from './components/Textbox/Textbox'
+// import { clubMessage } from './components/Textbox/Textbox'
 
 const logoHome = 'https://www.tsv-meerbusch.de/wp-content/uploads/TSV_Wappen.png'
 const logoGuest = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/FC_Schalke_04_Logo.svg/2000px-FC_Schalke_04_Logo.svg.png'
@@ -15,7 +17,9 @@ function App() {
         <div className="col-xs-6 center-content">
           <div className="row">
             <div className="col-xs-12">
-              <Video url={"https://www.youtube.com/watch?v=WydJXOYrmkg"} />
+              <Video
+              url={"https://www.youtube.com/watch?v=WydJXOYrmkg"}
+              />
             </div>
           </div>
           <div className="row">
@@ -25,13 +29,15 @@ function App() {
               score={{ home: "0", guest: "0" }}
               guest={{ name: 'FC Schalke 04', logo: logoGuest }}
             />
-            <Textbox
-              inputField={'Teeeeeeeeeeeeeest'}
-            />
+            <p className="col-xs-12">
+              <DescriptionBox
+                descriptionText={""}
+              />
+            </p>
+            
           </div>
         </div>
       </div>
-
     </div>
   );
 }
