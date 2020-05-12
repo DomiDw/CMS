@@ -17,9 +17,9 @@ function App() {
         <div className="col-xs-6 center-content">
           <div className="row">
             <div className="col-xs-12">
-              <Video
-              url={"https://www.youtube.com/watch?v=WydJXOYrmkg"}
-              />
+              {/* <Video
+              url={"ttps://www.youtube.com/watch?v=WydJXOYrmkg"}
+              /> */}
             </div>
           </div>
           <div className="row">
@@ -29,12 +29,11 @@ function App() {
               score={{ home: "0", guest: "0" }}
               guest={{ name: 'FC Schalke 04', logo: logoGuest }}
             />
-            <p className="col-xs-12">
+            <div className="col-xs-12">
               <DescriptionBox
                 descriptionText={""}
               />
-            </p>
-            
+            </div>
           </div>
         </div>
       </div>

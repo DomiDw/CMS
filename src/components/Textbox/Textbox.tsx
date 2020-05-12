@@ -9,7 +9,7 @@ export default class DescriptionBox extends React.Component<ITextboxProps, any> 
     constructor(props: any) {
         super(props)
         this.state = {
-            value: "Text",
+            value: "Hier könnte Ihre Werbung stehen",
             isInEditMode: false
         }
     }
@@ -21,8 +21,12 @@ export default class DescriptionBox extends React.Component<ITextboxProps, any> 
     }
     updateComponentValue = () => {
         this.setState({
-            isInEditMode: false,
-            value: this.refs.theTextInput
+            isInEditMode: false
+        })
+    }
+    handleChange = (event: any, value:string) => {
+        this.setState({
+            [value]: event.target.value
         })
     }
     render() {
@@ -32,8 +36,8 @@ export default class DescriptionBox extends React.Component<ITextboxProps, any> 
                 <input
                     className="textbox"
                     type="text"
-                    defaultValue={this.state.value}
-                    ref="theTextInput"
+                    value={this.state.value}
+                    onChange={(event) => this.handleChange(event, "value")}
                 />
                 <button onClick={this.changeEditMode}>X</button>
                 <button onClick={this.updateComponentValue}>OK</button>
