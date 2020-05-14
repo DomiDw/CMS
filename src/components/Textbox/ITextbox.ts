@@ -1,6 +1,5 @@
 interface ITextboxBase {
-    descriptionText?: string;
-    clubMessage?: string;
+    editableText: string;
 }
 
 export type ITextboxProps = ITextboxBase

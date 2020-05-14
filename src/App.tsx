@@ -3,11 +3,12 @@ import './App.scss'
 import '../node_modules/flexboxgrid/css/flexboxgrid.min.css'
 import { Video } from './components/Video/Video'
 import { Team } from './components/Team/Team'
-import { DescriptionBox } from './components/Textbox/Textbox'
-import { ClubMessageBox } from './components/Textbox/Textbox'
+import { TextBox } from './components/Textbox/Textbox'
 
 const logoHome = 'https://www.tsv-meerbusch.de/wp-content/uploads/TSV_Wappen.png'
 const logoGuest = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/FC_Schalke_04_Logo.svg/2000px-FC_Schalke_04_Logo.svg.png'
+const descriptionText = 'asdf1'
+const clubMessage = 'asdf2'
 
 function App() {
   return (
@@ -21,19 +22,19 @@ function App() {
               />
             </div>
           </div>
-          <div className="row">
-            <Team
-              size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
-              home={{ name: 'TSV Meerbusch', logo: logoHome }}
-              score={{ home: "0", guest: "0" }}
-              guest={{ name: 'FC Schalke 04', logo: logoGuest }}
+            <div className="row">
+              <Team
+                size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
+                home={{ name: 'TSV Meerbusch', logo: logoHome }}
+                score={{ home: "0", guest: "0" }}
+                guest={{ name: 'FC Schalke 04', logo: logoGuest }}
             />
-          <div className="col-xs-12">
-             <DescriptionBox
-                descriptionText={"asdf"}
+            <div className="col-xs-12">
+              <TextBox
+                editableText={descriptionText}
               />
-              <ClubMessageBox
-                clubMessage={"asdffff"}
+              <TextBox
+                editableText={clubMessage}
               />
             </div>
           </div>
