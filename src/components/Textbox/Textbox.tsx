@@ -9,11 +9,10 @@ export class DescriptionBox extends React.Component<ITextboxProps, any> {
     constructor(props: any) {
         super(props)
         this.state = {
-            value: descriptionText,
+            value: this.props.descriptionText || 'Hier sollte Text stehen',
             isInEditMode: false
         }
     }
-
     changeEditMode = () => {
         this.setState({
             isInEditMode: !this.state.isInEditMode
@@ -46,7 +45,6 @@ export class DescriptionBox extends React.Component<ITextboxProps, any> {
                 <div onClick={this.changeEditMode}>
                     {this.state.value}
                 </div>
-                
         )
     }
 }
@@ -59,7 +57,6 @@ export class ClubMessageBox extends React.Component<ITextboxProps, any> {
             isInEditMode: false
         }
     }
-
     changeEditMode = () => {
         this.setState({
             isInEditMode: !this.state.isInEditMode
@@ -92,7 +89,6 @@ export class ClubMessageBox extends React.Component<ITextboxProps, any> {
                 <div onClick={this.changeEditMode}>
                     {this.state.value}
                 </div>
-                
         )
     }
 }

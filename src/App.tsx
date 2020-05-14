@@ -28,8 +28,8 @@ function App() {
               score={{ home: "0", guest: "0" }}
               guest={{ name: 'FC Schalke 04', logo: logoGuest }}
             />
-            <div className="col-xs-12">
-              <DescriptionBox
+          <div className="col-xs-12">
+             <DescriptionBox
                 descriptionText={"asdf"}
               />
               <ClubMessageBox
