@@ -2,7 +2,6 @@ import React from 'react'
 import { ITextboxProps } from './ITextbox'
 import './textbox.scss'
 
-
 export class TextBox extends React.Component<ITextboxProps, any> {
     constructor(props: any) {
         super(props)
