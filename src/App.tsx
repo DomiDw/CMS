@@ -7,8 +7,8 @@ import { TextBox } from './components/Textbox/Textbox'
 
 const logoHome = 'https://www.tsv-meerbusch.de/wp-content/uploads/TSV_Wappen.png'
 const logoGuest = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/FC_Schalke_04_Logo.svg/2000px-FC_Schalke_04_Logo.svg.png'
-const descriptionText = 'asdf1'
-const clubMessage = 'asdf2'
+const descriptionText = 'Hier könnte Ihre Beschreibung stehen'
+const clubMessage = 'Hier könnte Ihre Nachricht vom Verein stehen'
 
 function App () {
   return (
