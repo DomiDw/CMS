@@ -93,7 +93,8 @@ export function Team (props: ITeamProps) {
     <div className={size}>
       <div className='team-block'>
         {props.home !== undefined ? teamHome : null}
-        {props.score?.home !== undefined && props.score?.guest !== undefined ? <div className='team-score'>{scoreHome}:{scoreGuest}</div> : null}
+        {props.score?.home !== undefined && props.score?.guest !== undefined
+          ? <div className='team-score'>{scoreHome}:{scoreGuest}</div> : null}
         {props.guest !== undefined ? teamGuest : null}
       </div>
     </div>
