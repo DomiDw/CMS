@@ -10,26 +10,26 @@ const logoGuest = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/FC_
 const descriptionText = 'asdf1'
 const clubMessage = 'asdf2'
 
-function App() {
+function App () {
   return (
-    <div className="App">
-      <div className="container-fluid">
-        <div className="col-xs-6 center-content">
-          <div className="row">
-            <div className="col-xs-12">
+    <div className='App'>
+      <div className='container-fluid'>
+        <div className='col-xs-6 center-content'>
+          <div className='row'>
+            <div className='col-xs-12'>
               <Video
-              url={"ttps://www.youtube.com/watch?v=WydJXOYrmkg"}
+                url='ttps://www.youtube.com/watch?v=WydJXOYrmkg'
               />
             </div>
           </div>
-            <div className="row">
-              <Team
-                size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
-                home={{ name: 'TSV Meerbusch', logo: logoHome }}
-                score={{ home: "0", guest: "0" }}
-                guest={{ name: 'FC Schalke 04', logo: logoGuest }}
+          <div className='row'>
+            <Team
+              size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
+              home={{ name: 'TSV Meerbusch', logo: logoHome }}
+              score={{ home: '0', guest: '0' }}
+              guest={{ name: 'FC Schalke 04', logo: logoGuest }}
             />
-            <div className="col-xs-12">
+            <div className='col-xs-12'>
               <TextBox
                 editableText={descriptionText}
               />
@@ -41,7 +41,7 @@ function App() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

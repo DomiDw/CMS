@@ -2,7 +2,6 @@ import React from 'react'
 import { ITextboxProps } from './ITextbox'
 import './textbox.scss'
 
-
 export class TextBox extends React.Component<ITextboxProps, any> {
     constructor(props: any) {
         super(props)
@@ -21,7 +20,7 @@ export class TextBox extends React.Component<ITextboxProps, any> {
             isInEditMode: false
         })
     }
-    handleChange = (event: any, value:string) => {
+    handleChange = (event: any, value: string) => {
         this.setState({
             [value]: event.target.value
         })
@@ -30,16 +29,16 @@ export class TextBox extends React.Component<ITextboxProps, any> {
         return (
             this.state.isInEditMode ?
                 <div className="textbox-block col-xs-12">
-                <input
-                    className="textbox"
-                    type="text"
-                    value={this.state.value}
-                    onChange={(event) => this.handleChange(event, "value")}
-                />
-                <button onClick={this.updateComponentValue}>Speichern</button>
-                <button onClick={this.changeEditMode}>Abbruch</button>                
+                    <input
+                        className="textbox"
+                        type="text"
+                        value={this.state.value}
+                        onChange={(event) => this.handleChange(event, "value")}
+                    />
+                    <button onClick={this.updateComponentValue}>Speichern</button>
+                    <button onClick={this.changeEditMode}>Abbruch</button>
                 </div>
-            :
+                :
                 <div onClick={this.changeEditMode}>
                     {this.state.value}
                 </div>
