@@ -33,10 +33,9 @@ export class TextBox extends Component<ITextboxProps, any> {
       return (
         this.state.isInEditMode
           ? (
-            <div className='textbox-block col-xs-12'>
-              <input
+            <div className='textbox-block'>
+              <textarea
                 className='textbox'
-                type='text'
                 value={this.state.value}
                 onChange={(event) => this.handleChange(event, 'value')}
               />
