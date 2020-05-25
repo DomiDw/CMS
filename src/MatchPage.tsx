@@ -1,5 +1,5 @@
 import React from 'react'
-import './App.scss'
+import './MatchPage.scss'
 import '../node_modules/flexboxgrid/css/flexboxgrid.min.css'
 import { Video } from './components/Video/Video'
 import { Team } from './components/Team/Team'
@@ -8,11 +8,11 @@ import { TextBox } from './components/Textbox/Textbox'
 const logoHome = 'https://www.tsv-meerbusch.de/wp-content/uploads/TSV_Wappen.png'
 const logoGuest = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/FC_Schalke_04_Logo.svg/2000px-FC_Schalke_04_Logo.svg.png'
 const descriptionText = 'Hier könnte Ihre Beschreibung stehen'
-const clubMessage = 'Hier könnte Ihre Nachricht vom Verein stehen'
+const clubMessage = 'Hier könnte Ihre Vereinsnachricht stehen'
 
-function App () {
+function MatchPage () {
   return (
-    <div className='App'>
+    <div className='MatchPage'>
       <div className='container-fluid'>
         <div className='col-xs-6 center-content'>
           <div className='row'>
@@ -44,4 +44,4 @@ function App () {
   )
 }
 
-export default App
+export default MatchPage
