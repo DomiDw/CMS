@@ -7,8 +7,8 @@ import { TextBox } from './components/Textbox/Textbox'
 
 const logoHome = 'https://www.tsv-meerbusch.de/wp-content/uploads/TSV_Wappen.png'
 const logoGuest = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/FC_Schalke_04_Logo.svg/2000px-FC_Schalke_04_Logo.svg.png'
-const descriptionText = 'Hier könnte Ihre Beschreibung stehen'
-const clubMessage = 'Hier könnte Ihre Vereinsnachricht stehen'
+const descriptionText = 'Vereinsbeschreibung'
+const clubMessage = 'Vereinsnachricht'
 
 function MatchPage () {
   return (
@@ -29,10 +29,16 @@ function MatchPage () {
               score={{ home: '0', guest: '0' }}
               guest={{ name: 'FC Schalke 04', logo: logoGuest }}
             />
+            <div className='clubDescriptionText'>
+              Vereinsbeschreibung
+            </div>
             <div className='col-xs-12'>
               <TextBox
                 editableText={descriptionText}
               />
+              <div className='clubMessageText'>
+                Vereinsnachricht
+              </div>
               <TextBox
                 editableText={clubMessage}
               />

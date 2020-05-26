@@ -18,9 +18,17 @@ export class TextBox extends Component<ITextboxProps, any> {
     }
 
     handleComponentValue = () => {
-      this.setState({
-        isInEditMode: false
-      })
+      if (this.state.value.length === 0) {
+        this.setState({
+          isInEditMode: true, // Tooltip einbauen
+          value: 'Bitte einen Eintrag vornehmen'
+        })
+      } else {
+        this.setState({
+          isInEditMode: false,
+          value: this.state.value
+        })
+      }
     }
 
     handleChange = (event: any, value: string) => {
@@ -30,6 +38,7 @@ export class TextBox extends Component<ITextboxProps, any> {
     }
 
     render () {
+      // const asdf:string = ''
       return (
         this.state.isInEditMode
           ? (

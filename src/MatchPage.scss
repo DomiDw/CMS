@@ -2,6 +2,21 @@ body {
     background-size: cover;
     background: white;
 }
-.center-content{
+.center-content {
     margin: 0 auto;
+}
+.clubDescriptionText {
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+.clubMessageText {
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+    padding-bottom: 1rem;
 }
