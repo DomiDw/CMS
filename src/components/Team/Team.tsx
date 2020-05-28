@@ -57,10 +57,10 @@ export function Team (props: ITeamProps) {
     scoreGuest = <></>
   }
 
-  let xsSize: any
-  let smSize: any
-  let mdSize: any
-  let lgSize: any
+  let xsSize: string
+  let smSize: string
+  let mdSize: string
+  let lgSize: string
 
   if (props.size?.xs !== undefined) {
     xsSize = `col-xs-${props.size?.xs}`
@@ -83,7 +83,7 @@ export function Team (props: ITeamProps) {
     lgSize = ''
   }
 
-  let size: any
+  let size = ''
 
   if (props.size !== undefined) {
     size = `${xsSize}${smSize}${mdSize}${lgSize}`
