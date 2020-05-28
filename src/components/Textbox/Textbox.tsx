@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
-import { ITextboxProps } from './ITextbox'
+import { ITextboxProps, ITextBoxState } from './ITextbox'
 import './textbox.scss'
 
-export class TextBox extends Component<ITextboxProps, any> {
-  constructor (props: any) {
+export class TextBox extends Component<ITextboxProps, ITextBoxState> {
+  initValue:string
+  constructor (props: ITextboxProps) {
     super(props)
     this.state = {
       value: this.props.editableText || 'Hier sollte Text stehen',
       isInEditMode: false
     }
+    this.initValue = this.state.value
   }
 
     handleEditMode = () => {
       this.setState({
+        value: this.initValue,
         isInEditMode: !this.state.isInEditMode
       })
     }
@@ -31,14 +34,13 @@ export class TextBox extends Component<ITextboxProps, any> {
       }
     }
 
-    handleChange = (event: any, value: string) => {
+    handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>, key: 'value' | 'isInEditMode') => {
       this.setState({
-        [value]: event.target.value
+        [key]: event.target.value
       })
     }
 
     render () {
-      // const asdf:string = ''
       return (
         this.state.isInEditMode
           ? (
@@ -48,8 +50,12 @@ export class TextBox extends Component<ITextboxProps, any> {
                 value={this.state.value}
                 onChange={(event) => this.handleChange(event, 'value')}
               />
-              <button onClick={this.handleComponentValue}>Speichern</button>
-              <button onClick={this.handleEditMode}>Abbruch</button>
+              <button onClick={this.handleComponentValue}>
+                Speichern
+              </button>
+              <button onClick={this.handleEditMode}>
+                Abbruch
+              </button>
             </div>
           )
           : (
