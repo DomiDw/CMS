@@ -42,8 +42,8 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
       if (this.state.value.length === 0 || this.state.value === 'Bitte einen Eintrag vornehmen') {
         // this.showTooltip()
         this.setState({
-          isInEditMode: true, // Tooltip einbauen
-          value: 'Bitte einen Eintrag vornehmen'
+          isInEditMode: true,
+          value: ''
         })
       } else {
         this.setState({
@@ -67,13 +67,14 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
             <div className='textbox-block'>
               <textarea
                 className='textbox'
+                placeholder='Bitte einen Eintrag vornehmen'
                 value={this.state.value}
                 onChange={this.handleChange}
               />
               {this.state.value.length === 0 ? (
                 <div className='tooltip' title='Bitte hier Text einfügen'>
                   <span className='tooltiptext'>
-                    a
+                    {this.state.value}
                   </span>
                 </div>
               )
