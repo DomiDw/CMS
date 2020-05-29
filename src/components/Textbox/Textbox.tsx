@@ -60,17 +60,22 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
                 value={this.state.value}
                 onChange={this.handleChange}
               />
-              <button onClick={this.handleComponentValue}>
+              <button className='button' onClick={this.handleComponentValue}>
                 Speichern
               </button>
-              <button onClick={this.handleEditModeToDefault}>
+              <button className='button' onClick={this.handleEditModeToDefault}>
                 Abbruch
               </button>
             </div>
           )
           : (
             <div onClick={this.handleEditMode}>
-              {this.state.value}
+              <div className='textbox-block'>
+                <p className='textbox--disabled'>
+                  {this.state.value}
+                </p>
+              </div>
+
             </div>
           )
       )

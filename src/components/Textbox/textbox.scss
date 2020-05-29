@@ -7,12 +7,16 @@
         padding: 0.25rem 0.25rem;   
     }
 }
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
+.button {
+    cursor: pointer;
 }
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
+.textbox--disabled {
+    color: black;
+    display: flex;
+    width: 100%;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.25rem;
+    border-color: white;
+    background-color: rgb(202, 202, 202);
+    
 }
