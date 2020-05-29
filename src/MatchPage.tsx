@@ -13,6 +13,11 @@ const clubMessage = 'Vereinsnachricht'
 function MatchPage () {
   return (
     <div className='MatchPage'>
+      <a href='https://www.google.de/' target='blank'>
+        <button className='backButton'>
+          Zurück
+        </button>
+      </a>
       <div className='container-fluid'>
         <div className='col-xs-6 center-content'>
           <div className='row'>

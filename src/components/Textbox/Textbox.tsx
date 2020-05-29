@@ -28,19 +28,8 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
       })
     }
 
-    showTooltip = () => {
-      return (
-        <div className='tooltip'>
-          <span className='tooltiptext'>
-            asd
-          </span>
-        </div>
-      )
-    }
-
     handleComponentValue = () => {
-      if (this.state.value.length === 0 || this.state.value === 'Bitte einen Eintrag vornehmen') {
-        // this.showTooltip()
+      if (this.state.value.length === 0) {
         this.setState({
           isInEditMode: true,
           value: ''
@@ -71,18 +60,8 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
                 value={this.state.value}
                 onChange={this.handleChange}
               />
-              {this.state.value.length === 0 ? (
-                <div className='tooltip' title='Bitte hier Text einfügen'>
-                  <span className='tooltiptext'>
-                    {this.state.value}
-                  </span>
-                </div>
-              )
-                : null}
-              <button className='tooltip' title='asdf' onClick={this.handleComponentValue}>
-                <span className='tooltiptext'>
-                  Speichern
-                </span>
+              <button onClick={this.handleComponentValue}>
+                Speichern
               </button>
               <button onClick={this.handleEditModeToDefault}>
                 Abbruch
