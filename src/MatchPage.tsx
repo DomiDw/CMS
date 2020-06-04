@@ -23,7 +23,7 @@ function MatchPage () {
           <div className='row'>
             <div className='col-xs-12'>
               <Video
-                url='ttps://www.youtube.com/watch?v=WydJXOYrmkg'
+                url='https://www.youtube.com/watch?v=9-uBM_AN0O0'
               />
             </div>
           </div>

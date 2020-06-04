@@ -75,7 +75,6 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
                   {this.state.value}
                 </p>
               </div>
-
             </div>
           )
       )
