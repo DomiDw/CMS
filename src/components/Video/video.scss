@@ -10,3 +10,9 @@
   left: 0;
   cursor: pointer;
 }
+.react-player:focus{
+  outline:none !important;
+    video:focus {
+      outline:none !important;
+    }
+}
