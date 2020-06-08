@@ -11,6 +11,8 @@ const logoHome = 'https://www.tsv-meerbusch.de/wp-content/uploads/TSV_Wappen.png
 const logoGuest = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/FC_Schalke_04_Logo.svg/2000px-FC_Schalke_04_Logo.svg.png'
 const descriptionText = 'Vereinsbeschreibung'
 const clubMessage = 'Vereinsnachricht'
+const videoApi = 'https://europe-west1-sw-sc-de-prod.cloudfunctions.net/api-video/meta/10000'
+const clubApi = 'https://europe-west1-sw-sc-de-prod.cloudfunctions.net/api-club/docs/#/club/getClub1'
 
 class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
   constructor(props:IMatchPageProps) {
@@ -18,10 +20,15 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
     this.state = {}
   }
   componentDidMount() {
-    axios.get('https://europe-west1-sw-sc-de-prod.cloudfunctions.net/api-video/meta/10000')
+    axios.get(videoApi)
       .then(res => {
-        const metaData = res.data
-        this.setState({ metaData })
+        const metaDataVideo = res.data
+        this.setState({ metaDataVideo })
+      })
+    axios.get(clubApi)
+      .then(res => {
+        const metaDataClub = res.data
+        this.setState({ metaDataClub })
       })
   }
   render() {
@@ -37,7 +44,7 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
             <div className='row'>
               <div className='col-xs-12'>
                 <Video
-                  url={this.state.metaData ? this.state.metaData.userStream :  ''}
+                  url={this.state.metaDataVideo ? this.state.metaDataVideo.userStream :  ''}
                 />
               </div>
             </div>

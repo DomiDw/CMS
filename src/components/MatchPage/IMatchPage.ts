@@ -2,7 +2,11 @@ export interface IMatchPageProps {
 
 }
 export interface IMatchPageState {
-    metaData?:{
+    metaDataVideo?:{
         userStream: string;
+    }
+    metaDataClub?: {
+        name:string;
+        thumbnail:string;
     }
 }
