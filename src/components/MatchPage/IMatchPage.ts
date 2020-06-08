@@ -4,8 +4,14 @@ export interface IMatchPageProps {
 export interface IMatchPageState {
     metaDataVideo?:{
         userStream: string;
+        scoreA: string;
+        scoreB: string;
     }
-    metaDataClub?: {
+    metaDataClubHome?: {
+        name:string;
+        thumbnail:string;
+    }
+    metaDataClubGuest?: {
         name:string;
         thumbnail:string;
     }

@@ -1,102 +1,126 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, Component } from 'react'
 import { ITeamProps } from './ITeam'
 import './team.scss'
 
-export function Team (props: ITeamProps) {
-  let teamHome: ReactNode
-  let teamGuest: ReactNode
+export class Team extends Component<ITeamProps> {
+  teamHome: ReactNode
+  teamGuest: ReactNode
+  scoreHome: ReactNode
+  scoreGuest: ReactNode
+  xsSize: string | undefined
+  smSize: string | undefined
+  mdSize: string | undefined
+  lgSize: string | undefined
+  size:string = ''
 
-  if (props.home !== undefined) {
-    teamHome =
-      <div className='team-home'>
-        <img src={props.home.logo} alt={props.home.name} className='team-img' />
-        <div className='team-home-name'>
-          {props.home.name}
+  constructor(props: ITeamProps) {
+    super(props)
+    this.state = {}
+  }
+
+  setTeamHome() {
+    if (this.props.home !== undefined) {
+      this.teamHome =
+        <div className='team-home'>
+          <img src={this.props.home.thumbnail} alt={this.props.home.name} className='team-img' />
+          <div className='team-home-name'>
+            {this.props.home.name}
+          </div>
+        </div>
+    } else {
+      this.teamHome = <></>
+    }
+  }
+
+  setTeamGuest() {
+    if (this.props.guest !== undefined) {
+      this.teamGuest =
+        <div className='team-guest end-xs'>
+          <div className='team-guest-name'>
+            {this.props.guest.name}
+          </div>
+          <img src={this.props.guest.thumbnail} alt={this.props.guest.name} className='team-img' />
+        </div>
+    } else {
+      this.teamGuest = <></>
+    }
+  }
+
+  setScoreHome() {
+    if (this.props.score?.home !== undefined) {
+      this.scoreHome = (
+        <>
+          <span className='team-home-score'>
+            {this.props.score?.home}
+          </span>
+        </>
+      )
+    } else {
+      this.scoreHome = <></>
+    }
+  }
+
+  setScoreGuest() {
+    if (this.props.score?.guest !== undefined) {
+      this.scoreGuest = (
+        <>
+          <span className='team-guest-score'>
+            {this.props.score?.guest}
+          </span>
+        </>
+      )
+    } else {
+      this.scoreGuest = <></>
+    }
+  }
+
+  setSize() {
+    if (this.props.size?.xs !== undefined) {
+      this.xsSize = `col-xs-${this.props.size?.xs}`
+    } else {
+      this.xsSize = ''
+    }
+    if (this.props.size?.sm !== undefined) {
+      this.smSize = ` col-sm-${this.props.size?.sm}`
+    } else {
+      this.smSize = ''
+    }
+    if (this.props.size?.md !== undefined) {
+      this.mdSize = ` col-md-${this.props.size?.md}`
+    } else {
+      this.mdSize = ''
+    }
+    if (this.props.size?.lg !== undefined) {
+      this.lgSize = ` col-lg-${this.props.size?.lg}`
+    } else {
+      this.lgSize = ''
+    }
+
+    if (this.props.size !== undefined) {
+      this.size = `${this.xsSize}${this.smSize}${this.mdSize}${this.lgSize}`
+    }
+  }
+
+  render() {
+    this.setTeamHome()
+    this.setTeamGuest()
+    this.setScoreHome()
+    this.setScoreGuest()
+    this.setSize()
+    return (
+      <div className={this.size}>
+        <div className='team-block'>
+          {this.props.home !== undefined ? ( 
+            this.teamHome )
+            : null}
+          {this.props.score?.home !== undefined && this.props.score?.guest !== undefined ? ( 
+            <div className='team-score'>{this.scoreHome}:{this.scoreGuest}</div> )
+            : null}
+          {this.props.guest !== undefined ? ( 
+            this.teamGuest )
+            : null}
         </div>
       </div>
-  } else {
-    teamHome = <></>
-  }
-
-  if (props.guest !== undefined) {
-    teamGuest =
-      <div className='team-guest end-xs'>
-        <div className='team-guest-name'>
-          {props.guest.name}
-        </div>
-        <img src={props.guest.logo} alt={props.guest.name} className='team-img' />
-      </div>
-  } else {
-    teamGuest = <></>
-  }
-
-  let scoreHome: ReactNode
-  let scoreGuest: ReactNode
-
-  if (props.score?.home !== undefined) {
-    scoreHome = (
-      <>
-        <span className='team-home-score'>
-          {props.score?.home}
-        </span>
-      </>
     )
-  } else {
-    scoreHome = <></>
   }
-
-  if (props.score?.guest !== undefined) {
-    scoreGuest = (
-      <>
-        <span className='team-guest-score'>
-          {props.score?.guest}
-        </span>
-      </>
-    )
-  } else {
-    scoreGuest = <></>
-  }
-
-  let xsSize: string
-  let smSize: string
-  let mdSize: string
-  let lgSize: string
-
-  if (props.size?.xs !== undefined) {
-    xsSize = `col-xs-${props.size?.xs}`
-  } else {
-    xsSize = ''
-  }
-  if (props.size?.sm !== undefined) {
-    smSize = ` col-sm-${props.size?.sm}`
-  } else {
-    smSize = ''
-  }
-  if (props.size?.md !== undefined) {
-    mdSize = ` col-md-${props.size?.md}`
-  } else {
-    mdSize = ''
-  }
-  if (props.size?.lg !== undefined) {
-    lgSize = ` col-lg-${props.size?.lg}`
-  } else {
-    lgSize = ''
-  }
-
-  let size = ''
-
-  if (props.size !== undefined) {
-    size = `${xsSize}${smSize}${mdSize}${lgSize}`
-  }
-
-  return (
-    <div className={size}>
-      <div className='team-block'>
-        {props.home !== undefined ? teamHome : null}
-        {props.score?.home !== undefined && props.score?.guest !== undefined
-          ? <div className='team-score'>{scoreHome}:{scoreGuest}</div> : null}
-        {props.guest !== undefined ? teamGuest : null}
-      </div>
-    </div>
-  )
 }

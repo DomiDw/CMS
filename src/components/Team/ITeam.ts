@@ -1,10 +1,10 @@
 interface ITeamHome {
     name: string;
-    logo: string;
+    thumbnail: string;
 }
 interface ITeamGuest {
     name: string;
-    logo: string;
+    thumbnail: string;
 }
 interface IScore {
     home: string;

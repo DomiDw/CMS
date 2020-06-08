@@ -7,12 +7,11 @@ import { TextBox } from '../Textbox/Textbox'
 import { IMatchPageState, IMatchPageProps } from './IMatchPage'
 import axios from 'axios'
 
-const logoHome = 'https://www.tsv-meerbusch.de/wp-content/uploads/TSV_Wappen.png'
-const logoGuest = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/FC_Schalke_04_Logo.svg/2000px-FC_Schalke_04_Logo.svg.png'
 const descriptionText = 'Vereinsbeschreibung'
 const clubMessage = 'Vereinsnachricht'
-const videoApi = 'https://europe-west1-sw-sc-de-prod.cloudfunctions.net/api-video/meta/10000'
-const clubApi = 'https://europe-west1-sw-sc-de-prod.cloudfunctions.net/api-club/docs/#/club/getClub1'
+const videoApi = 'https://europe-west1-sw-sc-de-prod.cloudfunctions.net/api-video/meta/38280'
+const clubApiHome = 'https://europe-west1-sw-sc-de-prod.cloudfunctions.net/api-club/info/1075'
+const clubApiGuest = 'https://europe-west1-sw-sc-de-prod.cloudfunctions.net/api-club/info/119'
 
 class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
   constructor(props:IMatchPageProps) {
@@ -25,10 +24,15 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
         const metaDataVideo = res.data
         this.setState({ metaDataVideo })
       })
-    axios.get(clubApi)
+    axios.get(clubApiHome)
       .then(res => {
-        const metaDataClub = res.data
-        this.setState({ metaDataClub })
+        const metaDataClubHome = res.data
+        this.setState({ metaDataClubHome })
+      })
+    axios.get(clubApiGuest)
+      .then(res => {
+        const metaDataClubGuest = res.data
+        this.setState({ metaDataClubGuest })
       })
   }
   render() {
@@ -44,16 +48,41 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
             <div className='row'>
               <div className='col-xs-12'>
                 <Video
-                  url={this.state.metaDataVideo ? this.state.metaDataVideo.userStream :  ''}
+                  url={
+                    this.state.metaDataVideo ? 
+                    this.state.metaDataVideo.userStream 
+                    : ''
+                  }
                 />
               </div>
             </div>
             <div className='row'>
               <Team
                 size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
-                home={{ name: 'TSV Meerbusch', logo: logoHome }}
-                score={{ home: '0', guest: '0' }}
-                guest={{ name: 'FC Schalke 04', logo: logoGuest }}
+                home={{ 
+                  name: this.state.metaDataClubHome ? 
+                    this.state.metaDataClubHome.name 
+                    : '',
+                  thumbnail: this.state.metaDataClubHome ? 
+                    this.state.metaDataClubHome.thumbnail 
+                    : '' 
+                }}
+                score={{ 
+                  home: this.state.metaDataVideo ?
+                  this.state.metaDataVideo.scoreA
+                  : '', 
+                  guest: this.state.metaDataVideo ?
+                  this.state.metaDataVideo.scoreB
+                  : '' 
+                }}
+                guest={{ 
+                  name: this.state.metaDataClubGuest ?
+                  this.state.metaDataClubGuest.name
+                  : '', 
+                  thumbnail: this.state.metaDataClubGuest ?
+                  this.state.metaDataClubGuest.thumbnail
+                  : ''
+                }}
               />
               <div className='clubDescriptionText'>
                 Vereinsbeschreibung
