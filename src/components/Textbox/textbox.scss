@@ -2,19 +2,57 @@
     .textbox {
         color: black;
         display: flex;
+        flex: 11 auto;
         width: 100%;
+        max-width: 100%;
+        background-color: #eaeaea;
+        margin: 0em;
+        font: 400 1rem Arial;
         border-radius: 0.25rem;
-        padding: 0.25rem 0.25rem;
-        max-width: 100%; 
+        border-width: 2px;
+        border-style: solid;
+        border-color: #e3e3e3;
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+        cursor: pointer;
     }
 }
 .button {
     cursor: pointer;
+    display: inline-block;
+    margin: 0em;
+    margin-right: 0.5rem;
+    font: 400 1rem Arial;
+    border-width: 0px;
+    padding: 10px 20px;
+    border-radius: 0.25rem;
+    transition: 0.2s ease all;
+    &:disabled {
+        opacity: 0.5;
+        cursor: normal;
+    }
+    &:hover {
+        &.save {
+            background-color: yellowgreen;
+        }
+        &.cancel {
+            background-color: rosybrown;
+        }
+    }
+    &.save {
+        background-color: green;
+        color: white;
+    }
+    &.cancel {
+        background-color: red;
+        color: white;
+    }
 }
 .textbox--disabled {
     color: black;
     display: flex;
     width: 100%;
+    max-width: 100%;
     border-radius: 0.25rem;
     padding: 0.25rem 0.25rem;
     border-color: white;

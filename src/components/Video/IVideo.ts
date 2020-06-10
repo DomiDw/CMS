@@ -3,7 +3,6 @@ interface IVideoBase {
 }
 export interface IVideoState {
     videos?: {
-        RowKey: string;
         userStream: string;
     }
 }

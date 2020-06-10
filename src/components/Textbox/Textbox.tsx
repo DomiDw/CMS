@@ -4,6 +4,7 @@ import './textbox.scss'
 
 export class TextBox extends Component<ITextboxProps, ITextBoxState> {
   initValue:string
+  newValue:string
 
   constructor (props: ITextboxProps) {
     super(props)
@@ -12,11 +13,12 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
       isInEditMode: false
     }
     this.initValue = this.state.value
+    this.newValue = ''
   }
 
     handleEditModeToDefault = () => {
       this.setState({
-        value: this.initValue,
+        value: this.newValue,
         isInEditMode: !this.state.isInEditMode
       })
     }
@@ -39,17 +41,19 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
           isInEditMode: false,
           value: this.state.value
         })
+        this.newValue = this.state.value
       }
     }
     // standard issue with TS (false positive)
     // eslint-disable-next-line
-    handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => { 
+    handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       this.setState({
         value: event.target.value
       })
     }
 
     render () {
+      
       return (
         this.state.isInEditMode
           ? (
@@ -60,21 +64,25 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
                 value={this.state.value}
                 onChange={this.handleChange}
               />
-              <button className='button' onClick={this.handleComponentValue}>
+              <button className='button save' onClick={this.handleComponentValue}>
                 Speichern
               </button>
-              <button className='button' onClick={this.handleEditModeToDefault}>
+              <button className='button cancel' onClick={this.handleEditModeToDefault}>
                 Abbruch
               </button>
             </div>
           )
           : (
-            <div onClick={this.handleEditMode}>
-              <div className='textbox-block'>
-                <p className='textbox--disabled'>
-                  {this.state.value}
-                </p>
-              </div>
+            <div className='textbox-block' onClick={this.handleEditMode}>
+              <textarea
+                className='textbox'
+                placeholder='Bitte einen Eintrag vornehmen'
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+              <button disabled className='button save'>
+                Speichern
+              </button>
             </div>
           )
       )

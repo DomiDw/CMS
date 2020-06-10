@@ -58,7 +58,12 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
             </div>
             <div className='row'>
               <Team
-                size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
+                size={{
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12
+                }}
                 home={{ 
                   name: this.state.metaDataClubHome ? 
                     this.state.metaDataClubHome.name 
