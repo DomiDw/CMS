@@ -13,7 +13,7 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
       isInEditMode: false
     }
     this.initValue = this.state.value
-    this.newValue = ''
+    this.newValue = this.props.editableText
   }
 
     handleEditModeToDefault = () => {
@@ -53,7 +53,6 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
     }
 
     render () {
-      
       return (
         this.state.isInEditMode
           ? (
