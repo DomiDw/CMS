@@ -29,24 +29,24 @@
     border-radius: 0.25rem;
     transition: 0.2s ease all;
     &:disabled {
-        opacity: 0.5;
+        opacity: 0.3;
         cursor: normal;
     }
     &:hover {
         &.save {
-            background-color: yellowgreen;
+            background-color: rgb(50, 205, 50);
         }
         &.cancel {
-            background-color: rosybrown;
+            background-color: grey;
         }
     }
     &.save {
         background-color: green;
-        color: white;
+        color: black;
     }
     &.cancel {
         background-color: red;
-        color: white;
+        color: black;
     }
 }
 .textbox--disabled {

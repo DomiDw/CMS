@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.scss'
 import MatchPage from './components/MatchPage/MatchPage'
 import * as serviceWorker from './serviceWorker'
-import * as Discovery from '@soccerwatch/discovery'
+import Discovery from '@soccerwatch/discovery'
 
 Discovery.init(process.env.REACT_APP_Environment || "dev", true)
   .then(() => {
@@ -14,7 +14,7 @@ Discovery.init(process.env.REACT_APP_Environment || "dev", true)
       document.getElementById('root')
     )
   })
-  .catch(err => {
+  .catch((err:Error) => {
     alert(err);
     console.error(err);
   });

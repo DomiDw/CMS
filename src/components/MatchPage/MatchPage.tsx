@@ -6,12 +6,10 @@ import { Team } from '../Team/Team'
 import { TextBox } from '../Textbox/Textbox'
 import { IMatchPageState, IMatchPageProps } from './IMatchPage'
 import axios from 'axios'
+import Discovery from '@soccerwatch/discovery'
 
 const descriptionText = 'Hier könnte Ihre Vereinsbeschreibung stehen'
 const clubMessage = 'Hier könnte Ihre Vereinsnachricht stehen'
-const videoApi = 'https://europe-west1-sw-sc-de-prod.cloudfunctions.net/api-video/meta/38280'
-const clubApiHome = 'https://europe-west1-sw-sc-de-prod.cloudfunctions.net/api-club/info/1075'
-const clubApiGuest = 'https://europe-west1-sw-sc-de-prod.cloudfunctions.net/api-club/info/119'
 
 class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
   constructor(props:IMatchPageProps) {
@@ -19,17 +17,20 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
     this.state = {}
   }
   componentDidMount() {
-    axios.get(videoApi)
+    const videoAPI = Discovery.API_VIDEO +'/meta/38280'
+    const clubAPIHome = Discovery.API_CLUB +'/info/1075'
+    const clubAPIGuest = Discovery.API_CLUB +'/info/119'
+    axios.get(videoAPI)
       .then(res => {
         const metaDataVideo = res.data
         this.setState({ metaDataVideo })
       })
-    axios.get(clubApiHome)
+    axios.get(clubAPIHome)
       .then(res => {
         const metaDataClubHome = res.data
         this.setState({ metaDataClubHome })
       })
-    axios.get(clubApiGuest)
+    axios.get(clubAPIGuest)
       .then(res => {
         const metaDataClubGuest = res.data
         this.setState({ metaDataClubGuest })

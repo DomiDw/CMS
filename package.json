@@ -7,7 +7,7 @@
     "@google-cloud/debug-agent": "^5.0.0",
     "@material-ui/core": "^4.10.0",
     "@material-ui/icons": "^4.9.1",
-    "@soccerwatch/discovery": "^2.0.1",
+    "@soccerwatch/discovery": "^1.1.0",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/react": "9.5.0",
     "@testing-library/user-event": "7.2.1",
@@ -29,8 +29,7 @@
     "tippy.js": "^6.2.3",
     "typescript": "3.7.5",
     "video-react": "0.14.1",
-    "vscode-react-typescript": "^1.0.8",
-    "yarn": "^1.22.4"
+    "vscode-react-typescript": "^1.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
