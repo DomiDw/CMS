@@ -20,21 +20,21 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
     const videoAPI = Discovery.API_VIDEO +'/meta/38280'
     const clubAPIHome = Discovery.API_CLUB +'/info/1075'
     const clubAPIGuest = Discovery.API_CLUB +'/info/119'
-    axios.get(videoAPI)
-      .then(res => {
-        const metaDataVideo = res.data
-        this.setState({ metaDataVideo })
-      })
-    axios.get(clubAPIHome)
-      .then(res => {
-        const metaDataClubHome = res.data
-        this.setState({ metaDataClubHome })
-      })
-    axios.get(clubAPIGuest)
-      .then(res => {
-        const metaDataClubGuest = res.data
-        this.setState({ metaDataClubGuest })
-      })
+      axios.get(videoAPI)
+        .then(res => {
+          const metaDataVideo = res.data
+          this.setState({ metaDataVideo })
+        })
+      axios.get(clubAPIHome)
+        .then(res => {
+          const metaDataClubHome = res.data
+          this.setState({ metaDataClubHome })
+        })
+      axios.get(clubAPIGuest)
+        .then(res => {
+          const metaDataClubGuest = res.data
+          this.setState({ metaDataClubGuest })
+        })
   }
   render() {
     return (
@@ -90,10 +90,10 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
                   : ''
                 }}
               />
-              <div className='clubDescriptionText'>
-                Vereinsbeschreibung
-              </div>
               <div className='col-xs-12'>
+                <div className='clubDescriptionText'>
+                  Vereinsbeschreibung
+                </div>
                 <TextBox
                   editableText={descriptionText}
                 />

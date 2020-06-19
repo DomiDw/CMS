@@ -19,5 +19,4 @@ Discovery.init(process.env.REACT_APP_Environment || "dev", true)
     console.error(err);
   });
 
-
 serviceWorker.unregister()

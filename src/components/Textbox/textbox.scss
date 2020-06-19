@@ -15,7 +15,7 @@
         border-color: #e3e3e3;
         padding: 1rem;
         margin-bottom: 0.75rem;
-        cursor: pointer;
+        cursor: text;
     }
 }
 .button {
@@ -37,15 +37,15 @@
             background-color: rgb(50, 205, 50);
         }
         &.cancel {
-            background-color: grey;
+            background-color: red;
         }
     }
     &.save {
-        background-color: green;
+        background-color: rgb(96, 219, 96);
         color: black;
     }
     &.cancel {
-        background-color: red;
+        background-color: coral;
         color: black;
     }
 }

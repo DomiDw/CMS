@@ -22,8 +22,11 @@ body {
 .backButton {
     background-color:#293650;
     color: white;
-    font-size: 1.5rem;
-    margin-left: 0rem;
+    font: 400 1.5rem Arial;
     border-color: white;
+    padding: 5px 10px;
     cursor: pointer;
+    &:hover {
+        opacity: 0.8;
+    }
 }
