@@ -12,17 +12,17 @@ export class Video extends Component<IVideoProps, IVideoState> {
   render () {
     return (
       <div className='player-wrapper'>
-        { this.props.url ? (
+        {this.props.url ? (
           <div>
-            <ReactPlayer 
-              className='react-player' 
+            <ReactPlayer
+              className='react-player'
               url={this.props.url}
               controls
               playing muted
-              width='100%' 
+              width='100%'
               height='100%'
             />
-          </div> )
+          </div>)
           : null}
       </div>
     )

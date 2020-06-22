@@ -12,52 +12,54 @@ const descriptionText = 'Hier könnte Ihre Vereinsbeschreibung stehen'
 const clubMessage = 'Hier könnte Ihre Vereinsnachricht stehen'
 
 class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
-  constructor(props:IMatchPageProps) {
+  constructor (props:IMatchPageProps) {
     super(props)
     this.state = {}
   }
 
-  getVideoIdFromUrl() {
-    let url = (window.location).href
-    let id = url.substring(url.lastIndexOf('/') + 1 )
+  getVideoIdFromUrl () {
+    const url = (window.location).href
+    const id = url.substring(url.lastIndexOf('/') + 1)
     return id.length > 0 ? id : null
   }
-  getClubIdFromUrl() {
-    let url = (window.location).href
-    let parts = url.split('/')
-    for(let i=0; i<parts.length; i++) {
+
+  getClubIdFromUrl () {
+    const url = (window.location).href
+    const parts = url.split('/')
+    for (let i = 0; i < parts.length; i++) {
       console.log(parts[2])
       return
     }
   }
 
-  componentDidMount() {
-    const videoAPI = Discovery.API_VIDEO +'/meta/'+ this.getVideoIdFromUrl()
+  componentDidMount () {
+    const videoAPI = Discovery.API_VIDEO + '/meta/' + this.getVideoIdFromUrl()
     // const clubAPIHome = Discovery.API_CLUB +'/info/1075'
     // const clubAPIGuest = Discovery.API_CLUB +'/info/119'
-      axios.get(videoAPI)
-        .then(res => {
-          const metaDataVideo = res.data
-          const clubA = metaDataVideo.clubAId
-          const clubAPIHome = Discovery.API_CLUB + '/info/' + clubA
-          const clubB = metaDataVideo.clubBId
-          const clubAPIGuest = Discovery.API_CLUB + '/info/' + clubB
+    axios.get(videoAPI)
+      .then(res => {
+        const metaDataVideo = res.data
+        const clubA = metaDataVideo.clubAId
+        const clubAPIHome = Discovery.API_CLUB + '/info/' + clubA
+        const clubB = metaDataVideo.clubBId
+        const clubAPIGuest = Discovery.API_CLUB + '/info/' + clubB
 
-            axios.get(clubAPIHome)
+        axios.get(clubAPIHome)
+          .then(res => {
+            const metaDataClubHome = res.data
+            axios.get(clubAPIGuest)
               .then(res => {
-                const metaDataClubHome = res.data
-                  axios.get(clubAPIGuest)
-                  .then(res => {
-                    const metaDataClubGuest = res.data
-                    this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest })
-                  })
-                  .catch((err:Error) => {
-                    console.log(err)
-                  })
-                })
+                const metaDataClubGuest = res.data
+                this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest })
               })
+              .catch((err:Error) => {
+                console.log(err)
+              })
+          })
+      })
   }
-  render() {
+
+  render () {
     return (
       <div className='MatchPage'>
         <a href='https://www.google.de/' target='blank'>
@@ -71,9 +73,9 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
               <div className='col-xs-12'>
                 <Video
                   url={
-                    this.state.metaDataVideo ? 
-                    this.state.metaDataVideo.userStream 
-                    : ''
+                    this.state.metaDataVideo
+                      ? this.state.metaDataVideo.userStream
+                      : ''
                   }
                 />
               </div>
@@ -86,29 +88,29 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
                   md: 12,
                   lg: 12
                 }}
-                home={{ 
-                  name: this.state.metaDataClubHome ? 
-                    this.state.metaDataClubHome.name 
+                home={{
+                  name: this.state.metaDataClubHome
+                    ? this.state.metaDataClubHome.name
                     : '',
-                  thumbnail: this.state.metaDataClubHome ? 
-                    this.state.metaDataClubHome.thumbnail 
-                    : '' 
+                  thumbnail: this.state.metaDataClubHome
+                    ? this.state.metaDataClubHome.thumbnail
+                    : ''
                 }}
-                score={{ 
-                  home: this.state.metaDataVideo ?
-                  this.state.metaDataVideo.scoreA
-                  : '', 
-                  guest: this.state.metaDataVideo ?
-                  this.state.metaDataVideo.scoreB
-                  : '' 
+                score={{
+                  home: this.state.metaDataVideo
+                    ? this.state.metaDataVideo.scoreA
+                    : '',
+                  guest: this.state.metaDataVideo
+                    ? this.state.metaDataVideo.scoreB
+                    : ''
                 }}
-                guest={{ 
-                  name: this.state.metaDataClubGuest ?
-                  this.state.metaDataClubGuest.name
-                  : '', 
-                  thumbnail: this.state.metaDataClubGuest ?
-                  this.state.metaDataClubGuest.thumbnail
-                  : ''
+                guest={{
+                  name: this.state.metaDataClubGuest
+                    ? this.state.metaDataClubGuest.name
+                    : '',
+                  thumbnail: this.state.metaDataClubGuest
+                    ? this.state.metaDataClubGuest.thumbnail
+                    : ''
                 }}
               />
               <div className='col-xs-12'>

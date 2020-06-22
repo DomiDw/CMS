@@ -5,7 +5,7 @@ import MatchPage from './components/MatchPage/MatchPage'
 import * as serviceWorker from './serviceWorker'
 import Discovery from '@soccerwatch/discovery'
 
-Discovery.init(process.env.REACT_APP_Environment || "dev", true)
+Discovery.init(process.env.REACT_APP_Environment || 'dev', true)
   .then(() => {
     ReactDOM.render(
       <React.StrictMode>
@@ -15,8 +15,7 @@ Discovery.init(process.env.REACT_APP_Environment || "dev", true)
     )
   })
   .catch((err:Error) => {
-    alert(err);
-    console.error(err);
-  });
+    console.error(err)
+  })
 
 serviceWorker.unregister()

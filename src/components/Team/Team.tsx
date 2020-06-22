@@ -13,12 +13,12 @@ export class Team extends Component<ITeamProps> {
   lgSize: string | undefined
   size:string = ''
 
-  constructor(props: ITeamProps) {
+  constructor (props: ITeamProps) {
     super(props)
     this.state = {}
   }
 
-  setTeamHome() {
+  setTeamHome () {
     if (this.props.home !== undefined) {
       this.teamHome =
         <div className='team-home'>
@@ -32,7 +32,7 @@ export class Team extends Component<ITeamProps> {
     }
   }
 
-  setTeamGuest() {
+  setTeamGuest () {
     if (this.props.guest !== undefined) {
       this.teamGuest =
         <div className='team-guest end-xs'>
@@ -46,7 +46,7 @@ export class Team extends Component<ITeamProps> {
     }
   }
 
-  setScoreHome() {
+  setScoreHome () {
     if (this.props.score?.home !== undefined) {
       this.scoreHome = (
         <>
@@ -60,7 +60,7 @@ export class Team extends Component<ITeamProps> {
     }
   }
 
-  setScoreGuest() {
+  setScoreGuest () {
     if (this.props.score?.guest !== undefined) {
       this.scoreGuest = (
         <>
@@ -74,7 +74,7 @@ export class Team extends Component<ITeamProps> {
     }
   }
 
-  setSize() {
+  setSize () {
     if (this.props.size?.xs !== undefined) {
       this.xsSize = `col-xs-${this.props.size?.xs}`
     } else {
@@ -101,7 +101,7 @@ export class Team extends Component<ITeamProps> {
     }
   }
 
-  render() {
+  render () {
     this.setTeamHome()
     this.setTeamGuest()
     this.setScoreHome()
@@ -110,14 +110,14 @@ export class Team extends Component<ITeamProps> {
     return (
       <div className={this.size}>
         <div className='team-block'>
-          {this.props.home !== undefined ? ( 
-            this.teamHome )
+          {this.props.home !== undefined ? (
+            this.teamHome)
             : null}
-          {this.props.score?.home !== undefined && this.props.score?.guest !== undefined ? ( 
-            <div className='team-score'>{this.scoreHome}:{this.scoreGuest}</div> )
+          {this.props.score?.home !== undefined && this.props.score?.guest !== undefined ? (
+            <div className='team-score'>{this.scoreHome}:{this.scoreGuest}</div>)
             : null}
-          {this.props.guest !== undefined ? ( 
-            this.teamGuest )
+          {this.props.guest !== undefined ? (
+            this.teamGuest)
             : null}
         </div>
       </div>
