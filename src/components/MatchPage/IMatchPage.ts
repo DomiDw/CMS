@@ -6,6 +6,8 @@ export interface IMatchPageState {
         userStream: string;
         scoreA: string;
         scoreB: string;
+        clubAId: string;
+        clubBId: string;
     }
     metaDataClubHome?: {
         name:string;

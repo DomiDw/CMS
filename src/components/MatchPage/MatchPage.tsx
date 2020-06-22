@@ -17,31 +17,45 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
     this.state = {}
   }
 
-  getIdFromUrl() {
+  getVideoIdFromUrl() {
     let url = (window.location).href
     let id = url.substring(url.lastIndexOf('/') + 1 )
     return id.length > 0 ? id : null
   }
+  getClubIdFromUrl() {
+    let url = (window.location).href
+    let parts = url.split('/')
+    for(let i=0; i<parts.length; i++) {
+      console.log(parts[2])
+      return
+    }
+  }
 
   componentDidMount() {
-    const videoAPI = Discovery.API_VIDEO +'/meta/'+ this.getIdFromUrl()
-    const clubAPIHome = Discovery.API_CLUB +'/info/1075'
-    const clubAPIGuest = Discovery.API_CLUB +'/info/119'
+    const videoAPI = Discovery.API_VIDEO +'/meta/'+ this.getVideoIdFromUrl()
+    // const clubAPIHome = Discovery.API_CLUB +'/info/1075'
+    // const clubAPIGuest = Discovery.API_CLUB +'/info/119'
       axios.get(videoAPI)
         .then(res => {
           const metaDataVideo = res.data
-          this.setState({ metaDataVideo })
-        })
-      axios.get(clubAPIHome)
-        .then(res => {
-          const metaDataClubHome = res.data
-          this.setState({ metaDataClubHome })
-        })
-      axios.get(clubAPIGuest)
-        .then(res => {
-          const metaDataClubGuest = res.data
-          this.setState({ metaDataClubGuest })
-        })
+          const clubA = metaDataVideo.clubAId
+          const clubAPIHome = Discovery.API_CLUB + '/info/' + clubA
+          const clubB = metaDataVideo.clubBId
+          const clubAPIGuest = Discovery.API_CLUB + '/info/' + clubB
+
+            axios.get(clubAPIHome)
+              .then(res => {
+                const metaDataClubHome = res.data
+                  axios.get(clubAPIGuest)
+                  .then(res => {
+                    const metaDataClubGuest = res.data
+                    this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest })
+                  })
+                  .catch((err:Error) => {
+                    console.log(err)
+                  })
+                })
+              })
   }
   render() {
     return (
