@@ -23,6 +23,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-player": "2.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux": "4.0.5",
     "standardx": "^5.0.0",
@@ -34,11 +35,14 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "buildProd": "dotenv -e .env.production react-scripts build",
     "buildDev": "dotenv -e .env.development react-scripts build",
     "test": "react-scripts test && standard && node my-tests.js",
     "eject": "react-scripts eject",
     "uploadDev": "gcloud beta functions deploy aisw-cms --region=europe-west1 --project=sw-sc-de-dev --env-vars-file=dev.yaml --runtime nodejs10 --trigger-http",
-    "deployDev": "npm run buildDev && npm run uploadDev"
+    "uploadProd": "gcloud beta functions deploy aisw-cms --region=europe-west1 --project=sw-sc-de-prod --env-vars-file=prod.yaml --runtime nodejs10 --trigger-http",
+    "deployDev": "npm run buildDev && npm run uploadDev",
+    "deployProd": "npm run buildProd && npm run uploadProd"
   },
   "eslintConfig": {
     "extends": "react-app",

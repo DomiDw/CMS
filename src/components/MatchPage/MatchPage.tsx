@@ -16,8 +16,15 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
     super(props)
     this.state = {}
   }
+
+  getIdFromUrl() {
+    let url = (window.location).href
+    let id = url.substring(url.lastIndexOf('/') + 1 )
+    return id.length > 0 ? id : null
+  }
+
   componentDidMount() {
-    const videoAPI = Discovery.API_VIDEO +'/meta/38280'
+    const videoAPI = Discovery.API_VIDEO +'/meta/'+ this.getIdFromUrl()
     const clubAPIHome = Discovery.API_CLUB +'/info/1075'
     const clubAPIGuest = Discovery.API_CLUB +'/info/119'
       axios.get(videoAPI)
