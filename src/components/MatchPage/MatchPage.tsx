@@ -43,7 +43,7 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
         const clubAPIHome = Discovery.API_CLUB + '/info/' + clubA
         const clubB = metaDataVideo.clubBId
         const clubAPIGuest = Discovery.API_CLUB + '/info/' + clubB
-
+        console.log(clubA + '  ' + clubB)
         axios.get(clubAPIHome)
           .then(res => {
             const metaDataClubHome = res.data
@@ -67,20 +67,16 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
             Zurück
           </button>
         </a>
-        <div className='container-fluid'>
-          <div className='col-xs-6 center-content'>
-            <div className='row'>
-              <div className='col-xs-12'>
-                <Video
-                  url={
-                    this.state.metaDataVideo
-                      ? this.state.metaDataVideo.userStream
-                      : ''
-                  }
-                />
-              </div>
-            </div>
-            <div className='row'>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-xs-12 col-sm-12 col-md-10 col-lg-8 center-content'>
+              <Video
+                url={
+                  this.state.metaDataVideo
+                    ? this.state.metaDataVideo.userStream
+                    : ''
+                }
+              />
               <Team
                 size={{
                   xs: 12,
@@ -113,7 +109,7 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
                     : ''
                 }}
               />
-              <div className='col-xs-12'>
+              <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
                 <div className='clubDescriptionText'>
                   Vereinsbeschreibung
                 </div>
