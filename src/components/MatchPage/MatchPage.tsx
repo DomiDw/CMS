@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './MatchPage.scss'
-// import '../../../node_modules/flexboxgrid/css/flexboxgrid.min.css'
 import { Video } from '../Video/Video'
 import { Team } from '../Team/Team'
 import { TextBox } from '../Textbox/Textbox'
@@ -43,7 +42,6 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
         const clubAPIHome = Discovery.API_CLUB + '/info/' + clubA
         const clubB = metaDataVideo.clubBId
         const clubAPIGuest = Discovery.API_CLUB + '/info/' + clubB
-        console.log(clubA + '  ' + clubB)
         axios.get(clubAPIHome)
           .then(res => {
             const metaDataClubHome = res.data
@@ -63,16 +61,14 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
     return (
       <div className='container mx-auto'>
         <div className='row'>
-          <ul className='flex'>
-            <li className='mr-3'>
-              <a href='https://www.google.de/' target='blank' className='inline-block border border-blue-800 rounded py-1 px-3 bg-blue-800 text-white'>
-                Zurück
-              </a>
-            </li>
-          </ul>
+          <button className='flex'>
+            <a href='https://www.google.de/' target='blank' className='inline-block border border-blue-800 rounded py-1 px-3 bg-blue-800 text-white'>
+              Zurück
+            </a>
+          </button>
         </div>
         <div className='row'>
-          <div className='center-content'>
+          <div>
             <Video
               url={
                 this.state.metaDataVideo
@@ -83,12 +79,6 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
             <div className='flex flex-wrap'>
               <div className='w-full mb-4'>
                 <Team
-                  // size={{
-                  //   xs: 12,
-                  //   sm: 12,
-                  //   md: 12,
-                  //   lg: 12
-                  // }}
                   home={{
                     name: this.state.metaDataClubHome
                       ? this.state.metaDataClubHome.name

@@ -1,7 +1,31 @@
-@import './tailwind.css','components/MatchPage/MatchPage.scss','components/Team/team.scss','components/Textbox/textbox.scss','components/Video/video.scss';
+// @import './tailwind.css','components/MatchPage/MatchPage.scss','components/Team/team.scss','components/Textbox/textbox.scss','components/Video/video.scss';
 *{
   box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
+    @media screen and (max-width:424px) {
+        font-size:10px;
+        .team-score {
+            align-self: center;
+        }
+    }
+    @media screen and (min-width: 425px) {
+        font-size: 15px;
+        .team-score {
+            align-self: center;
+        }
+    }
+    @media screen and (min-width: 768px) {
+        font-size: 18px;
+        .team-score {
+            align-self: center;
+        }
+    }
+    @media screen and (min-width: 1441px) {
+        font-size: 30px;
+        .team-score {
+            align-self: center;
+        }       
+    }
 }
 html {
   width: 100%;

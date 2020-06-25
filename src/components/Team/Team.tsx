@@ -7,11 +7,6 @@ export class Team extends Component<ITeamProps> {
   teamGuest: ReactNode
   scoreHome: ReactNode
   scoreGuest: ReactNode
-  // xsSize: string | undefined
-  // smSize: string | undefined
-  // mdSize: string | undefined
-  // lgSize: string | undefined
-  // size:string = ''
   scorePoint:string = ':'
 
   constructor (props: ITeamProps) {
@@ -78,41 +73,12 @@ export class Team extends Component<ITeamProps> {
     }
   }
 
-  // setSize () {
-  //   if (this.props.size?.xs !== undefined) {
-  //     this.xsSize = `col-xs-${this.props.size?.xs}`
-  //   } else {
-  //     this.xsSize = ''
-  //   }
-  //   if (this.props.size?.sm !== undefined) {
-  //     this.smSize = ` col-sm-${this.props.size?.sm}`
-  //   } else {
-  //     this.smSize = ''
-  //   }
-  //   if (this.props.size?.md !== undefined) {
-  //     this.mdSize = ` col-md-${this.props.size?.md}`
-  //   } else {
-  //     this.mdSize = ''
-  //   }
-  //   if (this.props.size?.lg !== undefined) {
-  //     this.lgSize = ` col-lg-${this.props.size?.lg}`
-  //   } else {
-  //     this.lgSize = ''
-  //   }
-
-  //   if (this.props.size !== undefined) {
-  //     this.size = `${this.xsSize}${this.smSize}${this.mdSize}${this.lgSize}`
-  //   }
-  // }
-
   render () {
     this.setTeamHome()
     this.setTeamGuest()
     this.setScoreHome()
     this.setScoreGuest()
-    // this.setSize()
     return (
-      // <div className={this.size}>
       <div className='team-block'>
         {this.props.home !== undefined ? (
           this.teamHome)
@@ -124,7 +90,6 @@ export class Team extends Component<ITeamProps> {
           this.teamGuest)
           : null}
       </div>
-      // </div>
     )
   }
 }
