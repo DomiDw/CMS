@@ -10,18 +10,18 @@ interface IScore {
     home: string;
     guest: string;
 }
-interface ISize {
-    xs: number;
-    sm?: number;
-    md?: number;
-    lg?: number;
-}
+// interface ISize {
+//     xs: number;
+//     sm?: number;
+//     md?: number;
+//     lg?: number;
+// }
 
 interface ITeamBase {
     home: ITeamHome;
     guest?: ITeamGuest;
     score?: IScore;
-    size?: ISize;
+    // size?: ISize;
 }
 
 export type ITeamProps = ITeamBase

@@ -1,3 +1,29 @@
+* {
+    @media screen and (max-width:424px) {
+        font-size:10px;
+        .team-score {
+            align-self: center;
+        }
+    }
+    @media screen and (min-width: 425px) {
+        font-size: 15px;
+        .team-score {
+            align-self: center;
+        }
+    }
+    @media screen and (min-width: 768px) {
+        font-size: 18px;
+        .team-score {
+            align-self: center;
+        }
+    }
+    @media screen and (min-width: 1441px) {
+        font-size: 30px;
+        .team-score {
+            align-self: center;
+        }       
+    }
+}
 .team-block {
     display: flex;
     background-color: #293650;
@@ -11,6 +37,9 @@
         flex: 0 50%;
         padding: 1rem 0rem;
         color: white;
+    }
+    .team-guest {
+        justify-content: flex-end;
     }
     .team-home-name {
         margin-left: 1rem;

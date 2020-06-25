@@ -7,11 +7,12 @@ export class Team extends Component<ITeamProps> {
   teamGuest: ReactNode
   scoreHome: ReactNode
   scoreGuest: ReactNode
-  xsSize: string | undefined
-  smSize: string | undefined
-  mdSize: string | undefined
-  lgSize: string | undefined
-  size:string = ''
+  // xsSize: string | undefined
+  // smSize: string | undefined
+  // mdSize: string | undefined
+  // lgSize: string | undefined
+  // size:string = ''
+  scorePoint:string = ':'
 
   constructor (props: ITeamProps) {
     super(props)
@@ -53,6 +54,9 @@ export class Team extends Component<ITeamProps> {
           <span className='team-home-score'>
             {this.props.score?.home}
           </span>
+          <span className='team-scorePoint'>
+            {this.scorePoint}
+          </span>
         </>
       )
     } else {
@@ -74,53 +78,53 @@ export class Team extends Component<ITeamProps> {
     }
   }
 
-  setSize () {
-    if (this.props.size?.xs !== undefined) {
-      this.xsSize = `col-xs-${this.props.size?.xs}`
-    } else {
-      this.xsSize = ''
-    }
-    if (this.props.size?.sm !== undefined) {
-      this.smSize = ` col-sm-${this.props.size?.sm}`
-    } else {
-      this.smSize = ''
-    }
-    if (this.props.size?.md !== undefined) {
-      this.mdSize = ` col-md-${this.props.size?.md}`
-    } else {
-      this.mdSize = ''
-    }
-    if (this.props.size?.lg !== undefined) {
-      this.lgSize = ` col-lg-${this.props.size?.lg}`
-    } else {
-      this.lgSize = ''
-    }
+  // setSize () {
+  //   if (this.props.size?.xs !== undefined) {
+  //     this.xsSize = `col-xs-${this.props.size?.xs}`
+  //   } else {
+  //     this.xsSize = ''
+  //   }
+  //   if (this.props.size?.sm !== undefined) {
+  //     this.smSize = ` col-sm-${this.props.size?.sm}`
+  //   } else {
+  //     this.smSize = ''
+  //   }
+  //   if (this.props.size?.md !== undefined) {
+  //     this.mdSize = ` col-md-${this.props.size?.md}`
+  //   } else {
+  //     this.mdSize = ''
+  //   }
+  //   if (this.props.size?.lg !== undefined) {
+  //     this.lgSize = ` col-lg-${this.props.size?.lg}`
+  //   } else {
+  //     this.lgSize = ''
+  //   }
 
-    if (this.props.size !== undefined) {
-      this.size = `${this.xsSize}${this.smSize}${this.mdSize}${this.lgSize}`
-    }
-  }
+  //   if (this.props.size !== undefined) {
+  //     this.size = `${this.xsSize}${this.smSize}${this.mdSize}${this.lgSize}`
+  //   }
+  // }
 
   render () {
     this.setTeamHome()
     this.setTeamGuest()
     this.setScoreHome()
     this.setScoreGuest()
-    this.setSize()
+    // this.setSize()
     return (
-      <div className={this.size}>
-        <div className='team-block'>
-          {this.props.home !== undefined ? (
-            this.teamHome)
-            : null}
-          {this.props.score?.home !== undefined && this.props.score?.guest !== undefined ? (
-            <div className='team-score'>{this.scoreHome}:{this.scoreGuest}</div>)
-            : null}
-          {this.props.guest !== undefined ? (
-            this.teamGuest)
-            : null}
-        </div>
+      // <div className={this.size}>
+      <div className='team-block'>
+        {this.props.home !== undefined ? (
+          this.teamHome)
+          : null}
+        {this.props.score?.home !== undefined && this.props.score?.guest !== undefined ? (
+          <div className='team-score'>{this.scoreHome}{this.scoreGuest}</div>)
+          : null}
+        {this.props.guest !== undefined ? (
+          this.teamGuest)
+          : null}
       </div>
+      // </div>
     )
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './MatchPage.scss'
-import '../../../node_modules/flexboxgrid/css/flexboxgrid.min.css'
+// import '../../../node_modules/flexboxgrid/css/flexboxgrid.min.css'
 import { Video } from '../Video/Video'
 import { Team } from '../Team/Team'
 import { TextBox } from '../Textbox/Textbox'
@@ -61,69 +61,73 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
 
   render () {
     return (
-      <div className='MatchPage'>
-        <a href='https://www.google.de/' target='blank'>
-          <button className='backButton'>
-            Zurück
-          </button>
-        </a>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-xs-12 col-sm-12 col-md-10 col-lg-8 center-content'>
-              <Video
-                url={
-                  this.state.metaDataVideo
-                    ? this.state.metaDataVideo.userStream
-                    : ''
-                }
-              />
-              <Team
-                size={{
-                  xs: 12,
-                  sm: 12,
-                  md: 12,
-                  lg: 12
-                }}
-                home={{
-                  name: this.state.metaDataClubHome
-                    ? this.state.metaDataClubHome.name
-                    : '',
-                  thumbnail: this.state.metaDataClubHome
-                    ? this.state.metaDataClubHome.thumbnail
-                    : ''
-                }}
-                score={{
-                  home: this.state.metaDataVideo
-                    ? this.state.metaDataVideo.scoreA
-                    : '',
-                  guest: this.state.metaDataVideo
-                    ? this.state.metaDataVideo.scoreB
-                    : ''
-                }}
-                guest={{
-                  name: this.state.metaDataClubGuest
-                    ? this.state.metaDataClubGuest.name
-                    : '',
-                  thumbnail: this.state.metaDataClubGuest
-                    ? this.state.metaDataClubGuest.thumbnail
-                    : ''
-                }}
-              />
-              <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-                <div className='clubDescriptionText'>
-                  Vereinsbeschreibung
-                </div>
-                <TextBox
-                  editableText={descriptionText}
-                />
-                <div className='clubMessageText'>
-                  Vereinsnachricht
-                </div>
-                <TextBox
-                  editableText={clubMessage}
+      <div className='container mx-auto'>
+        <div className='row'>
+          <ul className='flex'>
+            <li className='mr-3'>
+              <a href='https://www.google.de/' target='blank' className='inline-block border border-blue-800 rounded py-1 px-3 bg-blue-800 text-white'>
+                Zurück
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className='row'>
+          <div className='center-content'>
+            <Video
+              url={
+                this.state.metaDataVideo
+                  ? this.state.metaDataVideo.userStream
+                  : ''
+              }
+            />
+            <div className='flex flex-wrap'>
+              <div className='w-full mb-4'>
+                <Team
+                  // size={{
+                  //   xs: 12,
+                  //   sm: 12,
+                  //   md: 12,
+                  //   lg: 12
+                  // }}
+                  home={{
+                    name: this.state.metaDataClubHome
+                      ? this.state.metaDataClubHome.name
+                      : '',
+                    thumbnail: this.state.metaDataClubHome
+                      ? this.state.metaDataClubHome.thumbnail
+                      : ''
+                  }}
+                  score={{
+                    home: this.state.metaDataVideo
+                      ? this.state.metaDataVideo.scoreA
+                      : '',
+                    guest: this.state.metaDataVideo
+                      ? this.state.metaDataVideo.scoreB
+                      : ''
+                  }}
+                  guest={{
+                    name: this.state.metaDataClubGuest
+                      ? this.state.metaDataClubGuest.name
+                      : '',
+                    thumbnail: this.state.metaDataClubGuest
+                      ? this.state.metaDataClubGuest.thumbnail
+                      : ''
+                  }}
                 />
               </div>
             </div>
+            <div className='clubDescriptionText'>
+              Vereinsbeschreibung
+            </div>
+            <TextBox
+              editableText={descriptionText}
+            />
+            <div className='clubMessageText'>
+              Vereinsnachricht
+            </div>
+            <TextBox
+              editableText={clubMessage}
+            />
           </div>
         </div>
       </div>
