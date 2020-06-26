@@ -1,5 +1,4 @@
 export interface IMatchPageProps {
-
 }
 export interface IMatchPageState {
     metaDataVideo?:{

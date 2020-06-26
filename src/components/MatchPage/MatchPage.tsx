@@ -31,30 +31,29 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
     }
   }
 
-  componentDidMount () {
+  getVideo = async () => {
     const videoAPI = Discovery.API_VIDEO + '/meta/' + this.getVideoIdFromUrl()
-    // const clubAPIHome = Discovery.API_CLUB +'/info/1075'
-    // const clubAPIGuest = Discovery.API_CLUB +'/info/119'
-    axios.get(videoAPI)
-      .then(res => {
-        const metaDataVideo = res.data
-        const clubA = metaDataVideo.clubAId
-        const clubAPIHome = Discovery.API_CLUB + '/info/' + clubA
-        const clubB = metaDataVideo.clubBId
-        const clubAPIGuest = Discovery.API_CLUB + '/info/' + clubB
-        axios.get(clubAPIHome)
-          .then(res => {
-            const metaDataClubHome = res.data
-            axios.get(clubAPIGuest)
-              .then(res => {
-                const metaDataClubGuest = res.data
-                this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest })
-              })
-              .catch((err:Error) => {
-                console.log(err)
-              })
-          })
-      })
+    const res = await axios.get(videoAPI)
+    const metaDataVideo = res.data
+    return metaDataVideo
+  }
+
+  getData = async () => {
+    const video = await this.getVideo()
+    const metaDataVideo = video
+    const clubAPIHome = Discovery.API_CLUB + '/info/' + metaDataVideo.clubAId
+    const clubAPIGuest = Discovery.API_CLUB + '/info/' + metaDataVideo.clubBId
+    const res = await Promise.all([
+      axios.get(clubAPIHome),
+      axios.get(clubAPIGuest)
+    ])
+    const metaDataClubHome = res[0].data
+    const metaDataClubGuest = res[1].data
+    this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest })
+  }
+
+  componentDidMount () {
+    this.getData()
   }
 
   render () {
