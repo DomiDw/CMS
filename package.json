@@ -1,5 +1,5 @@
 {
-  "name": "aisw-cms",
+  "name": "aisw-cms-matchpage",
   "version": "0.1.0",
   "private": true,
   "main": "index.js",
@@ -48,8 +48,8 @@
     "buildDev": "dotenv -e .env.development react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "uploadDev": "gcloud beta functions deploy aisw-cms --region=europe-west1 --project=sw-sc-de-dev --env-vars-file=dev.yaml --runtime nodejs10 --trigger-http",
-    "uploadProd": "gcloud beta functions deploy aisw-cms --region=europe-west1 --project=sw-sc-de-prod --env-vars-file=prod.yaml --runtime nodejs10 --trigger-http",
+    "uploadDev": "gcloud beta functions deploy aisw-cms-matchpage --region=europe-west1 --project=sw-sc-de-dev --env-vars-file=dev.yaml --runtime nodejs10 --trigger-http",
+    "uploadProd": "gcloud beta functions deploy aisw-cms-matchpage --region=europe-west1 --project=sw-sc-de-prod --env-vars-file=prod.yaml --runtime nodejs10 --trigger-http",
     "deployDev": "npm run buildDev && npm run uploadDev",
     "deployProd": "npm run buildProd && npm run uploadProd"
   },
