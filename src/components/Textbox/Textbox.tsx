@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { ITextboxProps, ITextBoxState } from './ITextbox'
 import './textbox.scss'
+import Discovery from '@soccerwatch/discovery'
+import axios from 'axios'
 
 export class TextBox extends Component<ITextboxProps, ITextBoxState> {
   initValue:string
@@ -43,9 +45,40 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
         })
         this.newValue = this.state.value
       }
+      this.getAndUpdateLocation()
     }
-    // standard issue with TS (false positive)
-    // eslint-disable-next-line
+
+    getAndUpdateLocation () {
+      const locationAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
+      // const res = await axios.get(locationAPI)
+      // const metaDataLocation = res.data.location
+      const data = {
+        location: this.newValue
+      }
+      axios.post(locationAPI, data)
+        .then((data) => {
+          console.log(data)
+        })
+        .catch((err:Error) => {
+          console.log(err)
+        })
+    }
+
+    getClubIdFromUrl () {
+      const url = (window.location).href
+      const parts = url.split('/')
+      for (let i = 0; i < parts.length; i++) {
+        return parts[4].length > 0 ? parts[4] : null
+      }
+    }
+
+    // getLocation = async () => {
+    //   const locationAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
+    //   const res = await axios.get(locationAPI)
+    //   const metaDataLocation = res.data.location
+    //   return metaDataLocation
+    // }
+
     handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       this.setState({
         value: event.target.value

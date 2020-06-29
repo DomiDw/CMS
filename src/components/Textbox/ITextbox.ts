@@ -1,5 +1,5 @@
 interface ITextboxBase {
-    editableText: string
+    editableText: string;
 }
 
 export type ITextboxProps = ITextboxBase

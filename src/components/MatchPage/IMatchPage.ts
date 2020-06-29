@@ -1,7 +1,7 @@
 export interface IMatchPageProps {
 }
 export interface IMatchPageState {
-    metaDataVideo?:{
+    metaDataVideo?: {
         userStream: string;
         scoreA: string;
         scoreB: string;
