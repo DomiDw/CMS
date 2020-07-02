@@ -6,11 +6,15 @@ import { TextBox } from '../Textbox/Textbox'
 import { IMatchPageState, IMatchPageProps } from './IMatchPage'
 import axios from 'axios'
 import Discovery from '@soccerwatch/discovery'
+import * as ReactBootsTrap from 'react-bootstrap'
 
 class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
+  backToPage:string = 'https://europe-west1-sw-sc-de-dev.cloudfunctions.net/aisw-cms-clubpage/' + this.getClubIdFromUrl()
   constructor (props:IMatchPageProps) {
     super(props)
-    this.state = {}
+    this.state = {
+      loading: true
+    }
   }
 
   getVideoIdFromUrl () {
@@ -48,7 +52,7 @@ getData = async () => {
   const metaDataClubHome = res[0].data
   const metaDataClubGuest = res[1].data
   const metaDataClub = res[2].data
-  this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest, metaDataClub })
+  this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest, metaDataClub, loading: false })
 }
 
 componentDidMount () {
@@ -60,71 +64,78 @@ render () {
     <div className='container mx-auto'>
       <div className='row'>
         <button className='flex'>
-          <a href='https://www.google.de/' target='blank' className='inline-block border border-blue-800 rounded py-1 px-3 bg-blue-800 text-white'>
+          <a href={this.backToPage} target='blank' className='inline-block border border-blue-800 rounded py-1 px-3 bg-blue-800 text-white'>
             Zurück
           </a>
         </button>
       </div>
       <div className='row'>
-        <div>
-          <Video
-            url={
-              this.state.metaDataVideo
-                ? this.state.metaDataVideo.userStream
-                : ''
-            }
-          />
-          <div className='flex flex-wrap'>
-            <div className='w-full mb-4'>
-              <Team
-                home={{
-                  name: this.state.metaDataClubHome
-                    ? this.state.metaDataClubHome.name
-                    : '',
-                  thumbnail: this.state.metaDataClubHome
-                    ? this.state.metaDataClubHome.thumbnail
+        {this.state.loading
+          ? (
+            <div className='mx-auto'>
+              <ReactBootsTrap.Spinner animation='border' />
+            </div>)
+          : (
+            <div style={{ width: '100%' }}>
+              <Video
+                url={
+                  this.state.metaDataVideo
+                    ? this.state.metaDataVideo.userStream
                     : ''
-                }}
-                score={{
-                  home: this.state.metaDataVideo
-                    ? this.state.metaDataVideo.scoreA
-                    : '',
-                  guest: this.state.metaDataVideo
-                    ? this.state.metaDataVideo.scoreB
+                }
+              />
+              <div className='flex flex-wrap'>
+                <div className='w-full mb-4'>
+                  <Team
+                    home={{
+                      name: this.state.metaDataClubHome
+                        ? this.state.metaDataClubHome.name
+                        : '',
+                      thumbnail: this.state.metaDataClubHome
+                        ? this.state.metaDataClubHome.thumbnail
+                        : ''
+                    }}
+                    score={{
+                      home: this.state.metaDataVideo
+                        ? this.state.metaDataVideo.scoreA
+                        : '',
+                      guest: this.state.metaDataVideo
+                        ? this.state.metaDataVideo.scoreB
+                        : ''
+                    }}
+                    guest={{
+                      name: this.state.metaDataClubGuest
+                        ? this.state.metaDataClubGuest.name
+                        : '',
+                      thumbnail: this.state.metaDataClubGuest
+                        ? this.state.metaDataClubGuest.thumbnail
+                        : ''
+                    }}
+                  />
+                </div>
+              </div>
+              <div className='clubDescriptionText'>
+                Vereinsbeschreibung
+              </div>
+              <TextBox
+                editableText={
+                  this.state.metaDataClub
+                    ? this.state.metaDataClub.location
                     : ''
-                }}
-                guest={{
-                  name: this.state.metaDataClubGuest
-                    ? this.state.metaDataClubGuest.name
-                    : '',
-                  thumbnail: this.state.metaDataClubGuest
-                    ? this.state.metaDataClubGuest.thumbnail
+                }
+              />
+              <div className='clubMessageText'>
+                Vereinsnachricht
+              </div>
+              <TextBox
+                editableText={
+                  this.state.metaDataClub
+                    ? this.state.metaDataClub.location
                     : ''
-                }}
+                }
               />
             </div>
-          </div>
-          <div className='clubDescriptionText'>
-            Vereinsbeschreibung
-          </div>
-          <TextBox
-            editableText={
-              this.state.metaDataClub
-                ? this.state.metaDataClub.location
-                : ''
-            }
-          />
-          <div className='clubMessageText'>
-            Vereinsnachricht
-          </div>
-          <TextBox
-            editableText={
-              this.state.metaDataClub
-                ? this.state.metaDataClub.location
-                : ''
-            }
-          />
-        </div>
+          )}
       </div>
     </div>
   )

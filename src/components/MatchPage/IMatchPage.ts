@@ -19,4 +19,5 @@ export interface IMatchPageState {
     metaDataClub?: {
         location:string;
     }
+    loading: boolean;
 }
