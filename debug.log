@@ -1,1 +1,7 @@
 [0625/125333.636:ERROR:process_info.cc(359)] UncheckedAllocate
+[0630/184315.565:ERROR:process_info.cc(329)] VirtualQueryEx: Zugriff verweigert (0x5)
+[0630/184315.567:ERROR:process_info.cc(556)] ReadMemoryInfo failed
+[0630/184315.567:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Es wurde versucht, auf einen Prozess zuzugreifen, der gerade beendet wurde. (0xc000010a)
+[0630/184339.339:ERROR:process_info.cc(329)] VirtualQueryEx: Zugriff verweigert (0x5)
+[0630/184339.339:ERROR:process_info.cc(556)] ReadMemoryInfo failed
+[0630/184339.339:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Es wurde versucht, auf einen Prozess zuzugreifen, der gerade beendet wurde. (0xc000010a)

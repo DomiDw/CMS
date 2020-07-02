@@ -8,47 +8,47 @@ import axios from 'axios'
 import Discovery from '@soccerwatch/discovery'
 
 class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
-descriptionText = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
-// clubMessage:string = 'Hier könnte Ihre Vereinsnachricht stehen'
-
-constructor (props:IMatchPageProps) {
-  super(props)
-  this.state = {}
-}
-
-getVideoIdFromUrl () {
-  const url = (window.location).href
-  const id = url.substring(url.lastIndexOf('/') + 1)
-  return id.length > 0 ? id : null
-}
-
-getClubIdFromUrl () {
-  const url = (window.location).href
-  const parts = url.split('/')
-  for (let i = 0; i < parts.length; i++) {
-    return parts[4].length > 0 ? parts[4] : null
+  constructor (props:IMatchPageProps) {
+    super(props)
+    this.state = {}
   }
-}
 
-getVideo = async () => {
-  const videoAPI = Discovery.API_VIDEO + '/meta/' + this.getVideoIdFromUrl()
-  const res = await axios.get(videoAPI)
-  const metaDataVideo = res.data
-  return metaDataVideo
-}
+  getVideoIdFromUrl () {
+    const url = (window.location).href
+    const id = url.substring(url.lastIndexOf('/') + 1)
+    return id.length > 0 ? id : null
+  }
+
+  getClubIdFromUrl () {
+    const url = (window.location).href
+    const parts = url.split('/')
+    for (let i = 0; i < parts.length; i++) {
+      return parts[4].length > 0 ? parts[4] : null
+    }
+  }
+
+  getVideo = async () => {
+    const videoAPI = Discovery.API_VIDEO + '/meta/' + this.getVideoIdFromUrl()
+    const res = await axios.get(videoAPI)
+    const metaDataVideo = res.data
+    return metaDataVideo
+  }
 
 getData = async () => {
   const video = await this.getVideo()
   const metaDataVideo = video
   const clubAPIHome = Discovery.API_CLUB + '/info/' + metaDataVideo.clubAId
   const clubAPIGuest = Discovery.API_CLUB + '/info/' + metaDataVideo.clubBId
+  const clubAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
   const res = await Promise.all([
     axios.get(clubAPIHome),
-    axios.get(clubAPIGuest)
+    axios.get(clubAPIGuest),
+    axios.get(clubAPI)
   ])
   const metaDataClubHome = res[0].data
   const metaDataClubGuest = res[1].data
-  this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest })
+  const metaDataClub = res[2].data
+  this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest, metaDataClub })
 }
 
 componentDidMount () {
@@ -108,14 +108,22 @@ render () {
             Vereinsbeschreibung
           </div>
           <TextBox
-            editableText={this.descriptionText}
+            editableText={
+              this.state.metaDataClub
+                ? this.state.metaDataClub.location
+                : ''
+            }
           />
           <div className='clubMessageText'>
             Vereinsnachricht
           </div>
-          {/* <TextBox
-              editableText={this.clubMessage}
-            /> */}
+          <TextBox
+            editableText={
+              this.state.metaDataClub
+                ? this.state.metaDataClub.location
+                : ''
+            }
+          />
         </div>
       </div>
     </div>

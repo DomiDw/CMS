@@ -11,16 +11,24 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
   constructor (props: ITextboxProps) {
     super(props)
     this.state = {
-      value: this.props.editableText || 'Hier sollte Text stehen',
+      value: this.props.editableText || 'Loading...',
       isInEditMode: false
     }
     this.initValue = this.state.value
     this.newValue = this.props.editableText
   }
 
+  componentDidUpdate (prevProps:any) {
+    if (prevProps.editableText !== this.props.editableText) {
+      this.setState({
+        value: this.props.editableText
+      })
+    }
+  }
+
     handleEditModeToDefault = () => {
       this.setState({
-        value: this.newValue,
+        value: this.props.editableText,
         isInEditMode: !this.state.isInEditMode
       })
     }
@@ -30,6 +38,38 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
         value: this.state.value,
         isInEditMode: !this.state.isInEditMode
       })
+    }
+
+    getClubIdFromUrl () {
+      const url = (window.location).href
+      const parts = url.split('/')
+      for (let i = 0; i < parts.length; i++) {
+        return parts[4].length > 0 ? parts[4] : null
+      }
+    }
+
+    postClub = async () => {
+      const url = await Discovery.API_CLUB + '/info'
+      const username = 'dominik.dwinger@soccerwatch.tv'
+      const password = 'f9e9ee4cd6389956c8cc3cdc7bebcc8a'
+      const credentials = btoa(username + ':' + password)
+      const basicAuth = 'Basic ' + credentials
+      const data = JSON.stringify({
+        RowKey: this.getClubIdFromUrl(),
+        location: this.state.value
+      })
+      axios.post(url, data, {
+        headers: {
+          authorization: basicAuth,
+          'Content-Type': 'application/json'
+        }
+      })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err:Error) => {
+          console.log(err)
+        })
     }
 
     handleComponentValue = () => {
@@ -44,40 +84,9 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
           value: this.state.value
         })
         this.newValue = this.state.value
-      }
-      this.getAndUpdateLocation()
-    }
-
-    getAndUpdateLocation () {
-      const locationAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
-      // const res = await axios.get(locationAPI)
-      // const metaDataLocation = res.data.location
-      const data = {
-        location: this.newValue
-      }
-      axios.post(locationAPI, data)
-        .then((data) => {
-          console.log(data)
-        })
-        .catch((err:Error) => {
-          console.log(err)
-        })
-    }
-
-    getClubIdFromUrl () {
-      const url = (window.location).href
-      const parts = url.split('/')
-      for (let i = 0; i < parts.length; i++) {
-        return parts[4].length > 0 ? parts[4] : null
+        this.postClub()
       }
     }
-
-    // getLocation = async () => {
-    //   const locationAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
-    //   const res = await axios.get(locationAPI)
-    //   const metaDataLocation = res.data.location
-    //   return metaDataLocation
-    // }
 
     handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       this.setState({

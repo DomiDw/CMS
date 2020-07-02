@@ -16,4 +16,7 @@ export interface IMatchPageState {
         name:string;
         thumbnail:string;
     }
+    metaDataClub?: {
+        location:string;
+    }
 }
