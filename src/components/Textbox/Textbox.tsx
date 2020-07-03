@@ -11,7 +11,7 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
   constructor (props: ITextboxProps) {
     super(props)
     this.state = {
-      value: this.props.editableText || 'Loading...',
+      value: this.props.editableText,
       isInEditMode: false
     }
     this.initValue = this.state.value

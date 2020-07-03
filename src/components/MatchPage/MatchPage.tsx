@@ -7,6 +7,7 @@ import { IMatchPageState, IMatchPageProps } from './IMatchPage'
 import axios from 'axios'
 import Discovery from '@soccerwatch/discovery'
 import * as ReactBootsTrap from 'react-bootstrap'
+import { Navbar } from 'react-bootstrap'
 
 class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
   backToPage:string = 'https://europe-west1-sw-sc-de-dev.cloudfunctions.net/aisw-cms-clubpage/' + this.getClubIdFromUrl()
@@ -63,11 +64,13 @@ render () {
   return (
     <div className='container mx-auto'>
       <div className='row'>
-        <button className='flex'>
-          <a href={this.backToPage} target='blank' className='inline-block border border-blue-800 rounded py-1 px-3 bg-blue-800 text-white'>
-            Zurück
-          </a>
-        </button>
+        <Navbar className='navBar'>
+          <button>
+            <a className='navButton' href={this.backToPage} target='blank'>
+              Zurück
+            </a>
+          </button>
+        </Navbar>
       </div>
       <div className='row'>
         {this.state.loading

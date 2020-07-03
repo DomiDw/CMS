@@ -27,6 +27,7 @@
     "react": "16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "16.13.1",
+    "react-native-elements": "^2.0.4",
     "react-native-nav": "^2.0.2",
     "react-player": "2.0.1",
     "react-router-dom": "^5.2.0",
