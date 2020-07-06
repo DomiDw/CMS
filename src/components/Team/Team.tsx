@@ -79,7 +79,7 @@ export class Team extends Component<ITeamProps> {
     this.setScoreHome()
     this.setScoreGuest()
     return (
-      <div className='team-block'>
+      <div className='col-xs-12 team-block'>
         {this.props.home !== undefined ? (
           this.teamHome)
           : null}

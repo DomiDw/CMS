@@ -1,16 +1,16 @@
 .team-block {
     display: flex;
-    background-color: #293650;
-    border-radius: 0.25rem;
     padding: 0rem 1rem;
     margin-top: -1px;
+    flex: 1 1;
+    border: 2px solid #eaeaea;
+    border-top: 0px solid transparent;
     .team-home,
     .team-guest {
         display: flex;
         align-items: center;
         flex: 0 50%;
         padding: 1rem 0rem;
-        color: white;
     }
     .team-guest {
         justify-content: flex-end;
@@ -25,8 +25,6 @@
         display: flex;
         align-items: center;
         padding: 1.5rem;
-        color: white;
-        background-color: #293650;
         font-size: x-large;
         height: 100%;
     }
@@ -41,5 +39,17 @@
         width: auto;
         height: 55px;
         flex-shrink: 0;
+    }
+}
+
+@media (max-width: 540px) {
+    .team-block {
+        .team-home-name,
+        .team-guest-name {
+            display: none;
+        }
+        .team-img {
+            height: 35px;
+        }
     }
 }

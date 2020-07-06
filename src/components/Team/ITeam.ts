@@ -1,6 +1,6 @@
 interface ITeamHome {
-    name: string;
-    thumbnail: string;
+    name: string | undefined;
+    thumbnail: string | undefined;
 }
 interface ITeamGuest {
     name: string;

@@ -1,98 +1,24 @@
-// @import './tailwind.css','components/MatchPage/MatchPage.scss','components/Team/team.scss','components/Textbox/textbox.scss','components/Video/video.scss';
-*{
-  box-sizing: border-box;
-  -webkit-overflow-scrolling: touch;
-    @media screen and (max-width:424px) {
-        font-size: 8px;
-        .team-score {
-            align-self: center;
-        }
-        .container {
-          margin-right: 15px;
-        }
-        .navBar {
-          justify-content: center;
-        }
-        .fixed-top {
-          position: relative;
-        }
-        .buttons {
-          margin-left: 4%;
-        }
-    }
-    @media screen and (min-width: 425px) {
-        font-size: 15px;
-        .team-score {
-            align-self: center;
-        }
-        .container {
-          padding-right: -5px;
-        }
-        .navBar {
-          justify-content: center;
-        }
-        .fixed-top {
-          position: relative;
-        }
-        .buttons {
-          margin-left: 3.5%;
-        }
-    }
-    @media screen and (min-width: 768px) {
-      padding-top: 0.1%;
-        font-size: 18px;
-        .team-score {
-            align-self: center;
-        }
-        .team-home-name,
-        .team-guest-name {
-          font-size: 15px;
-        }
-        .navBar {
-          justify-content: left;
-        }
-        .fixed-top {
-          position: fixed;
-          z-index: 0;
-        }
-        .buttons {
-          margin-left: 2.5%;
-        }
-    }
-    @media screen and (min-width: 1441px) {
-      padding-top: 0.1%;
-        font-size: 25px;
-        .team-score {
-            align-self: center;
-        }
-        .container {
-          width: 100%;
-        }
-        .navBar {
-          justify-content: left;
-        }
-        .fixed-top {
-          position: fixed;
-          z-index: 0;
-        }
-        .buttons {
-          margin-left: 2.5%;
-        }
-    }
-}
 html {
   width: 100%;
-  scroll-behavior: smooth;
+  * {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+      "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+  }
+  body {
+    margin: 0;
+  }
+  .container-fluid {
+    max-width: 1200px;
+  }
 }
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+.spacer{
+  width: 100%;
+  margin-top: 50px;
+  display: block;
 }
