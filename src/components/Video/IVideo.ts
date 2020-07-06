@@ -1,5 +1,5 @@
 interface IVideoBase {
-    url:string;
+    url:string | undefined;
 }
 export interface IVideoState {
     videos?: {

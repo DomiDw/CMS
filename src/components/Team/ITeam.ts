@@ -3,12 +3,12 @@ interface ITeamHome {
     thumbnail: string | undefined;
 }
 interface ITeamGuest {
-    name: string;
-    thumbnail: string;
+    name: string | undefined;
+    thumbnail: string | undefined;
 }
 interface IScore {
-    home: string;
-    guest: string;
+    home: string | undefined;
+    guest: string | undefined;
 }
 
 interface ITeamBase {
