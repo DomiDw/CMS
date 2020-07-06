@@ -77,8 +77,10 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
           <div className='col-xs-12 col-sm-12 col-md-10 col-lg-8 col-center'>
             {this.state.loading
               ? (
-                <div>
-                  <ReactBootsTrap.Spinner animation='border' />
+                <div className='row'>
+                  <div className='col-xs-12 col-center'>
+                    <ReactBootsTrap.Spinner animation='border' variant='dark' />
+                  </div>
                 </div>)
               : (
                 <div className='row'>

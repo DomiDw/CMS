@@ -17,6 +17,10 @@
         cursor: text;
     }
 }
+.buttons {
+    max-width: max-content;
+    padding-right: 1%;
+}
 .button {
     cursor: pointer;
     display: inline-block;
