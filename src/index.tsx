@@ -4,7 +4,6 @@ import './index.scss'
 import MatchPage from './components/MatchPage/MatchPage'
 import * as serviceWorker from './serviceWorker'
 import Discovery from '@soccerwatch/discovery'
-import './tailwind.generated.css'
 
 Discovery.init(process.env.REACT_APP_Environment || 'dev', true)
   .then(() => {

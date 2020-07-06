@@ -61,33 +61,35 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
 
   render () {
     return (
-      <div className='container mx-auto'>
+      <div className='container fluid'>
         <div className='row'>
-          <ReactBootsTrap.Navbar className='navBar' fixed='top'>
-            <button>
-              <a className='navButton' href={this.backToPage} target='blank'>
-                Zurück
-              </a>
-            </button>
-          </ReactBootsTrap.Navbar>
+          <div className='col-xs-12 col-center'>
+            <ReactBootsTrap.Navbar className='navBar' fixed='top'>
+              <button>
+                <a className='navButton' href={this.backToPage} target='blank'>
+                  Zurück
+                </a>
+              </button>
+            </ReactBootsTrap.Navbar>
+          </div>
         </div>
         <div className='row'>
-          {this.state.loading
-            ? (
-              <div className='mx-auto'>
-                <ReactBootsTrap.Spinner animation='border' />
-              </div>)
-            : (
-              <div style={{ width: '100%' }}>
-                <Video
-                  url={
-                    this.state.metaDataVideo
-                      ? this.state.metaDataVideo.userStream
-                      : ''
-                  }
-                />
-                <div className='flex flex-wrap'>
-                  <div className='w-full mb-4'>
+          <div className='col-xs-12 col-sm-12 col-md-10 col-lg-8 col-center'>
+            {this.state.loading
+              ? (
+                <div>
+                  <ReactBootsTrap.Spinner animation='border' />
+                </div>)
+              : (
+                <div className='row'>
+                  <div className='col-xs-12 col-center'>
+                    <Video
+                      url={
+                        this.state.metaDataVideo
+                          ? this.state.metaDataVideo.userStream
+                          : ''
+                      }
+                    />
                     <Team
                       home={{
                         name: this.state.metaDataClubHome
@@ -114,30 +116,36 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
                           : ''
                       }}
                     />
+                    <div className='col-xs-12'>
+                      <div className='clubDescriptionText'>
+                        Vereinsbeschreibung
+                      </div>
+                    </div>
+                    <div className='col-xs-12'>
+                      <TextBox
+                        editableText={
+                          this.state.metaDataClub
+                            ? this.state.metaDataClub.location
+                            : ''
+                        }
+                      />
+                    </div>
+                    <div className='clubMessageText'>
+                      Vereinsnachricht
+                    </div>
+                    <div className='col-xs-12'>
+                      <TextBox
+                        editableText={
+                          this.state.metaDataClub
+                            ? this.state.metaDataClub.location
+                            : ''
+                        }
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className='clubDescriptionText'>
-                  Vereinsbeschreibung
-                </div>
-                <TextBox
-                  editableText={
-                    this.state.metaDataClub
-                      ? this.state.metaDataClub.location
-                      : ''
-                  }
-                />
-                <div className='clubMessageText'>
-                  Vereinsnachricht
-                </div>
-                <TextBox
-                  editableText={
-                    this.state.metaDataClub
-                      ? this.state.metaDataClub.location
-                      : ''
-                  }
-                />
-              </div>
-            )}
+              )}
+          </div>
         </div>
       </div>
     )

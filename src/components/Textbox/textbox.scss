@@ -2,7 +2,7 @@
     .textbox {
         color: black;
         display: flex;
-        flex: 11 auto;
+        flex: 1 1 auto;
         max-width: 100%;
         min-width: 100%;
         background-color: #eaeaea;
@@ -21,10 +21,9 @@
     cursor: pointer;
     display: inline-block;
     margin: 0em;
-    margin-right: 0.5rem;
     font: 400 1rem Arial;
     border-width: 0px;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border-radius: 0.25rem;
     transition: 0.2s ease all;
     &:disabled {

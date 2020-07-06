@@ -7,24 +7,65 @@
         .team-score {
             align-self: center;
         }
+        .container {
+          padding-right: 5px;
+        }
+        .navBar {
+          justify-content: center;
+        }
+        .fixed-top {
+          position: relative;
+        }
     }
     @media screen and (min-width: 425px) {
         font-size: 15px;
         .team-score {
             align-self: center;
         }
+        .container {
+          padding-right: -5px;
+        }
+        .navBar {
+          justify-content: center;
+        }
+        .fixed-top {
+          position: relative;
+        }
     }
     @media screen and (min-width: 768px) {
+      padding-top: 0.1%;
         font-size: 18px;
         .team-score {
             align-self: center;
         }
+        .team-home-name,
+        .team-guest-name {
+          font-size: 15px;
+        }
+        .navBar {
+          justify-content: left;
+        }
+        .fixed-top {
+          position: fixed;
+          z-index: 0;
+        }
     }
     @media screen and (min-width: 1441px) {
-        font-size: 30px;
+      padding-top: 0.1%;
+        font-size: 25px;
         .team-score {
             align-self: center;
-        }       
+        }
+        .container {
+          width: 100%;
+        }
+        .navBar {
+          justify-content: left;
+        }
+        .fixed-top {
+          position: fixed;
+          z-index: 0;
+        }
     }
 }
 html {

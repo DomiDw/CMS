@@ -105,12 +105,18 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
                 value={this.state.value}
                 onChange={this.handleChange}
               />
-              <button className='button save' onClick={this.handleComponentValue}>
-                Speichern
-              </button>
-              <button className='button cancel' onClick={this.handleEditModeToDefault}>
-                Abbruch
-              </button>
+              <div className='row'>
+                <div className='col-xs-12' style={{ maxWidth: 'max-content', paddingRight: '1%', marginLeft: '2.5%' }}>
+                  <button className='button save' onClick={this.handleComponentValue}>
+                    Speichern
+                  </button>
+                </div>
+                <div className='col-xs-12' style={{ maxWidth: 'max-content' }}>
+                  <button className='button cancel' onClick={this.handleEditModeToDefault}>
+                    Abbruch
+                  </button>
+                </div>
+              </div>
             </div>
           )
           : (
@@ -121,10 +127,15 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
                 value={this.state.value}
                 onChange={this.handleChange}
               />
-              <button disabled className='button save'>
-                Speichern
-              </button>
+              <div className='row'>
+                <div className='col-xs-12' style={{ maxWidth: 'max-content', marginLeft: '2.5%' }}>
+                  <button disabled className='button save'>
+                    Speichern
+                  </button>
+                </div>
+              </div>
             </div>
+
           )
       )
     }
