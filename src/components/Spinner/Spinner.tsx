@@ -5,7 +5,10 @@ export class Spinner extends Component {
   render () {
     return (
       <div className='col-xs-12 spinner'>
-        <div className='lds-grid'>
+        <div className='lds-spinner'>
+          <div />
+          <div />
+          <div />
           <div />
           <div />
           <div />
