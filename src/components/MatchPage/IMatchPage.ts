@@ -20,4 +20,5 @@ export interface IMatchPageState {
         location:string;
     }
     loading: boolean;
+    checked: any;
 }

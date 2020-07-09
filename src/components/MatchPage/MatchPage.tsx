@@ -9,13 +9,25 @@ import { IMatchPageState, IMatchPageProps } from './IMatchPage'
 import axios from 'axios'
 import Discovery from '@soccerwatch/discovery'
 import '../../../node_modules/flexboxgrid/css/flexboxgrid.min.css'
+// import IconButton from '@material-ui/core/IconButton'
+// import StarBorderIcon from '@material-ui/icons/StarBorder'
+// import StarIcon from '@material-ui/icons/Star'
+import Switch from 'react-switch'
 
 class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
   constructor (props: IMatchPageProps) {
     super(props)
     this.state = {
-      loading: true
+      loading: true,
+      checked: false
     }
+    this.handleCheck = this.handleCheck.bind(this)
+  }
+
+  handleCheck () {
+    this.setState({
+      checked: !this.state.checked
+    })
   }
 
   getVideoIdFromUrl () {
@@ -32,16 +44,12 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
     }
   }
 
-  backToPage: string =
-    'https://europe-west1-sw-sc-de-dev.cloudfunctions.net/aisw-cms-clubpage/' +
-    this.getClubIdFromUrl();
-
   getVideo = async () => {
     const videoAPI = Discovery.API_VIDEO + '/meta/' + this.getVideoIdFromUrl()
     const res = await axios.get(videoAPI)
     const metaDataVideo = res.data
     return metaDataVideo
-  };
+  }
 
   getData = async () => {
     const video = await this.getVideo()
@@ -58,7 +66,7 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
     const metaDataClubGuest = res[1].data
     const metaDataClub = res[2].data
     this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest, metaDataClub, loading: false })
-  };
+  }
 
   componentDidMount () {
     this.getData()
@@ -78,6 +86,16 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
           {!this.state.loading && (
             <div className='row'>
               <div className='spacer-big' />
+              <div className='favDiv'>
+                <Switch
+                  className='react-switch'
+                  onChange={this.handleCheck}
+                  checked={this.state.checked}
+                />
+                <span>
+                  Als Favorit markieren
+                </span>
+              </div>
               <Video
                 url={
                   this.state.metaDataVideo &&

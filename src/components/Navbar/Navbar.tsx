@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import './navbar.scss'
+import IconButton from '@material-ui/core/IconButton'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 export class Navbar extends Component {
   getClubIdFromUrl () {
@@ -11,17 +13,17 @@ export class Navbar extends Component {
   }
 
   backToPage: string =
-    'https://europe-west1-sw-sc-de-dev.cloudfunctions.net/aisw-cms-clubpage/' +
-    this.getClubIdFromUrl();
+  'http://localhost:3000/aisw-cms-ClubPage/' +
+  this.getClubIdFromUrl();
 
   render () {
     return (
       <div className='navbar'>
-        <button>
-          <a className='navButton' href={this.backToPage} target='blank'>
-            Zurück
+        <IconButton>
+          <a className='navButton' href={this.backToPage}>
+            <ArrowBackIcon color='primary' />
           </a>
-        </button>
+        </IconButton>
       </div>
     )
   }
