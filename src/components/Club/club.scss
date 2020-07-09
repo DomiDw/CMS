@@ -1,0 +1,19 @@
+.club {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    .club-logo {
+      display: block;
+      width: 150px;
+      height: auto;
+      margin-right: 1rem;
+    }
+    .club-content {
+      .club-name,
+      .club-city {
+        margin: 0;
+      }
+    }
+  }
+  
