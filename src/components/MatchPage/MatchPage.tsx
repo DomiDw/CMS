@@ -112,7 +112,7 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
               />
               <div className='spacer-small' />
               <div className='col-xs-12'>
-                <div className='clubDescriptionText'>Vereinsbeschreibung</div>
+                <div className='clubDescriptionText'>Videobeschreibung (location als Filler)</div>
                 <TextBox
                   editableText={
                     this.state.metaDataClub
@@ -123,7 +123,18 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
               </div>
               <div className='spacer-small' />
               <div className='col-xs-12'>
-                <div className='clubMessageText'>Vereinsnachricht</div>
+                <div className='clubDescriptionText'>Vereinsbeschreibung (location als Filler)</div>
+                <TextBox
+                  editableText={
+                    this.state.metaDataClub
+                      ? this.state.metaDataClub.location
+                      : ''
+                  }
+                />
+              </div>
+              <div className='spacer-small' />
+              <div className='col-xs-12'>
+                <div className='clubMessageText'>Vereinsnachricht (location als Filler)</div>
                 <TextBox
                   editableText={
                     this.state.metaDataClub
