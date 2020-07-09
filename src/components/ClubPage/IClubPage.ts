@@ -7,16 +7,23 @@ interface gameData {
     gameDay:string;
 }
 export interface IClubPageState{
-    firstMatchData?:gameData;
+    pastFirstMatchData?:gameData;
 
-    secondMatchData?:gameData;
+    pastSecondMatchData?:gameData;
 
-    thirdMatchData?:gameData;
+    pastThirdMatchData?:gameData;
+
+    futureFirstMatchData?:gameData;
+
+    futureSecondMatchData?:gameData;
+
+    futureThirdMatchData?:gameData;
 
     dataClub?:{
         thumbnail:string;
         city:string;
         name:string;
+        location:string;
     }
     loading: boolean;
 }

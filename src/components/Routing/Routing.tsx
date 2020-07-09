@@ -18,7 +18,7 @@ class Routing extends Component<any> {
       <Router>
         <div>
           <Switch>
-            <Route exact path='/1337' render={() => <ClubPage />} />
+            <Route exact path='/aisw-cms-ClubPage/1' render={() => <ClubPage />} />
             <Route path='/aisw-cms-MatchPage/1'>
               <MatchPage />
             </Route>
