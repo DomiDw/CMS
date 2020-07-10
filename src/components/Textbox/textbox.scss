@@ -39,6 +39,9 @@
         &.cancel {
             background-color: red;
         }
+        &.edit {
+            background-color: lightblue;
+        }
     }
     &.save {
         background-color: rgb(96, 219, 96);

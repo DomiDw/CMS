@@ -31,14 +31,14 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
       value: this.props.editableText,
       isInEditMode: !this.state.isInEditMode
     })
-  };
+  }
 
   handleEditMode = () => {
     this.setState({
       value: this.state.value,
       isInEditMode: !this.state.isInEditMode
     })
-  };
+  }
 
   getClubIdFromUrl () {
     const url = window.location.href
@@ -52,7 +52,7 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
     const url = (await Discovery.API_CLUB) + '/info'
     const username = 'dominik.dwinger@soccerwatch.tv'
     const password = 'f9e9ee4cd6389956c8cc3cdc7bebcc8a'
-    const credentials = btoa(username + ':' + password)
+    const credentials = window.btoa(username + ':' + password)
     const basicAuth = 'Basic ' + credentials
     const data = JSON.stringify({
       RowKey: this.getClubIdFromUrl(),
@@ -71,7 +71,7 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
       .catch((err: Error) => {
         console.log(err)
       })
-  };
+  }
 
   handleComponentValue = () => {
     if (this.state.value.length === 0) {
@@ -87,13 +87,13 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
       this.newValue = this.state.value
       this.postClub()
     }
-  };
+  }
 
   handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     this.setState({
       value: event.target.value
     })
-  };
+  }
 
   render () {
     return (

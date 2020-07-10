@@ -1,0 +1,54 @@
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 100%;
+}
+table, th, td {
+    border: 2px solid black;
+    border-radius: 3px;
+}
+th, td {
+    text-align: center;
+}
+.teamPic {
+    width: 100%;
+}
+.upload {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    text-align: center;
+    cursor: pointer;
+}
+.upload-tr {
+    border-color: white;
+    margin: 0 auto;
+}
+.icon-th:hover {
+    cursor: pointer;
+}
+.teamTable {
+    margin: 0 auto;
+    width: 100%;
+}
+.teamtableButtons {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0em;
+    font: 400 1rem Arial;
+    border-width: 0px;
+    padding: 1px 1px;
+    border-radius: 0.25rem;
+    transition: 0.2s ease all;
+    &:hover.save {
+        background-color: rgb(96, 219, 96);
+    }
+    &:hover.cancel {
+        background-color: red;
+    }
+    &:hover.edit {
+        background-color: rgb(18, 115, 148);
+    }
+}
