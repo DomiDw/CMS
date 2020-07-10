@@ -26,4 +26,5 @@ export interface IClubPageState{
         location:string;
     }
     loading: boolean;
+    checked: boolean;
 }

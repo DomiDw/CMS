@@ -9,10 +9,9 @@ import { IMatchPageState, IMatchPageProps } from './IMatchPage'
 import axios from 'axios'
 import Discovery from '@soccerwatch/discovery'
 import '../../../node_modules/flexboxgrid/css/flexboxgrid.min.css'
-// import IconButton from '@material-ui/core/IconButton'
-// import StarBorderIcon from '@material-ui/icons/StarBorder'
-// import StarIcon from '@material-ui/icons/Star'
-import Switch from 'react-switch'
+import IconButton from '@material-ui/core/IconButton'
+import StarBorderIcon from '@material-ui/icons/StarBorder'
+import StarIcon from '@material-ui/icons/Star'
 
 class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
   constructor (props: IMatchPageProps) {
@@ -86,16 +85,6 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
           {!this.state.loading && (
             <div className='row'>
               <div className='spacer-big' />
-              <div className='favDiv'>
-                <Switch
-                  className='react-switch'
-                  onChange={this.handleCheck}
-                  checked={this.state.checked}
-                />
-                <span>
-                  Als Favorit markieren
-                </span>
-              </div>
               <Video
                 url={
                   this.state.metaDataVideo &&
@@ -130,6 +119,23 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
               />
               <div className='spacer-small' />
               <div className='col-xs-12'>
+                <div className='favDiv' onClick={this.handleCheck}>
+                  {this.state.checked ? (
+                    <IconButton>
+                      <StarIcon />
+                    </IconButton>
+                  ) : (
+                    <IconButton>
+                      <StarBorderIcon />
+                    </IconButton>
+                  )}
+                  <div>
+                    Als Favorit markieren
+                  </div>
+                </div>
+              </div>
+              <div className='spacer-small' />
+              <div className='col-xs-12'>
                 <div className='clubDescriptionText'>Videobeschreibung (location als Filler)</div>
                 <TextBox
                   editableText={
@@ -161,6 +167,7 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
                   }
                 />
               </div>
+              <div className='spacer-small' />
             </div>
           )}
         </div>

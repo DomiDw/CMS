@@ -14,7 +14,8 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
   constructor (props: IClubPageProps) {
     super(props)
     this.state = {
-      loading: true
+      loading: true,
+      checked: false
     }
   }
 
