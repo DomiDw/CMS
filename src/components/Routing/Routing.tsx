@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import MatchPage from '../MatchPage/MatchPage'
 import ClubPage from '../ClubPage/ClubPage'
+import SquadPage from '../SquadPage/SquadPage'
 
 class Routing extends Component<any> {
   constructor (props: any) {
@@ -21,6 +22,9 @@ class Routing extends Component<any> {
             <Route exact path='/aisw-cms-ClubPage/1' render={() => <ClubPage />} />
             <Route path='/aisw-cms-MatchPage/1'>
               <MatchPage />
+            </Route>
+            <Route path='/aisw-cms-SquadPage'>
+              <SquadPage />
             </Route>
           </Switch>
         </div>

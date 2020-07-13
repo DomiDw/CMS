@@ -9,7 +9,11 @@ import { MatchBox } from '../MatchBox/MatchBox'
 import Discovery from '@soccerwatch/discovery'
 import { Spinner } from '../Spinner/Spinner'
 import { Link } from 'react-router-dom'
-import { TeamTable } from '../TeamTable/TeamTable'
+import LinkToSquad from '../LinkToSquad/LinkToSquad'
+
+const teamOne = '1. Herren'
+// const kaderTwo = 'Alt-Herren'
+// const kaderThree = 'A-Jugend'
 
 class ClubPage extends Component<IClubPageProps, IClubPageState> {
   constructor (props: IClubPageProps) {
@@ -77,140 +81,139 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
         )}
         {!this.state.loading && (
           <div className='row'>
-            <div className='col-xs-12 col-sm-12 col-md-10 col-lg-8 col-center'>
+            <div className='spacer-big' />
+            <Club
+              name={
+                this.state.dataClub
+                  ? this.state.dataClub?.name
+                  : ''
+              }
+              logo={
+                this.state.dataClub
+                  ? this.state.dataClub?.thumbnail
+                  : ''
+              }
+              city={
+                this.state.dataClub
+                  ? this.state.dataClub?.city
+                  : ''
+              }
+            />
+            <div className='spacer-small' />
+            <div className='spacer-small' />
+            <div className='col-xs-12'>
+              <div className='clubDescriptionText'>Vereinsbeschreibung (location als Filler)</div>
+              <TextBox editableText={
+                this.state.dataClub
+                  ? this.state.dataClub?.location
+                  : ''
+              }
+              />
+              <div className='clubMessageText'>Vereinsnachricht (location als Filler)</div>
+              <TextBox editableText={
+                this.state.dataClub
+                  ? this.state.dataClub?.location
+                  : ''
+              }
+              />
+            </div>
+            <div className='spacer-small' />
+            <div className='col-xs-12'>
               <div className='row'>
-                <div className='spacer-big' />
-                <Club
-                  name={
-                    this.state.dataClub
-                      ? this.state.dataClub?.name
-                      : ''
-                  }
-                  logo={
-                    this.state.dataClub
-                      ? this.state.dataClub?.thumbnail
-                      : ''
-                  }
-                  city={
-                    this.state.dataClub
-                      ? this.state.dataClub?.city
-                      : ''
-                  }
+                <LinkToSquad
+                  team={teamOne}
                 />
                 <div className='spacer-small' />
-                <TeamTable />
-                <div className='spacer-small' />
-                <div className='col-xs-12'>
-                  <div className='clubDescriptionText'>Vereinsbeschreibung (location als Filler)</div>
-                  <TextBox editableText={
-                    this.state.dataClub
-                      ? this.state.dataClub?.location
-                      : ''
-                  }
+                <Link to='/aisw-cms-MatchPage/1/41651'>
+                  <MatchBox
+                    box={{
+                      clubATeam: this.state.pastFirstMatchData
+                        ? this.state.pastFirstMatchData.clubATeam
+                        : '',
+                      clubBTeam: this.state.pastFirstMatchData
+                        ? this.state.pastFirstMatchData.clubBTeam
+                        : '',
+                      gameDay: this.state.pastFirstMatchData
+                        ? this.state.pastFirstMatchData.gameDay
+                        : ''
+                    }}
                   />
-                  <div className='clubMessageText'>Vereinsnachricht (location als Filler)</div>
-                  <TextBox editableText={
-                    this.state.dataClub
-                      ? this.state.dataClub?.location
-                      : ''
-                  }
+                </Link>
+                <Link to='/aisw-cms-MatchPage/1/41196'>
+                  <MatchBox
+                    box={{
+                      clubATeam: this.state.pastSecondMatchData
+                        ? this.state.pastSecondMatchData.clubATeam
+                        : '',
+                      clubBTeam: this.state.pastSecondMatchData
+                        ? this.state.pastSecondMatchData.clubBTeam
+                        : '',
+                      gameDay: this.state.pastSecondMatchData
+                        ? this.state.pastSecondMatchData.gameDay
+                        : ''
+                    }}
                   />
-                </div>
-                <div className='spacer-small' />
-                <div className='col-xs-12'>
-                  <div className='row'>
-                    <Link to='/aisw-cms-MatchPage/1/41651'>
-                      <MatchBox
-                        box={{
-                          clubATeam: this.state.pastFirstMatchData
-                            ? this.state.pastFirstMatchData.clubATeam
-                            : '',
-                          clubBTeam: this.state.pastFirstMatchData
-                            ? this.state.pastFirstMatchData.clubBTeam
-                            : '',
-                          gameDay: this.state.pastFirstMatchData
-                            ? this.state.pastFirstMatchData.gameDay
-                            : ''
-                        }}
-                      />
-                    </Link>
-                    <Link to='/aisw-cms-MatchPage/1/41196'>
-                      <MatchBox
-                        box={{
-                          clubATeam: this.state.pastSecondMatchData
-                            ? this.state.pastSecondMatchData.clubATeam
-                            : '',
-                          clubBTeam: this.state.pastSecondMatchData
-                            ? this.state.pastSecondMatchData.clubBTeam
-                            : '',
-                          gameDay: this.state.pastSecondMatchData
-                            ? this.state.pastSecondMatchData.gameDay
-                            : ''
-                        }}
-                      />
-                    </Link>
-                    <Link to='/aisw-cms-MatchPage/1/38657'>
-                      <MatchBox
-                        box={{
-                          clubATeam: this.state.pastThirdMatchData
-                            ? this.state.pastThirdMatchData.clubATeam
-                            : '',
-                          clubBTeam: this.state.pastThirdMatchData
-                            ? this.state.pastThirdMatchData.clubBTeam
-                            : '',
-                          gameDay: this.state.pastThirdMatchData
-                            ? this.state.pastThirdMatchData.gameDay
-                            : ''
-                        }}
-                      />
-                    </Link>
-                    <Link to='/aisw-cms-MatchPage/1/38126'>
-                      <MatchBox
-                        box={{
-                          clubATeam: this.state.futureFirstMatchData
-                            ? this.state.futureFirstMatchData.clubATeam
-                            : '',
-                          clubBTeam: this.state.futureFirstMatchData
-                            ? this.state.futureFirstMatchData.clubBTeam
-                            : '',
-                          gameDay: this.state.futureFirstMatchData
-                            ? this.state.futureFirstMatchData.gameDay
-                            : ''
-                        }}
-                      />
-                    </Link>
-                    <Link to='/aisw-cms-MatchPage/1/38260'>
-                      <MatchBox
-                        box={{
-                          clubATeam: this.state.futureSecondMatchData
-                            ? this.state.futureSecondMatchData.clubATeam
-                            : '',
-                          clubBTeam: this.state.futureSecondMatchData
-                            ? this.state.futureSecondMatchData.clubBTeam
-                            : '',
-                          gameDay: this.state.futureSecondMatchData
-                            ? this.state.futureSecondMatchData.gameDay
-                            : ''
-                        }}
-                      />
-                    </Link>
-                    <Link to='/aisw-cms-MatchPage/1/37845'>
-                      <MatchBox
-                        box={{
-                          clubATeam: this.state.futureThirdMatchData
-                            ? this.state.futureThirdMatchData.clubATeam
-                            : '',
-                          clubBTeam: this.state.futureThirdMatchData
-                            ? this.state.futureThirdMatchData.clubBTeam
-                            : '',
-                          gameDay: this.state.futureThirdMatchData
-                            ? this.state.futureThirdMatchData.gameDay
-                            : ''
-                        }}
-                      />
-                    </Link>
-                  </div>
-                </div>
+                </Link>
+                <Link to='/aisw-cms-MatchPage/1/38657'>
+                  <MatchBox
+                    box={{
+                      clubATeam: this.state.pastThirdMatchData
+                        ? this.state.pastThirdMatchData.clubATeam
+                        : '',
+                      clubBTeam: this.state.pastThirdMatchData
+                        ? this.state.pastThirdMatchData.clubBTeam
+                        : '',
+                      gameDay: this.state.pastThirdMatchData
+                        ? this.state.pastThirdMatchData.gameDay
+                        : ''
+                    }}
+                  />
+                </Link>
+                <Link to='/aisw-cms-MatchPage/1/38126'>
+                  <MatchBox
+                    box={{
+                      clubATeam: this.state.futureFirstMatchData
+                        ? this.state.futureFirstMatchData.clubATeam
+                        : '',
+                      clubBTeam: this.state.futureFirstMatchData
+                        ? this.state.futureFirstMatchData.clubBTeam
+                        : '',
+                      gameDay: this.state.futureFirstMatchData
+                        ? this.state.futureFirstMatchData.gameDay
+                        : ''
+                    }}
+                  />
+                </Link>
+                <Link to='/aisw-cms-MatchPage/1/38260'>
+                  <MatchBox
+                    box={{
+                      clubATeam: this.state.futureSecondMatchData
+                        ? this.state.futureSecondMatchData.clubATeam
+                        : '',
+                      clubBTeam: this.state.futureSecondMatchData
+                        ? this.state.futureSecondMatchData.clubBTeam
+                        : '',
+                      gameDay: this.state.futureSecondMatchData
+                        ? this.state.futureSecondMatchData.gameDay
+                        : ''
+                    }}
+                  />
+                </Link>
+                <Link to='/aisw-cms-MatchPage/1/37845'>
+                  <MatchBox
+                    box={{
+                      clubATeam: this.state.futureThirdMatchData
+                        ? this.state.futureThirdMatchData.clubATeam
+                        : '',
+                      clubBTeam: this.state.futureThirdMatchData
+                        ? this.state.futureThirdMatchData.clubBTeam
+                        : '',
+                      gameDay: this.state.futureThirdMatchData
+                        ? this.state.futureThirdMatchData.gameDay
+                        : ''
+                    }}
+                  />
+                </Link>
               </div>
             </div>
           </div>

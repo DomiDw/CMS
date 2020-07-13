@@ -1,44 +1,73 @@
 import React, { Component } from 'react'
-import './teamtable.scss'
+import './squadpage.scss'
 import { Input } from '@material-ui/core'
-import PublishIcon from '@material-ui/icons/Publish'
 import AddIcon from '@material-ui/icons/Add'
 import DoneIcon from '@material-ui/icons/Done'
 import CloseIcon from '@material-ui/icons/Close'
 import EditIcon from '@material-ui/icons/Edit'
+import ImageUploader from 'react-images-upload'
+import RemoveIcon from '@material-ui/icons/Remove'
+import { ISquadPage } from './ISquadPage'
 
-export class TeamTable extends Component<any, any> {
-  constructor (props: any) {
+class SquadPage extends Component<ISquadPage, any> {
+  constructor (props: ISquadPage) {
     super(props)
     this.state = {
       value: '',
       openID: undefined,
-      array: [
+      show: false,
+      pictures: [],
+      teamArray: [
         { name: 'Blimmer', alter: '18', trikotnummer: '10', position: 'Mittelfeld' },
-        { name: 'Bjurnus Burgus', alter: '84', trikotnummer: '69', position: 'Bankwärmer' },
-        { name: 'Bjurnus Burgus', alter: '84', trikotnummer: '69', position: 'Bankwärmer' },
-        { name: 'Bjurnus Burgus', alter: '84', trikotnummer: '69', position: 'Bankwärmer' }
+        { name: 'Bjurnus Burgus', alter: '84', trikotnummer: '69', position: 'Pfosten' }
       ]
     }
+    this.handleUpload = this.handleUpload.bind(this)
+  }
+
+  handleUpload (picture:any) {
+    this.setState({
+      pictures: this.state.pictures.concat(picture)
+    })
+  }
+
+  addRow = () => {
+    const arr = this.state.teamArray
+    arr.push('new row')
+    this.setState({
+      arr: arr
+    })
+    console.log('nach ADD Klick ' + arr.length)
+  }
+
+  // TO DO: Delete Abbruch wenn vorhandener Eintrag
+  delRow = () => {
+    const arr = this.state.teamArray
+    const arrLength = arr.length
+    arr.pop('new row')
+    this.setState({
+      teamArray: arr
+    })
+    console.log('nach DEL Klick ' + arrLength)
   }
 
     handleChange = (event:any, value:string, index:any) => {
-      var newArray = this.state.array
+      var newArray = this.state.teamArray
       newArray[index] = { ...newArray[index], [value]: event.target.value }
       this.setState({
-        array: newArray
+        teamArray: newArray
       })
     }
 
     handleClose = () => {
       this.setState({
         openID: undefined,
-        array: this.state.tempArray
+        teamArray: this.state.tempArray
       })
     }
 
     handleEdit = (index:number) => {
-      var initArray = Object.assign([], this.state.array)
+      var initArray = Object.assign([], this.state.teamArray)
       this.setState({
         openID: index,
         tempArray: initArray
@@ -52,16 +81,39 @@ export class TeamTable extends Component<any, any> {
       })
     }
 
+    showHideTeam = () => {
+      this.setState({
+        show: !this.state.show
+      })
+    }
+
+    // componentDidUpdate (prevProps:any) {
+    //   if (this.state.teamArray !== prevProps.teamArray) {
+    //     this.setState({
+    //       teamArray: prevProps.teamArray
+    //     })
+    //   }
+    // }
+
     render () {
       return (
       // TO DO: Picture Upload
         <div className='col-xs-12'>
           <div className='row'>
             <div className='teamTable'>
+              <div>
+                <h1 className='inputLabel'>
+                  1. Herren
+                </h1>
+              </div>
               <div className='upload-tr'>
                 <div className='upload'>
-                  <PublishIcon />
-                  Foto hochladen
+                  <ImageUploader
+                    buttonText='Bild hochladen'
+                    onChange={this.handleUpload}
+                    imgExtension={['.jpg', '.gif', '.png']}
+                    maxFileSize={5242880}
+                  />
                 </div>
                 <img
                   className='teamPic'
@@ -73,10 +125,10 @@ export class TeamTable extends Component<any, any> {
                 <tbody>
                   <tr>
                     <th className='icon-th' colSpan={5}>
-                      <AddIcon className='teamtableButtons' />
+                      <AddIcon className='teamtableButtons' onClick={() => { this.addRow() }} />
                     </th>
                   </tr>
-                  {this.state.array.map((event:any, index:any) => {
+                  {this.state.teamArray.map((event:any, index:any) => {
                     return (
                       <tr key={index}>
                         <td>
@@ -125,6 +177,11 @@ export class TeamTable extends Component<any, any> {
                       </tr>
                     )
                   })}
+                  <tr>
+                    <th className='icon-th' colSpan={5}>
+                      <RemoveIcon className='teamtableButtons' onClick={() => { this.delRow() }} />
+                    </th>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -133,3 +190,5 @@ export class TeamTable extends Component<any, any> {
       )
     }
 }
+
+export default SquadPage
