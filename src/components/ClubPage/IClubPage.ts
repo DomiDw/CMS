@@ -1,5 +1,4 @@
 export interface IClubPageProps{
-
 }
 interface gameData {
     clubATeam:string;
@@ -27,4 +26,5 @@ export interface IClubPageState{
     }
     loading: boolean;
     checked: boolean;
+    // name: string;
 }

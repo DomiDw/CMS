@@ -9,13 +9,16 @@ import { MatchBox } from '../MatchBox/MatchBox'
 import Discovery from '@soccerwatch/discovery'
 import { Spinner } from '../Spinner/Spinner'
 import { Link } from 'react-router-dom'
-import LinkToSquad from '../LinkToSquad/LinkToSquad'
 
-const teamOne = '1. Herren'
-// const kaderTwo = 'Alt-Herren'
-// const kaderThree = 'A-Jugend'
+export let teamName:string = ''
 
 class ClubPage extends Component<IClubPageProps, IClubPageState> {
+  options = [
+    '1. Herren',
+    'Alt-Herren',
+    'A-Jugend'
+  ]
+
   constructor (props: IClubPageProps) {
     super(props)
     this.state = {
@@ -70,6 +73,24 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
     this.getData()
   }
 
+  handleButtonValue = (name:string) => {
+    teamName = name
+  }
+
+  getToSquad () {
+    return (
+      <div>
+        {this.options.map((name:string, index:number) => {
+          return (
+            <button className='squadButton' onClick={() => { this.handleButtonValue(name) }} key={index}>
+              {name}
+            </button>
+          )
+        })}
+      </div>
+    )
+  }
+
   render () {
     return (
       <div className='container-fluid'>
@@ -120,9 +141,9 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
             <div className='spacer-small' />
             <div className='col-xs-12'>
               <div className='row'>
-                <LinkToSquad
-                  team={teamOne}
-                />
+                <Link to='/aisw-cms-SquadPage'>
+                  {this.getToSquad()}
+                </Link>
                 <div className='spacer-small' />
                 <Link to='/aisw-cms-MatchPage/1/41651'>
                   <MatchBox
