@@ -49,146 +49,146 @@ class SquadPage extends Component<ISquadPage, any> {
     })
   }
 
-    handleChange = (event:any, value:string, index:any) => {
-      var newArray = this.state.teamArray
-      newArray[index] = { ...newArray[index], [value]: event.target.value }
-      this.setState({
-        teamArray: newArray
-      })
-    }
+  handleChange = (event:any, value:string, index:any) => {
+    var newArray = this.state.teamArray
+    newArray[index] = { ...newArray[index], [value]: event.target.value }
+    this.setState({
+      teamArray: newArray
+    })
+  }
 
-    handleClose = () => {
-      this.setState({
-        openID: undefined,
-        teamArray: this.state.tempArray
-      })
-    }
+  handleClose = () => {
+    this.setState({
+      openID: undefined,
+      teamArray: this.state.tempArray
+    })
+  }
 
-    handleEdit = (index:number) => {
-      var initArray = Object.assign([], this.state.teamArray)
-      this.setState({
-        openID: index,
-        tempArray: initArray
-      })
-    }
+  handleEdit = (index:number) => {
+    var initArray = Object.assign([], this.state.teamArray)
+    this.setState({
+      openID: index,
+      tempArray: initArray
+    })
+  }
 
-    handlePostKader = () => {
-    // TODO: PostCall (Sobald API da ist)
-      this.setState({
-        openID: undefined
-      })
-    }
+  handlePostKader = () => {
+  // TODO: PostCall (Sobald API da ist)
+    this.setState({
+      openID: undefined
+    })
+  }
 
-    showHideTeam = () => {
-      this.setState({
-        show: !this.state.show
-      })
-    }
+  showHideTeam = () => {
+    this.setState({
+      show: !this.state.show
+    })
+  }
 
-    // componentDidUpdate (prevProps:any) {
-    //   if (this.state.teamArray !== prevProps.teamArray) {
-    //     this.setState({
-    //       teamArray: prevProps.teamArray
-    //     })
-    //   }
-    // }
+  // componentDidUpdate (prevProps:any) {
+  //   if (this.state.teamArray !== prevProps.teamArray) {
+  //     this.setState({
+  //       teamArray: prevProps.teamArray
+  //     })
+  //   }
+  // }
 
-    render () {
-      return (
+  render () {
+    return (
       // TO DO: Picture Upload
-        <div className='container-fluid'>
-          <div className='row'>
-            <div className='col-xs-12'>
-              <div className='teamTable'>
-                <div>
-                  <h1 className='inputLabel'>
-                    {teamName}
-                  </h1>
-                </div>
-                <div className='upload-tr'>
-                  <div className='upload'>
-                    <ImageUploader
-                      buttonText='Bild hochladen'
-                      onChange={this.handleUpload}
-                      imgExtension={['.jpg', '.gif', '.png']}
-                      maxFileSize={5242880}
-                    />
-                  </div>
-                  <img
-                    className='teamPic'
-                    alt=''
-                    src='https://cdn.fupa.net/team-image/jpeg/1200x675/xwPrpdZXG7hrf8rGFCy4zRR5kAdy5bGdeu0iVZ0I'
+      <div className='container-fluid'>
+        <div className='row'>
+          <div className='col-xs-12'>
+            <div className='teamTable'>
+              <div>
+                <h1 className='inputLabel'>
+                  {teamName}
+                </h1>
+              </div>
+              <div className='upload-tr'>
+                <div className='upload'>
+                  <ImageUploader
+                    buttonText='Bild hochladen'
+                    onChange={this.handleUpload}
+                    imgExtension={['.jpg', '.gif', '.png']}
+                    maxFileSize={5242880}
                   />
                 </div>
-                <table>
-                  <tbody>
-                    <tr>
-                      <th className='icon-th' colSpan={5}>
-                        <AddIcon className='teamtableButtons' onClick={() => { this.addRow() }} />
-                      </th>
-                    </tr>
-                    {this.state.teamArray.map((event:any, index:any) => {
-                      return (
-                        <tr key={index}>
-                          <td>
-                            <Input
-                              value={this.state.value || event.name}
-                              disabled={this.state.openID !== index}
-                              placeholder='Spielername'
-                              onChange={(event) => this.handleChange(event, 'name', index)}
-                            />
-                          </td>
-                          <td>
-                            <Input
-                              value={this.state.value || event.alter}
-                              disabled={this.state.openID !== index}
-                              placeholder='Alter'
-                              onChange={(event) => this.handleChange(event, 'alter', index)}
-                            />
-                          </td>
-                          <td>
-                            <Input
-                              value={this.state.value || event.trikotnummer}
-                              disabled={this.state.openID !== index}
-                              placeholder='Trikotnummer'
-                              onChange={(event) => this.handleChange(event, 'trikotnummer', index)}
-                            />
-                          </td>
-                          <td>
-                            <Input
-                              value={this.state.value || event.position}
-                              disabled={this.state.openID !== index}
-                              placeholder='Position'
-                              onChange={(event) => this.handleChange(event, 'position', index)}
-                            />
-                          </td>
-                          <td>
-                            <div>
-                              {this.state.openID === index
-                                ? <CloseIcon className='teamtableButtons cancel' onClick={() => this.handleClose()} />
-                                : <EditIcon className='teamtableButtons edit' onClick={() => this.handleEdit(index)} />}
-                            </div>
-                            {this.state.openID === index ? (
-                              <DoneIcon className='teamtableButtons save' onClick={() => this.handlePostKader()} />
-                            )
-                              : null}
-                          </td>
-                        </tr>
-                      )
-                    })}
-                    <tr>
-                      <th className='icon-th' colSpan={5}>
-                        <RemoveIcon className='teamtableButtons' onClick={() => { this.delRow() }} />
-                      </th>
-                    </tr>
-                  </tbody>
-                </table>
+                <img
+                  className='teamPic'
+                  alt=''
+                  src='https://cdn.fupa.net/team-image/jpeg/1200x675/xwPrpdZXG7hrf8rGFCy4zRR5kAdy5bGdeu0iVZ0I'
+                />
               </div>
+              <table>
+                <tbody>
+                  <tr>
+                    <th className='icon-th' colSpan={5}>
+                      <AddIcon className='teamtableButtons' onClick={() => { this.addRow() }} />
+                    </th>
+                  </tr>
+                  {this.state.teamArray.map((event:any, index:any) => {
+                    return (
+                      <tr key={index}>
+                        <td>
+                          <Input
+                            value={this.state.value || event.name}
+                            disabled={this.state.openID !== index}
+                            placeholder='Spielername'
+                            onChange={(event) => this.handleChange(event, 'name', index)}
+                          />
+                        </td>
+                        <td>
+                          <Input
+                            value={this.state.value || event.alter}
+                            disabled={this.state.openID !== index}
+                            placeholder='Alter'
+                            onChange={(event) => this.handleChange(event, 'alter', index)}
+                          />
+                        </td>
+                        <td>
+                          <Input
+                            value={this.state.value || event.trikotnummer}
+                            disabled={this.state.openID !== index}
+                            placeholder='Trikotnummer'
+                            onChange={(event) => this.handleChange(event, 'trikotnummer', index)}
+                          />
+                        </td>
+                        <td>
+                          <Input
+                            value={this.state.value || event.position}
+                            disabled={this.state.openID !== index}
+                            placeholder='Position'
+                            onChange={(event) => this.handleChange(event, 'position', index)}
+                          />
+                        </td>
+                        <td>
+                          <div>
+                            {this.state.openID === index
+                              ? <CloseIcon className='teamtableButtons cancel' onClick={() => this.handleClose()} />
+                              : <EditIcon className='teamtableButtons edit' onClick={() => this.handleEdit(index)} />}
+                          </div>
+                          {this.state.openID === index ? (
+                            <DoneIcon className='teamtableButtons save' onClick={() => this.handlePostKader()} />
+                          )
+                            : null}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                  <tr>
+                    <th className='icon-th' colSpan={5}>
+                      <RemoveIcon className='teamtableButtons' onClick={() => { this.delRow() }} />
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-      )
-    }
+      </div>
+    )
+  }
 }
 
 export default SquadPage

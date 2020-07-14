@@ -4,6 +4,7 @@ import '../../../node_modules/flexboxgrid/css/flexboxgrid.min.css'
 import { Club } from '../Club/Club'
 import { TextBox } from '../Textbox/Textbox'
 import axios from 'axios'
+import axiosRetry from 'axios-retry'
 import { IClubPageProps, IClubPageState } from './IClubPage'
 import { MatchBox } from '../MatchBox/MatchBox'
 import Discovery from '@soccerwatch/discovery'
@@ -34,6 +35,7 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
   }
 
   getData = async () => {
+    axiosRetry(axios, { retries: 5 })
     const clubAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
     const pastFirstMatchAPI = Discovery.API_VIDEO + '/meta/41651'
     const pastSecondMatchAPI = Discovery.API_VIDEO + '/meta/41196'
@@ -79,7 +81,7 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
 
   getToSquad () {
     return (
-      <div>
+      <>
         {this.options.map((name:string, index:number) => {
           return (
             <button className='squadButton' onClick={() => { this.handleButtonValue(name) }} key={index}>
@@ -87,7 +89,7 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
             </button>
           )
         })}
-      </div>
+      </>
     )
   }
 
@@ -142,7 +144,9 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
             <div className='col-xs-12'>
               <div className='row'>
                 <Link to='/aisw-cms-SquadPage'>
-                  {this.getToSquad()}
+                  <div className='squad'>
+                    {this.getToSquad()}
+                  </div>
                 </Link>
                 <div className='spacer-small' />
                 <Link to='/aisw-cms-MatchPage/1/41651'>

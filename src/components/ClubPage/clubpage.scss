@@ -1,8 +1,11 @@
 .col-center {
   margin: 0 auto;
 }
-.squadButton {
+.squad {
   margin: 0 auto;
-  padding: 10px 30px;
-  
+  flex-wrap: wrap;
+  flex-direction: row;
+  .squadButton {
+    padding: 8px 30px;
+  }
 }
