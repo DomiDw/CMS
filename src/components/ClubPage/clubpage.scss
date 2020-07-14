@@ -7,5 +7,17 @@
   flex-direction: row;
   .squadButton {
     padding: 8px 30px;
+    border-radius: 0.25rem;
+    border-width: 0px;
+    font: 400 1rem Arial;
+    transition: 0.2s ease all;
+    margin-right: 1rem;
+    &:hover {
+      background-color: rgb(96, 219, 96);
+    }
   }
+}
+.matchboxes {
+  margin: 0 auto;
+  padding: 1rem 0rem;
 }

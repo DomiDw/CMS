@@ -1,6 +1,6 @@
 .matchbox-body {
-    display: flex;
-    align-items: center;
-    border-radius: 0.25rem;
-    padding: 1rem 0rem;
+table, th, td {
+    border: 1px solid grey;
+    border-radius: 3px;
+}
 }

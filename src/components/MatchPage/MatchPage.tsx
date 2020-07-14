@@ -7,6 +7,7 @@ import { Team } from '../Team/Team'
 import { TextBox } from '../Textbox/Textbox'
 import { IMatchPageState, IMatchPageProps } from './IMatchPage'
 import axios from 'axios'
+import axiosRetry from 'axios-retry'
 import Discovery from '@soccerwatch/discovery'
 import '../../../node_modules/flexboxgrid/css/flexboxgrid.min.css'
 import IconButton from '@material-ui/core/IconButton'
@@ -51,6 +52,7 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
   }
 
   getData = async () => {
+    axiosRetry(axios, { retries: 5 })
     const video = await this.getVideo()
     const metaDataVideo = video
     const clubAPIHome = Discovery.API_CLUB + '/info/' + metaDataVideo.clubAId
