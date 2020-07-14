@@ -123,13 +123,40 @@ class SquadPage extends Component<ISquadPage, any> {
               <table>
                 <tbody>
                   <tr>
-                    <th className='icon-th' colSpan={5}>
+                    <th className='icon-th'>
                       <AddIcon className='teamtableButtons' onClick={() => { this.addRow() }} />
+                    </th>
+                    <th>
+                      Spielername
+                    </th>
+                    <th>
+                      Alter
+                    </th>
+                    <th>
+                      Nummer
+                    </th>
+                    <th>
+                      Position
                     </th>
                   </tr>
                   {this.state.teamArray.map((event:any, index:any) => {
                     return (
                       <tr key={index}>
+                        <td>
+                          <div>
+                            {this.state.openID === index
+                              ? <CloseIcon className='teamtableButtons cancel' onClick={() => this.handleClose()} />
+                              : <EditIcon className='teamtableButtons edit' onClick={() => this.handleEdit(index)} />}
+                          </div>
+                          {this.state.openID === index ? (
+                            <DoneIcon className='teamtableButtons save' onClick={() => this.handlePostKader()} />
+                          )
+                            : (
+                              <div className='icon-th'>
+                                <RemoveIcon className='teamtableButtons del' onClick={() => this.delRow()} />
+                              </div>
+                            )}
+                        </td>
                         <td>
                           <Input
                             value={this.state.value || event.name}
@@ -162,25 +189,12 @@ class SquadPage extends Component<ISquadPage, any> {
                             onChange={(event) => this.handleChange(event, 'position', index)}
                           />
                         </td>
-                        <td>
-                          <div>
-                            {this.state.openID === index
-                              ? <CloseIcon className='teamtableButtons cancel' onClick={() => this.handleClose()} />
-                              : <EditIcon className='teamtableButtons edit' onClick={() => this.handleEdit(index)} />}
-                          </div>
-                          {this.state.openID === index ? (
-                            <DoneIcon className='teamtableButtons save' onClick={() => this.handlePostKader()} />
-                          )
-                            : null}
-                        </td>
                       </tr>
                     )
                   })}
-                  <tr>
-                    <th className='icon-th' colSpan={5}>
-                      <RemoveIcon className='teamtableButtons' onClick={() => { this.delRow() }} />
-                    </th>
-                  </tr>
+                  {/* <tr>
+
+                  </tr> */}
                 </tbody>
               </table>
             </div>

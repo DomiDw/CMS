@@ -57,6 +57,9 @@ th, td {
     &:hover.edit {
         background-color: rgb(18, 115, 148);
     }
+    &:hover.del {
+        background-color: red;
+    }
 }
 .inputLabel {
         display: flex;

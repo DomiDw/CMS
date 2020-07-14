@@ -17,7 +17,10 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
   options = [
     '1. Herren',
     'Alt-Herren',
-    'A-Jugend'
+    'A-Jugend',
+    'B-Jugend',
+    'C-Jugend',
+    'D-Jugend'
   ]
 
   constructor (props: IClubPageProps) {
@@ -143,10 +146,8 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
             <div className='spacer-small' />
             <div className='col-xs-12'>
               <div className='row'>
-                <Link to='/aisw-cms-SquadPage'>
-                  <div className='squad'>
-                    {this.getToSquad()}
-                  </div>
+                <Link className='squad' to='/aisw-cms-SquadPage'>
+                  {this.getToSquad()}
                 </Link>
                 <div className='spacer-small' />
                 <Link to='/aisw-cms-MatchPage/1/41651'>
