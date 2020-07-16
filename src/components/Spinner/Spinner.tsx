@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import './spinner.scss'
+import { ISpinnerProps } from './ISpinner'
 
-export class Spinner extends Component {
+export class Spinner extends Component<ISpinnerProps> {
+  constructor (props: ISpinnerProps) {
+    super(props)
+    this.state = {}
+  }
+
   render () {
     return (
       <div className='col-xs-12 spinner'>
@@ -19,7 +25,7 @@ export class Spinner extends Component {
           <div />
           <div />
         </div>
-        <div className='text'>Informationen werden geladen...</div>
+        <div className='text'>{this.props.text ? this.props.text : 'Informationen werden geladen...'}</div>
       </div>
     )
   }

@@ -6,10 +6,10 @@ import { TextBox } from '../Textbox/Textbox'
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
 import { IClubPageProps, IClubPageState } from './IClubPage'
-import { MatchBox } from '../MatchBox/MatchBox'
 import Discovery from '@soccerwatch/discovery'
 import { Spinner } from '../Spinner/Spinner'
 import { Link } from 'react-router-dom'
+import { TableMatch } from '../TableMatch/TableMatch'
 
 export let teamName:string = ''
 
@@ -40,36 +40,12 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
   getData = async () => {
     axiosRetry(axios, { retries: 5 })
     const clubAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
-    const pastFirstMatchAPI = Discovery.API_VIDEO + '/meta/41651'
-    const pastSecondMatchAPI = Discovery.API_VIDEO + '/meta/41196'
-    const pastThirdMatchAPI = Discovery.API_VIDEO + '/meta/38657'
-    const futureFirstMatchAPI = Discovery.API_VIDEO + '/meta/38126'
-    const futureSecondMatchAPI = Discovery.API_VIDEO + '/meta/38260'
-    const futureThirdMatchAPI = Discovery.API_VIDEO + '/meta/37845'
     const res = await Promise.all([
-      axios.get(clubAPI),
-      axios.get(pastFirstMatchAPI),
-      axios.get(pastSecondMatchAPI),
-      axios.get(pastThirdMatchAPI),
-      axios.get(futureFirstMatchAPI),
-      axios.get(futureSecondMatchAPI),
-      axios.get(futureThirdMatchAPI)
+      axios.get(clubAPI)
     ])
     const dataClub = res[0].data
-    const pastFirstMatchData = res[1].data
-    const pastSecondMatchData = res[2].data
-    const pastThirdMatchData = res[3].data
-    const futureFirstMatchData = res[4].data
-    const futureSecondMatchData = res[5].data
-    const futureThirdMatchData = res[6].data
     this.setState({
       dataClub,
-      pastFirstMatchData,
-      pastSecondMatchData,
-      pastThirdMatchData,
-      futureFirstMatchData,
-      futureSecondMatchData,
-      futureThirdMatchData,
       loading: false
     })
   }
@@ -153,97 +129,8 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
               </div>
             </div>
             <div className='spacer-small' />
-            <div className='matchboxes'>
-              <Link to='/aisw-cms-MatchPage/1/41651'>
-                <MatchBox
-                  box={{
-                    clubATeam: this.state.pastFirstMatchData
-                      ? this.state.pastFirstMatchData.clubATeam
-                      : '',
-                    clubBTeam: this.state.pastFirstMatchData
-                      ? this.state.pastFirstMatchData.clubBTeam
-                      : '',
-                    gameDay: this.state.pastFirstMatchData
-                      ? this.state.pastFirstMatchData.gameDay
-                      : ''
-                  }}
-                />
-              </Link>
-              <Link to='/aisw-cms-MatchPage/1/41196'>
-                <MatchBox
-                  box={{
-                    clubATeam: this.state.pastSecondMatchData
-                      ? this.state.pastSecondMatchData.clubATeam
-                      : '',
-                    clubBTeam: this.state.pastSecondMatchData
-                      ? this.state.pastSecondMatchData.clubBTeam
-                      : '',
-                    gameDay: this.state.pastSecondMatchData
-                      ? this.state.pastSecondMatchData.gameDay
-                      : ''
-                  }}
-                />
-              </Link>
-              <Link to='/aisw-cms-MatchPage/1/38657'>
-                <MatchBox
-                  box={{
-                    clubATeam: this.state.pastThirdMatchData
-                      ? this.state.pastThirdMatchData.clubATeam
-                      : '',
-                    clubBTeam: this.state.pastThirdMatchData
-                      ? this.state.pastThirdMatchData.clubBTeam
-                      : '',
-                    gameDay: this.state.pastThirdMatchData
-                      ? this.state.pastThirdMatchData.gameDay
-                      : ''
-                  }}
-                />
-              </Link>
-              <Link to='/aisw-cms-MatchPage/1/38126'>
-                <MatchBox
-                  box={{
-                    clubATeam: this.state.futureFirstMatchData
-                      ? this.state.futureFirstMatchData.clubATeam
-                      : '',
-                    clubBTeam: this.state.futureFirstMatchData
-                      ? this.state.futureFirstMatchData.clubBTeam
-                      : '',
-                    gameDay: this.state.futureFirstMatchData
-                      ? this.state.futureFirstMatchData.gameDay
-                      : ''
-                  }}
-                />
-              </Link>
-              <Link to='/aisw-cms-MatchPage/1/38260'>
-                <MatchBox
-                  box={{
-                    clubATeam: this.state.futureSecondMatchData
-                      ? this.state.futureSecondMatchData.clubATeam
-                      : '',
-                    clubBTeam: this.state.futureSecondMatchData
-                      ? this.state.futureSecondMatchData.clubBTeam
-                      : '',
-                    gameDay: this.state.futureSecondMatchData
-                      ? this.state.futureSecondMatchData.gameDay
-                      : ''
-                  }}
-                />
-              </Link>
-              <Link to='/aisw-cms-MatchPage/1/37845'>
-                <MatchBox
-                  box={{
-                    clubATeam: this.state.futureThirdMatchData
-                      ? this.state.futureThirdMatchData.clubATeam
-                      : '',
-                    clubBTeam: this.state.futureThirdMatchData
-                      ? this.state.futureThirdMatchData.clubBTeam
-                      : '',
-                    gameDay: this.state.futureThirdMatchData
-                      ? this.state.futureThirdMatchData.gameDay
-                      : ''
-                  }}
-                />
-              </Link>
+            <div>
+              <TableMatch />
             </div>
           </div>
         )}
