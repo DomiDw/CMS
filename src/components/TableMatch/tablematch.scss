@@ -1,0 +1,51 @@
+.sortHeader {
+    cursor: pointer;
+}
+.sortButton {
+    margin-top: 5rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+}
+caption {
+    padding: 10px 2px;
+    text-decoration: underline;
+}
+th {
+    height: 3rem;
+}
+.past-games {
+    width: 98%;
+}
+.upcoming-games {
+    width: 98%;
+}
+.pastLeft {
+
+}
+.futureRight {
+
+}
+.headerButtons {
+    margin: 0 auto;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.buttonz {
+    padding: 8px 30px;
+    border-radius: 0.25rem;
+    border-width: 0px;
+    font: 400 1rem Arial;
+    transition: 0.2s ease all;
+    margin-right: 3rem;
+    margin-left: 3rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    &:hover {
+      background-color: rgb(96, 219, 96);
+    }
+}

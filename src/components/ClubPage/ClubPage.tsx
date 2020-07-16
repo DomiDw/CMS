@@ -129,9 +129,7 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
               </div>
             </div>
             <div className='spacer-small' />
-            <div>
-              <TableMatch />
-            </div>
+            <TableMatch />
           </div>
         )}
       </div>

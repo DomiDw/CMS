@@ -6,12 +6,16 @@ import _ from 'lodash'
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
 import { Spinner } from '../Spinner/Spinner'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 
 export class TableMatch extends Component<ITableMatchProps, any> {
   constructor (props: ITableMatchProps) {
     super(props)
     this.state = {
       loading: true,
+      showPast: false,
+      showFuture: false,
       sortDirection: 'asc',
       configTableHeader: [
         { name: 'clubATeam', showName: 'Ihr Verein' },
@@ -53,6 +57,116 @@ export class TableMatch extends Component<ITableMatchProps, any> {
     this.getData()
   }
 
+  showHideTablePast = () => {
+    return (
+      this.state.showPast === true ? (
+        <div className='col-xs-6'>
+          <div className='row'>
+            <table className='past-games'>
+              <caption>PAST</caption>
+              <thead>
+                <tr>
+                  {this.state.configTableHeader.map((header:any, i:number) => (
+                    <th
+                      key={i}
+                      className='sortHeader'
+                      onClick={() => this.sortArray(header.name)}
+                    >
+                      <span>
+                        {header.showName}
+                        <span className='sortButton'>
+                          {this.state.sortDirection === 'asc'
+                            ? <ArrowDropDownIcon />
+                            : <ArrowDropUpIcon />}
+                        </span>
+                      </span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.rows.map((row: any, i:number) => (
+                  <tr key={i}>
+                    <td>
+                      {row.clubATeam}
+                    </td>
+                    <td>
+                      {row.clubBTeam}
+                    </td>
+                    <td>
+                      {row.gameDay}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null
+    )
+  }
+
+  showHideTableFuture = () => {
+    return (
+      this.state.showFuture === true ? (
+        <div className='col-xs-6'>
+          <div className='row'>
+            <table className='upcoming-games'>
+              <caption>FUTURE</caption>
+              <thead>
+                <tr>
+                  {this.state.configTableHeader.map((header:any, i:number) => (
+                    <th
+                      key={i}
+                      className='sortHeader'
+                      onClick={() => this.sortArray(header.name)}
+                    >
+                      <span>
+                        {header.showName}
+                        <span className='sortButton'>
+                          {this.state.sortDirection === 'asc'
+                            ? <ArrowDropDownIcon />
+                            : <ArrowDropUpIcon />}
+                        </span>
+                      </span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.rows.map((row: any, i:number) => (
+                  <tr key={i}>
+                    <td>
+                      {row.clubATeam}
+                    </td>
+                    <td>
+                      {row.clubBTeam}
+                    </td>
+                    <td>
+                      {row.gameDay}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : null
+    )
+  }
+
+  handleTablePast = () => {
+    this.setState({
+      showPast: !this.state.showPas
+    })
+  }
+
+  handleTableFuture = () => {
+    this.setState({
+      showFuture: !this.state.showFuture
+    })
+  }
+
   sortArray = (headerString:string) => {
     const { sortDirection, rows } = this.state
     const flipSort = sortDirection === 'asc' ? 'desc' : 'asc'
@@ -73,35 +187,40 @@ export class TableMatch extends Component<ITableMatchProps, any> {
       )
     }
     return (
-      <table>
-        <thead>
-          <tr>
-            {this.state.configTableHeader.map((header:any, i:number) => (
-              <th
-                key={i}
-                onClick={() => this.sortArray(header.name)}
+      <>
+        <div className='col-xs-12'>
+          <div className='row'>
+            <div className='headerButtons'>
+              <button
+                className='buttonz'
+                onClick={() => {
+                  this.setState({
+                    showPast: !this.state.showPast
+                  })
+                }}
               >
-                {header.showName}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.rows.map((row: any, i:number) => (
-            <tr key={i}>
-              <td>
-                {row.clubATeam}
-              </td>
-              <td>
-                {row.clubBTeam}
-              </td>
-              <td>
-                {row.gameDay}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                Spielplan vergangener Spiele
+              </button>
+              <button
+                className='buttonz'
+                onClick={() => {
+                  this.setState({
+                    showFuture: !this.state.showFuture
+                  })
+                }}
+              >
+                Spielplan künftiger Spiele
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className='col-xs-12'>
+          <div className='row'>
+            {this.showHideTablePast()}
+            {this.showHideTableFuture()}
+          </div>
+        </div>
+      </>
     )
   }
 }
