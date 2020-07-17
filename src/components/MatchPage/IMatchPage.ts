@@ -1,4 +1,5 @@
 export interface IMatchPageProps {
+    location?: any;
 }
 export interface IMatchPageState {
     metaDataVideo?: {
@@ -11,13 +12,11 @@ export interface IMatchPageState {
     metaDataClubHome?: {
         name:string;
         thumbnail:string;
+        location:string;
     }
     metaDataClubGuest?: {
         name:string;
         thumbnail:string;
-    }
-    metaDataClub?: {
-        location:string;
     }
     loading: boolean;
     checked: boolean;

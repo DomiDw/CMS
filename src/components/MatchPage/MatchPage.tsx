@@ -53,20 +53,22 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
 
   getData = async () => {
     axiosRetry(axios, { retries: 5 })
-    const video = await this.getVideo()
+    let video
+    if (this.props.location && this.props.location.query?.matchData) {
+      video = this.props.location.query.matchData
+    } else {
+      video = await this.getVideo()
+    }
     const metaDataVideo = video
     const clubAPIHome = Discovery.API_CLUB + '/info/' + metaDataVideo.clubAId
     const clubAPIGuest = Discovery.API_CLUB + '/info/' + metaDataVideo.clubBId
-    const clubAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
     const res = await Promise.all([
       axios.get(clubAPIHome),
-      axios.get(clubAPIGuest),
-      axios.get(clubAPI)
+      axios.get(clubAPIGuest)
     ])
     const metaDataClubHome = res[0].data
     const metaDataClubGuest = res[1].data
-    const metaDataClub = res[2].data
-    this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest, metaDataClub, loading: false })
+    this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest, loading: false })
   }
 
   componentDidMount () {
@@ -141,8 +143,8 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
                 <div className='clubDescriptionText'>Videobeschreibung (location als Filler)</div>
                 <TextBox
                   editableText={
-                    this.state.metaDataClub
-                      ? this.state.metaDataClub.location
+                    this.state.metaDataClubHome
+                      ? this.state.metaDataClubHome.location
                       : ''
                   }
                 />
@@ -152,8 +154,8 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
                 <div className='clubDescriptionText'>Vereinsbeschreibung (location als Filler)</div>
                 <TextBox
                   editableText={
-                    this.state.metaDataClub
-                      ? this.state.metaDataClub.location
+                    this.state.metaDataClubHome
+                      ? this.state.metaDataClubHome.location
                       : ''
                   }
                 />
@@ -163,8 +165,8 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
                 <div className='clubMessageText'>Vereinsnachricht (location als Filler)</div>
                 <TextBox
                   editableText={
-                    this.state.metaDataClub
-                      ? this.state.metaDataClub.location
+                    this.state.metaDataClubHome
+                      ? this.state.metaDataClubHome.location
                       : ''
                   }
                 />

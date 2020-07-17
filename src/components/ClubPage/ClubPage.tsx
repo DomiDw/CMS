@@ -59,16 +59,25 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
   }
 
   getToSquad () {
+    const linkToSquadPage:string = '/aisw-cms-SquadPage/' + this.getClubIdFromUrl() + '/'
     return (
-      <>
-        {this.options.map((name:string, index:number) => {
-          return (
-            <button className='squadButton' onClick={() => { this.handleButtonValue(name) }} key={index}>
+      <div className='squad'>
+        {this.options.map((name:string, index:number) => (
+          <Link
+            key={index} to={{
+              pathname: linkToSquadPage + name,
+              query: { teamName: name }
+            }}
+          >
+            <button
+              className='squadButton'
+              onClick={() => { this.handleButtonValue(name) }}
+            >
               {name}
             </button>
-          )
-        })}
-      </>
+          </Link>
+        ))}
+      </div>
     )
   }
 
@@ -120,12 +129,10 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
               />
             </div>
             <div className='spacer-small' />
-            <div className='col-xs-12'>
+            <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12 col-center'>
               <div className='row'>
                 <div className='spacer-small' />
-                <Link className='squad' to='/aisw-cms-SquadPage'>
-                  {this.getToSquad()}
-                </Link>
+                {this.getToSquad()}
               </div>
             </div>
             <div className='spacer-small' />
