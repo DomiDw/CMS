@@ -2,7 +2,7 @@ const express = require('express')
 const { join } = require('path')
 const Fs = require('fs')
 const Jsyaml = require('js-yaml')
-const SERVICE_NAME = 'aisw-cms-matchpage'
+const SERVICE_NAME = 'aisw-cms-clubpage'
 const DEFAULT_ENVIRONMENT = 'dev'
 const app = express()
 

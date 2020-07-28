@@ -60,6 +60,9 @@ th, td {
     &:hover.del {
         background-color: red;
     }
+    &:hover.add {
+        background-color: lightskyblue;
+    }
 }
 .inputLabel {
         display: flex;

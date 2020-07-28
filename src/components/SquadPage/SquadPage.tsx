@@ -9,6 +9,10 @@ import ImageUploader from 'react-images-upload'
 import RemoveIcon from '@material-ui/icons/Remove'
 import { ISquadPage } from './ISquadPage'
 import { teamName } from '../ClubPage/ClubPage'
+import { TextBox } from '../Textbox/Textbox'
+import axiosRetry from 'axios-retry'
+import axios from 'axios'
+import Discovery from '@soccerwatch/discovery'
 
 class SquadPage extends Component<ISquadPage, any> {
   constructor (props: ISquadPage) {
@@ -17,6 +21,7 @@ class SquadPage extends Component<ISquadPage, any> {
       value: '',
       openID: undefined,
       show: false,
+      loading: true,
       pictures: [],
       teamArray: [
         { name: 'Blimmer', alter: '18', trikotnummer: '10', position: 'Mittelfeld' },
@@ -93,6 +98,31 @@ class SquadPage extends Component<ISquadPage, any> {
   //   }
   // }
 
+  getClubIdFromUrl () {
+    const url = window.location.href
+    const parts = url.split('/')
+    for (let i = 0; i < parts.length; i++) {
+      return parts[4].length > 0 ? parts[4] : null
+    }
+  }
+
+  getData = async () => {
+    axiosRetry(axios, { retries: 5 })
+    const clubAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
+    const res = await Promise.all([
+      axios.get(clubAPI)
+    ])
+    const dataClub = res[0].data
+    this.setState({
+      dataClub,
+      loading: false
+    })
+  }
+
+  componentDidMount () {
+    this.getData()
+  }
+
   render () {
     return (
       // TO DO: Picture Upload
@@ -120,24 +150,27 @@ class SquadPage extends Component<ISquadPage, any> {
                   src='https://cdn.fupa.net/team-image/jpeg/1200x675/xwPrpdZXG7hrf8rGFCy4zRR5kAdy5bGdeu0iVZ0I'
                 />
               </div>
+              <div className='spacer-small' />
+              <div className='clubDescriptionText'>Informationen zum Kader (location als Filler)</div>
+              <div className='col-xs-12'>
+                <TextBox editableText={
+                  this.state.dataClub
+                    ? this.state.dataClub?.location
+                    : ''
+                }
+                />
+              </div>
+              <div className='spacer-small' />
               <table>
                 <tbody>
                   <tr>
                     <th className='icon-th'>
-                      <AddIcon className='teamtableButtons' onClick={() => { this.addRow() }} />
+                      <AddIcon className='teamtableButtons add' onClick={() => { this.addRow() }} />
                     </th>
-                    <th>
-                      Spielername
-                    </th>
-                    <th>
-                      Alter
-                    </th>
-                    <th>
-                      Nummer
-                    </th>
-                    <th>
-                      Position
-                    </th>
+                    <th>Spielername</th>
+                    <th>Alter</th>
+                    <th>Nummer</th>
+                    <th>Position</th>
                   </tr>
                   {this.state.teamArray.map((event:any, index:any) => {
                     return (
@@ -192,9 +225,6 @@ class SquadPage extends Component<ISquadPage, any> {
                       </tr>
                     )
                   })}
-                  {/* <tr>
-
-                  </tr> */}
                 </tbody>
               </table>
             </div>

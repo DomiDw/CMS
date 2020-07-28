@@ -59,7 +59,7 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
   }
 
   getToSquad () {
-    const linkToSquadPage:string = '/aisw-cms-SquadPage/' + this.getClubIdFromUrl() + '/'
+    const linkToSquadPage:string = '/aisw-cms-squadpage/' + this.getClubIdFromUrl() + '/'
     return (
       <div className='squad'>
         {this.options.map((name:string, index:number) => (
