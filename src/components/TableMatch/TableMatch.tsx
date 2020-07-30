@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ITableMatchProps } from './ITableMatch'
 import './tablematch.scss'
-import Discovery from '@soccerwatch/discovery'
+// import Discovery from '@soccerwatch/discovery'
 import _ from 'lodash'
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
@@ -9,67 +9,64 @@ import { Spinner } from '../Spinner/Spinner'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import { Link } from 'react-router-dom'
-import LaunchIcon from '@material-ui/icons/Launch'
+import InputIcon from '@material-ui/icons/Input'
+
+export let date:any
 
 export class TableMatch extends Component<ITableMatchProps, any> {
   constructor (props: ITableMatchProps) {
     super(props)
     this.state = {
       loading: true,
+      pastArray: [],
+      futuArray: [],
       showPast: false,
       showFuture: false,
       sortDirection: 'asc',
-      linkToPage: '/aisw-cms-MatchPage/1/',
+      linkToPage: '/aisw-cms-MatchPage/' + this.getClubIdFromUrl() + '/',
       configTableHeader: [
-        { name: 'clubATeam', showName: 'Heim Mannschaft' },
-        { name: 'clubBTeam', showName: 'Gast Mannschaft' },
-        { name: 'gameDay', showName: 'Datum' },
-        { name: 'matchId', showName: 'Zum Spiel' }
+        { name: 'clubATeam', showName: 'Heim' },
+        { name: 'clubBTeam', showName: 'Gast' },
+        { name: 'gameDay', showName: 'Datum' }
       ],
       rows: []
     }
   }
 
+  getClubIdFromUrl () {
+    const url = window.location.href
+    const parts = url.split('/')
+    for (let i = 0; i < parts.length; i++) {
+      return parts[4].length > 0 ? parts[4] : null
+    }
+  }
+
   getData = async () => {
     axiosRetry(axios, { retries: 5 })
-    const firstMatchAPI = Discovery.API_VIDEO + '/meta/41651'
-    const secondMatchAPI = Discovery.API_VIDEO + '/meta/41196'
-    const thirdMatchAPI = Discovery.API_VIDEO + '/meta/37400'
-    const res = await Promise.all([
-      axios.get(firstMatchAPI),
-      axios.get(secondMatchAPI),
-      axios.get(thirdMatchAPI)
-    ])
-    const firstMatchData = res[0].data
-    const secondMatchData = res[1].data
-    const thirdMatchData = res[2].data
-    this.setState({
-      matchDataOne: firstMatchData,
-      matchDataTwo: secondMatchData,
-      matchDataThree: thirdMatchData,
-      rows: [
-        {
-          clubATeam: firstMatchData.clubATeam,
-          clubBTeam: firstMatchData.clubBTeam,
-          gameDay: firstMatchData.gameDay,
-          matchId: firstMatchData.matchId,
-          object: firstMatchData
-        },
-        {
-          clubATeam: secondMatchData.clubATeam,
-          clubBTeam: secondMatchData.clubBTeam,
-          gameDay: secondMatchData.gameDay,
-          matchId: secondMatchData.matchId,
-          object: secondMatchData
-        },
-        {
-          clubATeam: thirdMatchData.clubATeam,
-          clubBTeam: thirdMatchData.clubBTeam,
-          gameDay: thirdMatchData.gameDay,
-          matchId: thirdMatchData.matchId,
-          object: thirdMatchData
+    const url:any = await axios.post('https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' + this.getClubIdFromUrl())
+    const pastArray:any = []
+    const futuArray:any = []
+    url.data.container.map((item:any) => {
+      const arrayData = {
+        clubATeam: item?.tiles[0]?.Match?.clubAName,
+        clubBTeam: item?.tiles[0]?.Match?.clubBName,
+        gameDay: new Date(item?.tiles[0]?.Match?.startTime).toLocaleString(),
+        matchId: item?.tiles[0]?.Match?.matchId,
+        object: item?.tiles[0]?.Match
+      }
+      date = arrayData.gameDay
+      if (item?.type !== 'Highlight') {
+        if (new Date().getTime() > item?.tiles[0]?.Match?.startTime) {
+          pastArray.push(arrayData)
+        } else {
+          futuArray.push(arrayData)
         }
-      ],
+      }
+    })
+    this.setState({
+      matchDataOne: url.data,
+      pastArray: pastArray,
+      futuArray: futuArray,
       loading: false
     })
   }
@@ -78,8 +75,8 @@ export class TableMatch extends Component<ITableMatchProps, any> {
     this.getData()
   }
 
-  showHideTable = (show:any) => {
-    const { linkToPage, configTableHeader, sortDirection, rows } = this.state
+  showHideTable = (show:any, rows:any) => {
+    const { linkToPage, configTableHeader, sortDirection } = this.state
     return (
       show === true ? (
         <table>
@@ -116,7 +113,7 @@ export class TableMatch extends Component<ITableMatchProps, any> {
                       query: { matchData: row.object }
                     }}
                   >
-                    <LaunchIcon />
+                    <InputIcon />
                   </Link>
                 </td>
               </tr>
@@ -135,6 +132,7 @@ export class TableMatch extends Component<ITableMatchProps, any> {
       sortDirection: flipSort,
       rows: sortedRows
     })
+    console.log(sortDirection)
   }
 
   render () {
@@ -167,7 +165,7 @@ export class TableMatch extends Component<ITableMatchProps, any> {
                   </div>
                   <div className='spacer-small' />
                   <div className='col-xs-12'>
-                    {this.showHideTable(this.state.showPast)}
+                    {this.showHideTable(this.state.showPast, this.state.pastArray)}
                   </div>
                   <div className='spacer-small' />
                 </div>
@@ -190,7 +188,7 @@ export class TableMatch extends Component<ITableMatchProps, any> {
                   </div>
                   <div className='spacer-small' />
                   <div className='col-xs-12'>
-                    {this.showHideTable(this.state.showFuture)}
+                    {this.showHideTable(this.state.showFuture, this.state.futuArray)}
                   </div>
                   <div className='spacer-small' />
                 </div>
