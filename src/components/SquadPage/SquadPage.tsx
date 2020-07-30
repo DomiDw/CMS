@@ -13,6 +13,7 @@ import { TextBox } from '../Textbox/Textbox'
 import axiosRetry from 'axios-retry'
 import axios from 'axios'
 import Discovery from '@soccerwatch/discovery'
+import { Navbar } from '../Navbar/Navbar'
 
 class SquadPage extends Component<ISquadPage, any> {
   constructor (props: ISquadPage) {
@@ -125,112 +126,114 @@ class SquadPage extends Component<ISquadPage, any> {
 
   render () {
     return (
-      // TO DO: Picture Upload
-      <div className='container-fluid'>
-        <div className='row'>
-          <div className='col-xs-12'>
-            <div className='teamTable'>
-              <div>
-                <h1 className='inputLabel'>
-                  {teamName}
-                </h1>
-              </div>
-              <div className='upload-tr'>
-                <div className='upload'>
-                  <ImageUploader
-                    buttonText='Bild hochladen'
-                    onChange={this.handleUpload}
-                    imgExtension={['.jpg', '.gif', '.png']}
-                    maxFileSize={5242880}
+      <>
+        <Navbar />
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='col-xs-12'>
+              <div className='teamTable'>
+                <div>
+                  <h1 className='inputLabel'>
+                    {teamName}
+                  </h1>
+                </div>
+                <div className='upload-tr'>
+                  <div className='upload'>
+                    <ImageUploader
+                      buttonText='Bild hochladen'
+                      onChange={this.handleUpload}
+                      imgExtension={['.jpg', '.gif', '.png']}
+                      maxFileSize={5242880}
+                    />
+                  </div>
+                  <img
+                    className='teamPic'
+                    alt=''
+                    src='https://cdn.fupa.net/team-image/jpeg/1200x675/xwPrpdZXG7hrf8rGFCy4zRR5kAdy5bGdeu0iVZ0I'
                   />
                 </div>
-                <img
-                  className='teamPic'
-                  alt=''
-                  src='https://cdn.fupa.net/team-image/jpeg/1200x675/xwPrpdZXG7hrf8rGFCy4zRR5kAdy5bGdeu0iVZ0I'
-                />
+                <div className='spacer-small' />
+                <div className='clubDescriptionText'>Informationen zum Kader (location als Filler)</div>
+                <div className='col-xs-12'>
+                  <TextBox editableText={
+                    this.state.dataClub
+                      ? this.state.dataClub?.location
+                      : ''
+                  }
+                  />
+                </div>
+                <div className='spacer-small' />
+                <table>
+                  <tbody>
+                    <tr>
+                      <th className='icon-th'>
+                        <AddIcon className='teamtableButtons add' onClick={() => { this.addRow() }} />
+                      </th>
+                      <th>Spielername</th>
+                      <th>Alter</th>
+                      <th>Nummer</th>
+                      <th>Position</th>
+                    </tr>
+                    {this.state.teamArray.map((event:any, index:any) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <div>
+                              {this.state.openID === index
+                                ? <CloseIcon className='teamtableButtons cancel' onClick={() => this.handleClose()} />
+                                : <EditIcon className='teamtableButtons edit' onClick={() => this.handleEdit(index)} />}
+                            </div>
+                            {this.state.openID === index ? (
+                              <DoneIcon className='teamtableButtons save' onClick={() => this.handlePostKader()} />
+                            )
+                              : (
+                                <div className='icon-th'>
+                                  <RemoveIcon className='teamtableButtons del' onClick={() => this.delRow()} />
+                                </div>
+                              )}
+                          </td>
+                          <td>
+                            <Input
+                              value={this.state.value || event.name}
+                              disabled={this.state.openID !== index}
+                              placeholder='Spielername'
+                              onChange={(event) => this.handleChange(event, 'name', index)}
+                            />
+                          </td>
+                          <td>
+                            <Input
+                              value={this.state.value || event.alter}
+                              disabled={this.state.openID !== index}
+                              placeholder='Alter'
+                              onChange={(event) => this.handleChange(event, 'alter', index)}
+                            />
+                          </td>
+                          <td>
+                            <Input
+                              value={this.state.value || event.trikotnummer}
+                              disabled={this.state.openID !== index}
+                              placeholder='Trikotnummer'
+                              onChange={(event) => this.handleChange(event, 'trikotnummer', index)}
+                            />
+                          </td>
+                          <td>
+                            <Input
+                              value={this.state.value || event.position}
+                              disabled={this.state.openID !== index}
+                              placeholder='Position'
+                              onChange={(event) => this.handleChange(event, 'position', index)}
+                            />
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
               </div>
-              <div className='spacer-small' />
-              <div className='clubDescriptionText'>Informationen zum Kader (location als Filler)</div>
-              <div className='col-xs-12'>
-                <TextBox editableText={
-                  this.state.dataClub
-                    ? this.state.dataClub?.location
-                    : ''
-                }
-                />
-              </div>
-              <div className='spacer-small' />
-              <table>
-                <tbody>
-                  <tr>
-                    <th className='icon-th'>
-                      <AddIcon className='teamtableButtons add' onClick={() => { this.addRow() }} />
-                    </th>
-                    <th>Spielername</th>
-                    <th>Alter</th>
-                    <th>Nummer</th>
-                    <th>Position</th>
-                  </tr>
-                  {this.state.teamArray.map((event:any, index:any) => {
-                    return (
-                      <tr key={index}>
-                        <td>
-                          <div>
-                            {this.state.openID === index
-                              ? <CloseIcon className='teamtableButtons cancel' onClick={() => this.handleClose()} />
-                              : <EditIcon className='teamtableButtons edit' onClick={() => this.handleEdit(index)} />}
-                          </div>
-                          {this.state.openID === index ? (
-                            <DoneIcon className='teamtableButtons save' onClick={() => this.handlePostKader()} />
-                          )
-                            : (
-                              <div className='icon-th'>
-                                <RemoveIcon className='teamtableButtons del' onClick={() => this.delRow()} />
-                              </div>
-                            )}
-                        </td>
-                        <td>
-                          <Input
-                            value={this.state.value || event.name}
-                            disabled={this.state.openID !== index}
-                            placeholder='Spielername'
-                            onChange={(event) => this.handleChange(event, 'name', index)}
-                          />
-                        </td>
-                        <td>
-                          <Input
-                            value={this.state.value || event.alter}
-                            disabled={this.state.openID !== index}
-                            placeholder='Alter'
-                            onChange={(event) => this.handleChange(event, 'alter', index)}
-                          />
-                        </td>
-                        <td>
-                          <Input
-                            value={this.state.value || event.trikotnummer}
-                            disabled={this.state.openID !== index}
-                            placeholder='Trikotnummer'
-                            onChange={(event) => this.handleChange(event, 'trikotnummer', index)}
-                          />
-                        </td>
-                        <td>
-                          <Input
-                            value={this.state.value || event.position}
-                            disabled={this.state.openID !== index}
-                            placeholder='Position'
-                            onChange={(event) => this.handleChange(event, 'position', index)}
-                          />
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
             </div>
           </div>
         </div>
-      </div>
+      </>
     )
   }
 }
