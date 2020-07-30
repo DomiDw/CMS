@@ -78,55 +78,6 @@ export class TableMatch extends Component<ITableMatchProps, any> {
     this.getData()
   }
 
-  // showHideTablePast = () => {
-  //   const { linkToPage, showPast, configTableHeader, sortDirection, rows } = this.state
-  //   return (
-  //     showPast === true ? (
-  //       <table>
-  //         <thead>
-  //           <tr>
-  //             {configTableHeader.map((header:any, i:number) => (
-  //               <th
-  //                 key={i}
-  //                 className='sortHeader'
-  //                 onClick={() => this.sortArray(header.name)}
-  //               >
-  //                 <span>
-  //                   {header.showName}
-  //                   <span className='sortButton'>
-  //                     {sortDirection === 'asc'
-  //                       ? <ArrowDropDownIcon />
-  //                       : <ArrowDropUpIcon />}
-  //                   </span>
-  //                 </span>
-  //               </th>
-  //             ))}
-  //           </tr>
-  //         </thead>
-  //         <tbody>
-  //           {rows.map((row: any, i:number) => (
-  //             <tr key={i}>
-  //               <td>{row.clubATeam}</td>
-  //               <td>{row.clubBTeam}</td>
-  //               <td>{row.gameDay}</td>
-  //               <td>
-  //                 <Link
-  //                   to={{
-  //                     pathname: linkToPage + row.matchId,
-  //                     query: { matchData: row.object }
-  //                   }}
-  //                 >
-  //                   <LaunchIcon />
-  //                 </Link>
-  //               </td>
-  //             </tr>
-  //           ))}
-  //         </tbody>
-  //       </table>
-  //     ) : null
-  //   )
-  // }
-
   showHideTable = (show:any) => {
     const { linkToPage, configTableHeader, sortDirection, rows } = this.state
     return (
