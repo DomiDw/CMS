@@ -13,7 +13,7 @@ export class Navbar extends Component {
   }
 
   backToPage: string =
-  'http://localhost:3000/aisw-cms-ClubPage/' +
+  'http://localhost:3000/aisw-cms-clubpage/' +
   this.getClubIdFromUrl();
 
   render () {

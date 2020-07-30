@@ -5,7 +5,6 @@ import AddIcon from '@material-ui/icons/Add'
 import DoneIcon from '@material-ui/icons/Done'
 import CloseIcon from '@material-ui/icons/Close'
 import EditIcon from '@material-ui/icons/Edit'
-import ImageUploader from 'react-images-upload'
 import RemoveIcon from '@material-ui/icons/Remove'
 import { ISquadPage } from './ISquadPage'
 import { teamName } from '../ClubPage/ClubPage'
@@ -16,10 +15,12 @@ import Discovery from '@soccerwatch/discovery'
 import { Navbar } from '../Navbar/Navbar'
 
 class SquadPage extends Component<ISquadPage, any> {
+  fileInput: HTMLInputElement | null | undefined
   constructor (props: ISquadPage) {
     super(props)
     this.state = {
       value: '',
+      linkToPicture: 'https://cdn.fupa.net/team-image/jpeg/1200x675/xwPrpdZXG7hrf8rGFCy4zRR5kAdy5bGdeu0iVZ0I',
       openID: undefined,
       show: false,
       loading: true,
@@ -30,12 +31,6 @@ class SquadPage extends Component<ISquadPage, any> {
       ]
     }
     this.handleUpload = this.handleUpload.bind(this)
-  }
-
-  handleUpload (picture:any) {
-    this.setState({
-      pictures: this.state.pictures.concat(picture)
-    })
   }
 
   addRow = () => {
@@ -124,6 +119,10 @@ class SquadPage extends Component<ISquadPage, any> {
     this.getData()
   }
 
+  handleUpload = (selectorFiles: FileList | any) => {
+    console.log(selectorFiles)
+  }
+
   render () {
     return (
       <>
@@ -139,17 +138,20 @@ class SquadPage extends Component<ISquadPage, any> {
                 </div>
                 <div className='upload-tr'>
                   <div className='upload'>
-                    <ImageUploader
-                      buttonText='Bild hochladen'
-                      onChange={this.handleUpload}
-                      imgExtension={['.jpg', '.gif', '.png']}
-                      maxFileSize={5242880}
+                    <input
+                      style={{ display: 'none' }}
+                      type='file'
+                      onChange={(e) => this.handleUpload(e.target.files)}
+                      ref={fileInput => { this.fileInput = fileInput }}
                     />
+                    <button onClick={() => this.fileInput?.click()}>
+                      Mannschaftsfoto hochladen
+                    </button>
                   </div>
                   <img
                     className='teamPic'
                     alt=''
-                    src='https://cdn.fupa.net/team-image/jpeg/1200x675/xwPrpdZXG7hrf8rGFCy4zRR5kAdy5bGdeu0iVZ0I'
+                    src={this.state.linkToPicture}
                   />
                 </div>
                 <div className='spacer-small' />
