@@ -44,8 +44,8 @@ export class TableMatch extends Component<ITableMatchProps, any> {
   getData = async () => {
     axiosRetry(axios, { retries: 5 })
     const url:any = await axios.post('https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' + this.getClubIdFromUrl())
-    const pastArray:any = []
-    const futuArray:any = []
+    // const pastArray:any = []
+    // const futuArray:any = []
     url.data.container.map((item:any) => {
       const arrayData = {
         clubATeam: item?.tiles[0]?.Match?.clubAName,
@@ -57,16 +57,18 @@ export class TableMatch extends Component<ITableMatchProps, any> {
       date = arrayData.gameDay
       if (item?.type !== 'Highlight') {
         if (new Date().getTime() > item?.tiles[0]?.Match?.startTime) {
-          pastArray.push(arrayData)
+          if (this.state.pastArray.length < 10) {
+            this.state.pastArray.push(arrayData)
+          }
         } else {
-          futuArray.push(arrayData)
+          if (this.state.futuArray.length < 10) {
+            this.state.futuArray.push(arrayData)
+          }
         }
       }
     })
     this.setState({
       matchDataOne: url.data,
-      pastArray: pastArray,
-      futuArray: futuArray,
       loading: false
     })
   }
@@ -125,14 +127,15 @@ export class TableMatch extends Component<ITableMatchProps, any> {
   }
 
   sortArray = (headerString:string) => {
-    const { sortDirection, rows } = this.state
+    const { sortDirection, pastArray, futuArray } = this.state
     const flipSort = sortDirection === 'asc' ? 'desc' : 'asc'
-    const sortedRows = _.orderBy(rows, [headerString], [flipSort])
+    const sortedRowsPast = _.orderBy(pastArray, [headerString], [flipSort])
+    const sortedRowsFutu = _.orderBy(futuArray, [headerString], [flipSort])
     this.setState({
       sortDirection: flipSort,
-      rows: sortedRows
+      pastArray: sortedRowsPast,
+      futuArray: sortedRowsFutu
     })
-    console.log(sortDirection)
   }
 
   render () {
