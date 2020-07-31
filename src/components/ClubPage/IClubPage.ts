@@ -26,5 +26,5 @@ export interface IClubPageState{
     }
     loading: boolean;
     checked: boolean;
-    // name: string;
+    squadArray: any;
 }

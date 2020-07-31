@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { ITableMatchProps } from './ITableMatch'
 import './tablematch.scss'
-// import Discovery from '@soccerwatch/discovery'
 import _ from 'lodash'
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
@@ -66,6 +65,7 @@ export class TableMatch extends Component<ITableMatchProps, any> {
           }
         }
       }
+      return null
     })
     this.setState({
       matchDataOne: url.data,

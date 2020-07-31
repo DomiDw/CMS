@@ -13,23 +13,25 @@ export class Video extends Component<IVideoProps, IVideoState> {
   render () {
     return (
       <div className='col-xs-12'>
-        {this.props.url ? (
-          <div className='player-wrapper'>
-            <ReactPlayer
-              className='react-player'
-              url={this.props.url}
-              controls
-              playing
-              muted
-              width='100%'
-              height='100%'
-            />
-          </div>
-        ) : (
-          <div className='date'>
-            Dieses Spiel findet am {date} Uhr statt
-          </div>
-        )}
+        <div className='row'>
+          {this.props.url ? (
+            <div className='player-wrapper'>
+              <ReactPlayer
+                className='react-player'
+                url={this.props.url}
+                controls
+                playing
+                muted
+                width='100%'
+                height='100%'
+              />
+            </div>
+          ) : (
+            <div className='date'>
+              Dieses Spiel findet am {date} Uhr statt
+            </div>
+          )}
+        </div>
       </div>
     )
   }

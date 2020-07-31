@@ -7,7 +7,6 @@ import CloseIcon from '@material-ui/icons/Close'
 import EditIcon from '@material-ui/icons/Edit'
 import RemoveIcon from '@material-ui/icons/Remove'
 import { ISquadPage } from './ISquadPage'
-import { teamName } from '../ClubPage/ClubPage'
 import { TextBox } from '../Textbox/Textbox'
 import axiosRetry from 'axios-retry'
 import axios from 'axios'
@@ -20,6 +19,7 @@ class SquadPage extends Component<ISquadPage, any> {
     super(props)
     this.state = {
       value: '',
+      squad: '',
       linkToPicture: 'https://cdn.fupa.net/team-image/jpeg/1200x675/xwPrpdZXG7hrf8rGFCy4zRR5kAdy5bGdeu0iVZ0I',
       openID: undefined,
       show: false,
@@ -86,14 +86,6 @@ class SquadPage extends Component<ISquadPage, any> {
     })
   }
 
-  // componentDidUpdate (prevProps:any) {
-  //   if (this.state.teamArray !== prevProps.teamArray) {
-  //     this.setState({
-  //       teamArray: prevProps.teamArray
-  //     })
-  //   }
-  // }
-
   getClubIdFromUrl () {
     const url = window.location.href
     const parts = url.split('/')
@@ -102,8 +94,17 @@ class SquadPage extends Component<ISquadPage, any> {
     }
   }
 
+  getSquadFromUrl () {
+    const url = window.location.href
+    const parts = url.split('/')
+    for (let i = 0; i < parts.length; i++) {
+      return parts[5]
+    }
+  }
+
   getData = async () => {
     axiosRetry(axios, { retries: 5 })
+    // Club Call (get)
     const clubAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
     const res = await Promise.all([
       axios.get(clubAPI)
@@ -113,12 +114,32 @@ class SquadPage extends Component<ISquadPage, any> {
       dataClub,
       loading: false
     })
+    // Container Club Call (post)
+    // const url:any = await
+    // axios.post('https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' +
+    // this.getClubIdFromUrl())
+    // url.data.container.map((item: any) => {
+    //   if (item?.tiles[0]?.Match?.clubAName === this.state.dataClub?.name) {
+    //     if (item?.tiles[0]?.Match?.clubATeam?.uniqueTeamId === this.getSquadFromUrl()) {
+    //       this.setState({
+    //         squad: item?.tiles[0]?.Match?.clubATeam?.uniqueTeamId
+    //       })
+    //     }
+    //   } else if (item?.tiles[0]?.Match?.clubBName === this.state.dataClub?.name) {
+    //     if (item?.tiles[0]?.Match?.clubBTeam?.uniqueTeamId === this.getSquadFromUrl()) {
+    //       this.setState({
+    //         squad: item?.tiles[0]?.Match?.clubBTeam?.uniqueTeamId
+    //       })
+    //     }
+    //   }
+    // })
   }
 
   componentDidMount () {
     this.getData()
   }
 
+  // TODO: Upload in Schnittstelle
   handleUpload = (selectorFiles: FileList | any) => {
     console.log(selectorFiles)
   }
@@ -133,7 +154,7 @@ class SquadPage extends Component<ISquadPage, any> {
               <div className='teamTable'>
                 <div>
                   <h1 className='inputLabel'>
-                    {teamName}
+                    {this.getSquadFromUrl()}
                   </h1>
                 </div>
                 <div className='upload-tr'>

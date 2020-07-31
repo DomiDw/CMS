@@ -11,22 +11,12 @@ import { Spinner } from '../Spinner/Spinner'
 import { Link } from 'react-router-dom'
 import { TableMatch } from '../TableMatch/TableMatch'
 
-export let teamName:string = ''
-
 class ClubPage extends Component<IClubPageProps, IClubPageState> {
-  options = [
-    '1. Herren',
-    'Alt-Herren',
-    'A-Jugend',
-    'B-Jugend',
-    'C-Jugend',
-    'D-Jugend'
-  ]
-
   constructor (props: IClubPageProps) {
     super(props)
     this.state = {
       loading: true,
+      squadArray: [],
       checked: false
     }
   }
@@ -39,6 +29,7 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
 
   getData = async () => {
     axiosRetry(axios, { retries: 5 })
+    // Get Club API for Club Component
     const clubAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
     const res = await Promise.all([
       axios.get(clubAPI)
@@ -48,31 +39,47 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
       dataClub,
       loading: false
     })
+    // Get Container Club API for Squad Component
+    const url:any = await
+    axios.post('https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' +
+    this.getClubIdFromUrl())
+    url.data.container.map((item:any) => {
+      let squadCategorie = ''
+      if (item?.tiles[0]?.Match?.clubAName === this.state.dataClub?.name) {
+        if (item?.type !== 'Highlight') {
+          squadCategorie = item?.tiles[0]?.Match?.clubATeam.baseTeamName
+          this.state.squadArray.push(squadCategorie)
+        }
+      } else if (item?.tiles[0]?.Match?.clubBName === this.state.dataClub?.name) {
+        if (item?.type !== 'Highlight') {
+          squadCategorie = item?.tiles[0]?.Match?.clubBTeam.baseTeamName
+          this.state.squadArray.push(squadCategorie)
+        }
+      }
+      this.setState({
+        squadArray: this.state.squadArray.reduce((unique:any, item:any) =>
+          unique.includes(item) ? unique : [...unique, item], [])
+      })
+      return null
+    })
   }
 
   componentDidMount () {
     this.getData()
   }
 
-  handleButtonValue = (name:string) => {
-    teamName = name
-  }
-
   getToSquad () {
     const linkToSquadPage:string = '/aisw-cms-squadpage/' + this.getClubIdFromUrl() + '/'
     return (
       <div className='squad'>
-        {this.options.map((name:string, index:number) => (
+        {this.state.squadArray.map((name:string, index:number) => (
           <Link
             key={index} to={{
               pathname: linkToSquadPage + name,
               query: { teamName: name }
             }}
           >
-            <button
-              className='squadButton'
-              onClick={() => { this.handleButtonValue(name) }}
-            >
+            <button className='squadButton'>
               {name}
             </button>
           </Link>
