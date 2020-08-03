@@ -10,15 +10,35 @@ import Discovery from '@soccerwatch/discovery'
 import { Spinner } from '../Spinner/Spinner'
 import { Link } from 'react-router-dom'
 import { TableMatch } from '../TableMatch/TableMatch'
+// import { SwatchesPicker } from 'react-color'
 
 class ClubPage extends Component<IClubPageProps, IClubPageState> {
   constructor (props: IClubPageProps) {
     super(props)
     this.state = {
+      background: '#fff',
       loading: true,
       squadArray: [],
       checked: false
     }
+  }
+
+  getColor () {
+    return (
+      // <SwatchesPicker
+      //   color={this.state.background}
+      //   onChangeComplete={this.handleColorChange}
+      // />
+      <div>
+        Colorpicker Placeholder
+      </div>
+    )
+  }
+
+  handleColorChange = (color:any) => {
+    this.setState({
+      background: color.hex
+    })
   }
 
   getClubIdFromUrl () {
@@ -40,10 +60,10 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
       loading: false
     })
     // Get Container Club API for Squad Component
-    const url:any = await
+    const containerAPI:any = await
     axios.post('https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' +
     this.getClubIdFromUrl())
-    url.data.container.map((item:any) => {
+    containerAPI.data.container.map((item:any) => {
       let squadCategorie = ''
       if (item?.tiles[0]?.Match?.clubAName === this.state.dataClub?.name) {
         if (item?.type !== 'Highlight') {
@@ -90,7 +110,7 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
 
   render () {
     return (
-      <div className='container-fluid'>
+      <div className='container-fluid' style={{ backgroundColor: this.state.background }}>
         {this.state.loading && (
           <div className='row'>
             <div className='spacer-big' />
@@ -119,6 +139,11 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
             />
             <div className='spacer-small' />
             <div className='spacer-small' />
+            <div className='col-xs-12'>
+              <div className='row'>
+                {this.getColor()}
+              </div>
+            </div>
             <div className='col-xs-12'>
               <div className='clubDescriptionText'>Vereinsbeschreibung (location als Filler)</div>
               <TextBox editableText={

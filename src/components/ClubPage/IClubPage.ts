@@ -27,4 +27,5 @@ export interface IClubPageState{
     loading: boolean;
     checked: boolean;
     squadArray: any;
+    background: string;
 }
