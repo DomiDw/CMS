@@ -10,9 +10,8 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import { Link } from 'react-router-dom'
 import InputIcon from '@material-ui/icons/Input'
 
-export let date:any
-
 export class TableMatch extends Component<ITableMatchProps, any> {
+  classDate:any
   constructor (props: ITableMatchProps) {
     super(props)
     this.state = {
@@ -42,9 +41,9 @@ export class TableMatch extends Component<ITableMatchProps, any> {
 
   getData = async () => {
     axiosRetry(axios, { retries: 5 })
-    const url:any = await axios.post('https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' + this.getClubIdFromUrl())
-    // const pastArray:any = []
-    // const futuArray:any = []
+    const url:any = await axios.post(
+      'https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' +
+      this.getClubIdFromUrl())
     url.data.container.map((item:any) => {
       const arrayData = {
         clubATeam: item?.tiles[0]?.Match?.clubAName,
@@ -53,7 +52,7 @@ export class TableMatch extends Component<ITableMatchProps, any> {
         matchId: item?.tiles[0]?.Match?.matchId,
         object: item?.tiles[0]?.Match
       }
-      date = arrayData.gameDay
+
       if (item?.type !== 'Highlight') {
         if (new Date().getTime() > item?.tiles[0]?.Match?.startTime) {
           if (this.state.pastArray.length < 10) {

@@ -68,7 +68,12 @@ class MatchPage extends Component<IMatchPageProps, IMatchPageState> {
     ])
     const metaDataClubHome = res[0].data
     const metaDataClubGuest = res[1].data
-    this.setState({ metaDataVideo, metaDataClubHome, metaDataClubGuest, loading: false })
+    this.setState({
+      metaDataVideo,
+      metaDataClubHome,
+      metaDataClubGuest,
+      loading: false
+    })
   }
 
   componentDidMount () {
