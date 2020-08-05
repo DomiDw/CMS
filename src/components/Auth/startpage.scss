@@ -1,3 +1,40 @@
 .col-center {
     margin: 0 auto;
 }
+.frontPic {
+    margin: 0 auto;
+}
+.button {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0em;
+    font: 400 1rem Arial;
+    border-width: 0px;
+    padding: 6px 12px;
+    border-radius: 0.25rem;
+    transition: 0.2s ease all;
+    margin-right: 0.5rem;
+    &:hover {
+        &.login {
+            background-color: rgb(92, 197, 92);
+        }
+        &.regis {
+             background-color: rgb(92, 197, 92);
+        }
+        &.club {
+             background-color: rgb(92, 197, 92);
+        }
+    }
+    &.login {
+        background-color:rgb(119, 231, 119);
+    }
+    &.regis {
+        background-color:rgb(119, 231, 119);
+    }
+    &.club {
+        background-color:rgb(119, 231, 119);
+    }
+}
+.input {
+    padding: 5px 10px;
+}

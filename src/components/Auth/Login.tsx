@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import './startpage.scss'
 
 class Login extends Component<any, any> {
   constructor (props:any) {
@@ -49,21 +50,19 @@ class Login extends Component<any, any> {
           <form onSubmit={this.handleSubmit}>
             <input
               type='email'
-              name='email'
+              className='input email'
               placeholder='Email'
               value={this.state.email}
               onChange={this.handleChange}
-              required
             />
             <input
               type='password'
-              name='password'
+              className='input password'
               placeholder='Password'
               value={this.state.password}
               onChange={this.handleChange}
-              required
             />
-            <button type='submit'>
+            <button className='button login'>
               Login
             </button>
           </form>

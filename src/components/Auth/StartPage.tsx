@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import Login from './Login'
-import Registration from './Registration'
 import { Link } from 'react-router-dom'
-// import { IStartPageProps, IStartPageState } from './IStartPage'
+import './startpage.scss'
 
 class StartPage extends Component<any, any> {
     linkToClub:string = '/aisw-cms-clubpage/' + 1
@@ -20,27 +19,37 @@ class StartPage extends Component<any, any> {
     }
 
     render () {
-      console.log(this.state.clubId)
       return (
         <div className='container-fluid'>
           <div className='row'>
             <div className='col-xs-12 col-center'>
               <div className='spacer-big' />
               <div>
-                <img src='https://lh3.googleusercontent.com/proxy/cxLR2seRDc75sG420PbOd1Qw_wUZJVsMOs3Xn1yseU8TO4QqWX1h4obnl29RsSpyDTVmxdVL9K2AnmX1FfwnipYfvDwRejEnz-g042tYXPyFpdsR1CunUwVDiHU' alt='' />
-                <div className='spacer-big' />
+                <div className='row'>
+                  <div className='col-xs-12'>
+                    <img
+                      src='https://crm.esb-online.com/storage/company/logos/02e82830c18712347f7fc0b886bc6171d62fb69c.png'
+                      alt=''
+                      className='frontPic'
+                    />
+                  </div>
+                </div>
+                <div className='spacer-small' />
+                <div className='col-center'>
+                  Text über das Projekt hier
+                </div>
+                <div className='spacer-small' />
                 <div className='col-center'>
                   <input
                     type='clubId'
-                    name='clubId'
+                    className='input id'
                     value={this.state.clubId}
                     onChange={this.handleChange}
                     placeholder='Gewünschte Club ID'
-                    required
                   />
                   {this.state.clubId.length > 0 ? (
                     <Link to={'/aisw-cms-clubpage/' + this.state.clubId}>
-                      <button type='submit'>
+                      <button className='button club'>
                         Zum Club
                       </button>
                     </Link>
@@ -51,7 +60,12 @@ class StartPage extends Component<any, any> {
                   <Login />
                 </div>
                 <div className='col-center'>
-                  <Registration />
+                  <div className='spacer-small' />
+                  <a href='https://soccerwatch.tv/profile' target='blank'>
+                    <button className='button regis'>
+                      Registrierung auf Soccerwatch.tv
+                    </button>
+                  </a>
                 </div>
               </div>
             </div>
