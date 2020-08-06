@@ -31,23 +31,11 @@ th {
     transition: 0.2s ease all;
     cursor: pointer;
     &:hover {
-      background-color: rgb(96, 219, 96);
+        background-color: rgb(196, 201, 196);
     }
 }
-.left-Side {
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-}
-.right-Side {
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-}
+.left-Side,
+.right-Side,
 .col-center {
     margin: 0 auto;
     display: flex;

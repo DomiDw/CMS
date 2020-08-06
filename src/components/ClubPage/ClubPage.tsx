@@ -10,7 +10,8 @@ import Discovery from '@soccerwatch/discovery'
 import { Spinner } from '../Spinner/Spinner'
 import { Link } from 'react-router-dom'
 import { TableMatch } from '../TableMatch/TableMatch'
-// import { SwatchesPicker } from 'react-color'
+import { SketchPicker } from 'react-color'
+// import { createMuiTheme } from '@material-ui/core/styles'
 
 class ClubPage extends Component<IClubPageProps, IClubPageState> {
   constructor (props: IClubPageProps) {
@@ -19,19 +20,89 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
       background: '#fff',
       loading: true,
       squadArray: [],
-      checked: false
+      checked: false,
+      showPrimary: false,
+      showSecondary: false,
+      colors: [
+        { name: 'Hier wählen Sie die Primärfarbe' },
+        { name: 'Hier wählen Sie die Sekundärfarbe' }
+      ]
     }
   }
 
-  getColor () {
+  setPrimaryColor = (show:any) => {
     return (
-      // <SwatchesPicker
-      //   color={this.state.background}
-      //   onChangeComplete={this.handleColorChange}
-      // />
-      <div>
-        Colorpicker Placeholder
-      </div>
+      show === true ? (
+        <div className='primary'>
+          <SketchPicker
+            color={this.state.background}
+            onChangeComplete={this.handleColorChange}
+          />
+        </div>
+      ) : null
+    )
+  }
+
+  setSecondaryColor = (show:any) => {
+    return (
+      show === true ? (
+        <div className='secondary'>
+          <SketchPicker />
+        </div>
+      ) : null
+    )
+  }
+
+  colorTable () {
+    return (
+      <>
+        <div className='col-xs-12'>
+          <div className='row'>
+            <div className='col-xs-12 col-sm-12 col-md-6 col-center'>
+              <div className='row'>
+                <div className='col-xs-12 left-Side'>
+                  <div className='buttons'>
+                    <button
+                      className='buttonRow' onClick={() => {
+                        this.setState({
+                          showPrimary: !this.state.showPrimary
+                        })
+                      }}
+                    >
+                      Primärfarbe
+                    </button>
+                    <div className='spacer-small' />
+                    <div className='col-xs-12'>
+                      {this.setPrimaryColor(this.state.showPrimary)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='col-xs-12 col-sm-12 col-md-6 col-center'>
+              <div className='row'>
+                <div className='col-xs-12 right-Side'>
+                  <div className='buttons'>
+                    <button
+                      className='buttonRow' onClick={() => {
+                        this.setState({
+                          showSecondary: !this.state.showSecondary
+                        })
+                      }}
+                    >
+                      Sekundärfarbe
+                    </button>
+                  </div>
+                  <div className='spacer-small' />
+                  <div className='col-xs-12'>
+                    {this.setSecondaryColor(this.state.showSecondary)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
     )
   }
 
@@ -91,7 +162,7 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
   getToSquad () {
     const linkToSquadPage:string = '/aisw-cms-squadpage/' + this.getClubIdFromUrl() + '/'
     return (
-      <div className='squad'>
+      <div className='buttons'>
         {this.state.squadArray.map((name:string, index:number) => (
           <Link
             key={index} to={{
@@ -99,7 +170,7 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
               query: { teamName: name }
             }}
           >
-            <button className='squadButton'>
+            <button className='buttonRow'>
               {name}
             </button>
           </Link>
@@ -137,13 +208,9 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
                   : ''
               }
             />
-            <div className='spacer-small' />
-            <div className='spacer-small' />
-            <div className='col-xs-12'>
-              <div className='row'>
-                {this.getColor()}
-              </div>
-            </div>
+            <div className='spacer-big' />
+            {this.colorTable()}
+            <div className='spacer-big' />
             <div className='col-xs-12'>
               <div className='clubDescriptionText'>Vereinsbeschreibung (location als Filler)</div>
               <TextBox editableText={

@@ -1,4 +1,4 @@
-export interface IClubPageProps{
+export interface IClubPageProps {
 }
 interface gameData {
     clubATeam:string;
@@ -28,4 +28,7 @@ export interface IClubPageState{
     checked: boolean;
     squadArray: any;
     background: string;
+    showPrimary: boolean;
+    showSecondary: boolean;
+    colors: {name:string}[]
 }

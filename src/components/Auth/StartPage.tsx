@@ -36,7 +36,7 @@ class StartPage extends Component<any, any> {
                 </div>
                 <div className='spacer-small' />
                 <div className='col-center'>
-                  Text über das Projekt hier
+                  Kurzer Introduction Text
                 </div>
                 <div className='spacer-small' />
                 <div className='col-center'>
