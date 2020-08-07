@@ -28,7 +28,8 @@ export interface IClubPageState{
     checked: boolean;
     squadArray: any;
     background: string;
+    fontColor: string;
     showPrimary: boolean;
     showSecondary: boolean;
-    colors: {name:string}[]
+    // colors: {name:string}[]
 }

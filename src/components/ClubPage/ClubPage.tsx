@@ -18,15 +18,12 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
     super(props)
     this.state = {
       background: '#fff',
+      fontColor: 'black',
       loading: true,
       squadArray: [],
       checked: false,
       showPrimary: false,
-      showSecondary: false,
-      colors: [
-        { name: 'Hier wählen Sie die Primärfarbe' },
-        { name: 'Hier wählen Sie die Sekundärfarbe' }
-      ]
+      showSecondary: false
     }
   }
 
@@ -47,13 +44,16 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
     return (
       show === true ? (
         <div className='secondary'>
-          <SketchPicker />
+          <SketchPicker
+            color={this.state.fontColor}
+            onChangeComplete={this.handleFontChange}
+          />
         </div>
       ) : null
     )
   }
 
-  colorTable () {
+  colorPicker () {
     return (
       <>
         <div className='col-xs-12'>
@@ -109,6 +109,12 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
   handleColorChange = (color:any) => {
     this.setState({
       background: color.hex
+    })
+  }
+
+  handleFontChange = (color:any) => {
+    this.setState({
+      fontColor: color.hex
     })
   }
 
@@ -181,7 +187,12 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
 
   render () {
     return (
-      <div className='container-fluid' style={{ backgroundColor: this.state.background }}>
+      <div
+        className='container-fluid' style={{
+          backgroundColor: this.state.background,
+          color: this.state.fontColor
+        }}
+      >
         {this.state.loading && (
           <div className='row'>
             <div className='spacer-big' />
@@ -209,7 +220,7 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
               }
             />
             <div className='spacer-big' />
-            {this.colorTable()}
+            {this.colorPicker()}
             <div className='spacer-big' />
             <div className='col-xs-12'>
               <div className='clubDescriptionText'>Vereinsbeschreibung (location als Filler)</div>
