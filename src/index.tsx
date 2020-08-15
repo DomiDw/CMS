@@ -5,7 +5,7 @@ import Routing from './components/Routing/Routing'
 import * as serviceWorker from './serviceWorker'
 import Discovery from '@soccerwatch/discovery'
 
-Discovery.init(process.env.REACT_APP_Environment || 'dev', true)
+Discovery.init(process.env.REACT_APP_Environment || 'prod', true)
   .then(() => {
     ReactDOM.render(
       <React.StrictMode>

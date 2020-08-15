@@ -31,5 +31,4 @@ export interface IClubPageState{
     fontColor: string;
     showPrimary: boolean;
     showSecondary: boolean;
-    // colors: {name:string}[]
 }
