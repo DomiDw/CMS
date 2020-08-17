@@ -39,28 +39,35 @@ export class TableMatch extends Component<ITableMatchProps, any> {
     }
   }
 
+  getSquadFromUrl () {
+    const url = window.location.href
+    const parts = url.split('/')
+    for (let i = 0; i < parts.length; i++) {
+      return parts[5].length > 0 ? parts[5] : ''
+    }
+  }
+
   getData = async () => {
     axiosRetry(axios, { retries: 5 })
     const url:any = await axios.post(
       'https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' +
       this.getClubIdFromUrl())
     url.data.container.map((item:any) => {
-      const arrayData = {
-        clubATeam: item?.tiles[0]?.Match?.clubAName,
-        clubBTeam: item?.tiles[0]?.Match?.clubBName,
-        gameDay: new Date(item?.tiles[0]?.Match?.startTime).toLocaleString(),
-        matchId: item?.tiles[0]?.Match?.matchId,
-        object: item?.tiles[0]?.Match
-      }
-
-      if (item?.type !== 'Highlight') {
-        if (new Date().getTime() > item?.tiles[0]?.Match?.startTime) {
-          if (this.state.pastArray.length < 10) {
-            this.state.pastArray.push(arrayData)
-          }
-        } else {
-          if (this.state.futuArray.length < 10) {
+      for (let i = 0; i < item?.tiles.length; i++) {
+        const arrayData = {
+          clubATeam: item?.tiles[i]?.Match?.clubAName,
+          clubBTeam: item?.tiles[i]?.Match?.clubBName,
+          gameDay: new Date(item?.tiles[i]?.Match?.startTime).toLocaleString(),
+          matchId: item?.tiles[i]?.Match?.matchId,
+          object: item?.tiles[i]?.Match
+        }
+        if (item?.information.includes(this.getSquadFromUrl())) {
+          if (item?.tiles[i]?.state === 'created') {
             this.state.futuArray.push(arrayData)
+          } else if (item?.tiles[i]?.state === 'done') {
+            if (this.state.pastArray.length < 10) {
+              this.state.pastArray.push(arrayData)
+            }
           }
         }
       }

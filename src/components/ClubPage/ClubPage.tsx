@@ -9,9 +9,8 @@ import { IClubPageProps, IClubPageState } from './IClubPage'
 import Discovery from '@soccerwatch/discovery'
 import { Spinner } from '../Spinner/Spinner'
 import { Link } from 'react-router-dom'
-import { TableMatch } from '../TableMatch/TableMatch'
+// import { TableMatch } from '../TableMatch/TableMatch'
 import { SketchPicker } from 'react-color'
-// import { createMuiTheme } from '@material-ui/core/styles'
 
 class ClubPage extends Component<IClubPageProps, IClubPageState> {
   constructor (props: IClubPageProps) {
@@ -223,20 +222,24 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
             {this.colorPicker()}
             <div className='spacer-big' />
             <div className='col-xs-12'>
-              <div className='clubDescriptionText'>Vereinsbeschreibung (location als Filler)</div>
+              <div className='headline'>Vereinsbeschreibung (location als Filler)</div>
               <TextBox editableText={
                 this.state.dataClub
                   ? this.state.dataClub?.location
                   : ''
               }
               />
-              <div className='clubMessageText'>Vereinsnachricht (location als Filler)</div>
+              <div className='headline'>Vereinsnachricht (location als Filler)</div>
               <TextBox editableText={
                 this.state.dataClub
                   ? this.state.dataClub?.location
                   : ''
               }
               />
+            </div>
+            <div className='spacer-small' />
+            <div className='headline'>
+              Spielplan und Übersicht der Kader des {this.state.dataClub?.name}
             </div>
             <div className='spacer-small' />
             <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12 col-center'>
@@ -245,8 +248,8 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
                 {this.getToSquad()}
               </div>
             </div>
-            <div className='spacer-small' />
-            <TableMatch />
+            {/* <div className='spacer-small' />
+            <TableMatch /> */}
           </div>
         )}
       </div>

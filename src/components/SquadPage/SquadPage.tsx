@@ -12,6 +12,7 @@ import axiosRetry from 'axios-retry'
 import axios from 'axios'
 import Discovery from '@soccerwatch/discovery'
 import { Navbar } from '../Navbar/Navbar'
+import { TableMatch } from '../TableMatch/TableMatch'
 
 class SquadPage extends Component<ISquadPage, any> {
   fileInput: HTMLInputElement | null | undefined
@@ -98,7 +99,7 @@ class SquadPage extends Component<ISquadPage, any> {
     const url = window.location.href
     const parts = url.split('/')
     for (let i = 0; i < parts.length; i++) {
-      return parts[5]
+      return parts[5].length > 0 ? parts[5] : null
     }
   }
 
@@ -115,24 +116,6 @@ class SquadPage extends Component<ISquadPage, any> {
       loading: false
     })
     // Container Club Call (post)
-    // const url:any = await
-    // axios.post('https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' +
-    // this.getClubIdFromUrl())
-    // url.data.container.map((item: any) => {
-    //   if (item?.tiles[0]?.Match?.clubAName === this.state.dataClub?.name) {
-    //     if (item?.tiles[0]?.Match?.clubATeam?.uniqueTeamId === this.getSquadFromUrl()) {
-    //       this.setState({
-    //         squad: item?.tiles[0]?.Match?.clubATeam?.uniqueTeamId
-    //       })
-    //     }
-    //   } else if (item?.tiles[0]?.Match?.clubBName === this.state.dataClub?.name) {
-    //     if (item?.tiles[0]?.Match?.clubBTeam?.uniqueTeamId === this.getSquadFromUrl()) {
-    //       this.setState({
-    //         squad: item?.tiles[0]?.Match?.clubBTeam?.uniqueTeamId
-    //       })
-    //     }
-    //   }
-    // })
   }
 
   componentDidMount () {
@@ -176,7 +159,11 @@ class SquadPage extends Component<ISquadPage, any> {
                   />
                 </div>
                 <div className='spacer-small' />
-                <div className='clubDescriptionText'>Informationen zum Kader (location als Filler)</div>
+                <div>
+                  <TableMatch />
+                </div>
+                <div className='spacer-small' />
+                <div className='headline'>Informationen zum Kader (location als Filler)</div>
                 <div className='col-xs-12'>
                   <TextBox editableText={
                     this.state.dataClub
