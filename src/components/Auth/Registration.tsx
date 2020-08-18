@@ -10,7 +10,7 @@ class Registration extends Component<any, any> {
     return (
       <>
         <div className='spacer-small' />
-        <a href='https://soccerwatch.tv/profile' target='blank'>
+        <a href='************' target='blank'>
           <button type='button' className='btn btn-info'>
             Registrierung auf Soccerwatch.tv
           </button>
