@@ -1,86 +1,81 @@
 import React, { Component } from 'react'
-import './clubpage.scss'
-import '../../../node_modules/flexboxgrid/css/flexboxgrid.min.css'
-import { Club } from '../Club/Club'
-import { TextBox } from '../Textbox/Textbox'
+import { ITableMatchProps } from './ITableMatch'
+import './tablematch.scss'
+import _ from 'lodash'
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
-import { IClubPageProps, IClubPageState } from './IClubPage'
-import Discovery from '@soccerwatch/discovery'
 import { Spinner } from '../Spinner/Spinner'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import { Link } from 'react-router-dom'
-import { TableMatch } from '../TableMatch/TableMatch'
-// import { SwatchesPicker } from 'react-color'
+import InputIcon from '@material-ui/icons/Input'
 
-class ClubPage extends Component<IClubPageProps, IClubPageState> {
-  constructor (props: IClubPageProps) {
+export class TableMatch extends Component<ITableMatchProps, any> {
+  classDate:any
+  constructor (props: ITableMatchProps) {
     super(props)
     this.state = {
-      background: '#fff',
       loading: true,
-      squadArray: [],
-      checked: false
+      pastArray: [],
+      futuArray: [],
+      showPast: false,
+      showFuture: false,
+      sortDirection: 'asc',
+      linkToPage: '/cms-MatchPage/' + this.getClubIdFromUrl() + '/',
+      configTableHeader: [
+        { name: 'clubATeam', showName: 'Heim' },
+        { name: 'clubBTeam', showName: 'Gast' },
+        { name: 'gameDay', showName: 'Datum' }
+      ],
+      rows: []
     }
-  }
-
-  getColor () {
-    return (
-      // <SwatchesPicker
-      //   color={this.state.background}
-      //   onChangeComplete={this.handleColorChange}
-      // />
-      <div>
-        Colorpicker Placeholder
-      </div>
-    )
-  }
-
-  handleColorChange = (color:any) => {
-    this.setState({
-      background: color.hex
-    })
   }
 
   getClubIdFromUrl () {
     const url = window.location.href
-    const id = url.substring(url.lastIndexOf('/') + 1)
-    return id.length > 0 ? id : null
+    const parts = url.split('/')
+    for (let i = 0; i < parts.length; i++) {
+      return parts[4].length > 0 ? parts[4] : null
+    }
+  }
+
+  getSquadFromUrl () {
+    const url = window.location.href
+    const parts = url.split('/')
+    for (let i = 0; i < parts.length; i++) {
+      return parts[5].length > 0 ? parts[5] : ''
+    }
   }
 
   getData = async () => {
     axiosRetry(axios, { retries: 5 })
-    // Get Club API for Club Component
-    const clubAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
-    const res = await Promise.all([
-      axios.get(clubAPI)
-    ])
-    const dataClub = res[0].data
-    this.setState({
-      dataClub,
-      loading: false
-    })
-    // Get Container Club API for Squad Component
-    const containerAPI:any = await
-    axios.post('https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' +
-    this.getClubIdFromUrl())
-    containerAPI.data.container.map((item:any) => {
-      let squadCategorie = ''
-      if (item?.tiles[0]?.Match?.clubAName === this.state.dataClub?.name) {
-        if (item?.type !== 'Highlight') {
-          squadCategorie = item?.tiles[0]?.Match?.clubATeam.baseTeamName
-          this.state.squadArray.push(squadCategorie)
+    const url:any = await axios.post(
+      '*****************************************************************' +
+      this.getClubIdFromUrl())
+    url.data.container.map((item:any) => {
+      for (let i = 0; i < item?.tiles.length; i++) {
+        const arrayData = {
+          clubATeam: item?.tiles[i]?.Match?.clubAName,
+          clubBTeam: item?.tiles[i]?.Match?.clubBName,
+          gameDay: new Date(item?.tiles[i]?.Match?.startTime).toLocaleString(),
+          matchId: item?.tiles[i]?.Match?.matchId,
+          object: item?.tiles[i]?.Match
         }
-      } else if (item?.tiles[0]?.Match?.clubBName === this.state.dataClub?.name) {
-        if (item?.type !== 'Highlight') {
-          squadCategorie = item?.tiles[0]?.Match?.clubBTeam.baseTeamName
-          this.state.squadArray.push(squadCategorie)
+        if (item?.information.includes(this.getSquadFromUrl())) {
+          if (item?.tiles[i]?.state === 'created') {
+            this.state.futuArray.push(arrayData)
+          } else if (item?.tiles[i]?.state === 'done') {
+            if (this.state.pastArray.length < 10) {
+              this.state.pastArray.push(arrayData)
+            }
+          }
         }
       }
-      this.setState({
-        squadArray: this.state.squadArray.reduce((unique:any, item:any) =>
-          unique.includes(item) ? unique : [...unique, item], [])
-      })
       return null
+    })
+    this.setState({
+      matchDataOne: url.data,
+      loading: false
     })
   }
 
@@ -88,92 +83,129 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
     this.getData()
   }
 
-  getToSquad () {
-    const linkToSquadPage:string = '/aisw-cms-squadpage/' + this.getClubIdFromUrl() + '/'
+  showHideTable = (show:any, rows:any) => {
+    const { linkToPage, configTableHeader, sortDirection } = this.state
     return (
-      <div className='squad'>
-        {this.state.squadArray.map((name:string, index:number) => (
-          <Link
-            key={index} to={{
-              pathname: linkToSquadPage + name,
-              query: { teamName: name }
-            }}
-          >
-            <button className='squadButton'>
-              {name}
-            </button>
-          </Link>
-        ))}
-      </div>
+      show === true ? (
+        <table>
+          <thead>
+            <tr>
+              {configTableHeader.map((header:any, i:number) => (
+                <th
+                  key={i}
+                  className='sortHeader'
+                  onClick={() => this.sortArray(header.name)}
+                >
+                  <span>
+                    {header.showName}
+                    <span className='sortButton'>
+                      {sortDirection === 'asc'
+                        ? <ArrowDropDownIcon />
+                        : <ArrowDropUpIcon />}
+                    </span>
+                  </span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row: any, i:number) => (
+              <tr key={i}>
+                <td>{row.clubATeam}</td>
+                <td>{row.clubBTeam}</td>
+                <td>{row.gameDay}</td>
+                <td>
+                  <Link
+                    to={{
+                      pathname: linkToPage + row.matchId,
+                      query: { matchData: row.object }
+                    }}
+                  >
+                    <InputIcon />
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : null
     )
+  }
+
+  sortArray = (headerString:string) => {
+    const { sortDirection, pastArray, futuArray } = this.state
+    const flipSort = sortDirection === 'asc' ? 'desc' : 'asc'
+    const sortedRowsPast = _.orderBy(pastArray, [headerString], [flipSort])
+    const sortedRowsFutu = _.orderBy(futuArray, [headerString], [flipSort])
+    this.setState({
+      sortDirection: flipSort,
+      pastArray: sortedRowsPast,
+      futuArray: sortedRowsFutu
+    })
   }
 
   render () {
+    // TO DO: Double Clicks zum Sortieren
+    if (this.state.loading) {
+      return (
+        <>
+          <Spinner text='Spielplan wird geladen...' />
+        </>
+      )
+    }
     return (
-      <div className='container-fluid' style={{ backgroundColor: this.state.background }}>
-        {this.state.loading && (
+      <>
+        <div className='col-xs-12'>
           <div className='row'>
-            <div className='spacer-big' />
-            <Spinner />
-          </div>
-        )}
-        {!this.state.loading && (
-          <div className='row'>
-            <div className='spacer-big' />
-            <Club
-              name={
-                this.state.dataClub
-                  ? this.state.dataClub?.name
-                  : ''
-              }
-              logo={
-                this.state.dataClub
-                  ? this.state.dataClub?.thumbnail
-                  : ''
-              }
-              city={
-                this.state.dataClub
-                  ? this.state.dataClub?.city
-                  : ''
-              }
-            />
-            <div className='spacer-small' />
-            <div className='spacer-small' />
-            <div className='col-xs-12'>
+            <div className='col-xs-12 col-sm-12 col-md-6 col-center'>
               <div className='row'>
-                {this.getColor()}
+                <div>
+                  <div className='col-xs-12 left-Side'>
+                    <button
+                      className='buttonz'
+                      onClick={() => {
+                        this.setState({
+                          showPast: !this.state.showPast
+                        })
+                      }}
+                    >
+                      Spielplan vergangener Spiele
+                    </button>
+                  </div>
+                  <div className='spacer-small' />
+                  <div className='col-xs-12'>
+                    {this.showHideTable(this.state.showPast, this.state.pastArray)}
+                  </div>
+                  <div className='spacer-small' />
+                </div>
               </div>
             </div>
-            <div className='col-xs-12'>
-              <div className='clubDescriptionText'>Vereinsbeschreibung (location als Filler)</div>
-              <TextBox editableText={
-                this.state.dataClub
-                  ? this.state.dataClub?.location
-                  : ''
-              }
-              />
-              <div className='clubMessageText'>Vereinsnachricht (location als Filler)</div>
-              <TextBox editableText={
-                this.state.dataClub
-                  ? this.state.dataClub?.location
-                  : ''
-              }
-              />
-            </div>
-            <div className='spacer-small' />
-            <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12 col-center'>
+            <div className='col-xs-12 col-sm-12 col-md-6 col-center'>
               <div className='row'>
-                <div className='spacer-small' />
-                {this.getToSquad()}
+                <div>
+                  <div className='col-xs-12 right-Side'>
+                    <button
+                      className='buttonz'
+                      onClick={() => {
+                        this.setState({
+                          showFuture: !this.state.showFuture
+                        })
+                      }}
+                    >
+                      Spielplan künftiger Spiele
+                    </button>
+                  </div>
+                  <div className='spacer-small' />
+                  <div className='col-xs-12'>
+                    {this.showHideTable(this.state.showFuture, this.state.futuArray)}
+                  </div>
+                  <div className='spacer-small' />
+                </div>
               </div>
             </div>
-            <div className='spacer-small' />
-            <TableMatch />
           </div>
-        )}
-      </div>
+        </div>
+      </>
     )
   }
 }
-
-export default ClubPage
