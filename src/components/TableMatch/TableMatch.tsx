@@ -21,7 +21,7 @@ export class TableMatch extends Component<ITableMatchProps, any> {
       showPast: false,
       showFuture: false,
       sortDirection: 'asc',
-      linkToPage: '/aisw-cms-MatchPage/' + this.getClubIdFromUrl() + '/',
+      linkToPage: '/cms-MatchPage/' + this.getClubIdFromUrl() + '/',
       configTableHeader: [
         { name: 'clubATeam', showName: 'Heim' },
         { name: 'clubBTeam', showName: 'Gast' },
@@ -42,7 +42,7 @@ export class TableMatch extends Component<ITableMatchProps, any> {
   getData = async () => {
     axiosRetry(axios, { retries: 5 })
     const url:any = await axios.post(
-      'https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' +
+      '********************' +
       this.getClubIdFromUrl())
     url.data.container.map((item:any) => {
       const arrayData = {
