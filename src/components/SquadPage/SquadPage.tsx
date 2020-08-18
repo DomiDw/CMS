@@ -10,7 +10,7 @@ import { ISquadPage } from './ISquadPage'
 import { TextBox } from '../Textbox/Textbox'
 import axiosRetry from 'axios-retry'
 import axios from 'axios'
-import Discovery from '@soccerwatch/discovery'
+import Discovery from ********************
 import { Navbar } from '../Navbar/Navbar'
 
 class SquadPage extends Component<ISquadPage, any> {
@@ -20,14 +20,14 @@ class SquadPage extends Component<ISquadPage, any> {
     this.state = {
       value: '',
       squad: '',
-      linkToPicture: 'https://cdn.fupa.net/team-image/jpeg/1200x675/xwPrpdZXG7hrf8rGFCy4zRR5kAdy5bGdeu0iVZ0I',
+      linkToPicture: ********************,
       openID: undefined,
       show: false,
       loading: true,
       pictures: [],
       teamArray: [
-        { name: 'Blimmer', alter: '18', trikotnummer: '10', position: 'Mittelfeld' },
-        { name: 'Bjurnus Burgus', alter: '84', trikotnummer: '69', position: 'Pfosten' }
+        { name: '********************', alter: '18', trikotnummer: '10', position: 'Mittelfeld' },
+        { name: '********************', alter: '84', trikotnummer: '69', position: 'Pfosten' }
       ]
     }
     this.handleUpload = this.handleUpload.bind(this)
