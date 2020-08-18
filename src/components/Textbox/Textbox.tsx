@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ITextboxProps, ITextBoxState } from './ITextbox'
 import './textbox.scss'
-import Discovery from '@soccerwatch/discovery'
+import Discovery from ********************
 import axios from 'axios'
 
 export class TextBox extends Component<ITextboxProps, ITextBoxState> {
@@ -50,7 +50,7 @@ export class TextBox extends Component<ITextboxProps, ITextBoxState> {
 
   postClub = async () => {
     const url = (await Discovery.API_CLUB) + '/info'
-    const username = 'dominik.dwinger@soccerwatch.tv'
+    const username = '********************'
     const password = 'f9e9ee4cd6389956c8cc3cdc7bebcc8a'
     const credentials = window.btoa(username + ':' + password)
     const basicAuth = 'Basic ' + credentials
