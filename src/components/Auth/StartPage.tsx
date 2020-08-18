@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 // import { IStartPageProps, IStartPageState } from './IStartPage'
 
 class StartPage extends Component<any, any> {
-    linkToClub:string = '/aisw-cms-clubpage/' + 1
+    linkToClub:string = '/cms-clubpage/' + 1
     constructor (props: any) {
       super(props)
       this.state = {
@@ -39,7 +39,7 @@ class StartPage extends Component<any, any> {
                     required
                   />
                   {this.state.clubId.length > 0 ? (
-                    <Link to={'/aisw-cms-clubpage/' + this.state.clubId}>
+                    <Link to={'/cms-clubpage/' + this.state.clubId}>
                       <button type='submit'>
                         Zum Club
                       </button>
