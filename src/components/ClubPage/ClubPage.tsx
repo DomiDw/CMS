@@ -1,205 +1,100 @@
 import React, { Component } from 'react'
-import { ITableMatchProps } from './ITableMatch'
-import './tablematch.scss'
-import _ from 'lodash'
+import './clubpage.scss'
+import '../../../node_modules/flexboxgrid/css/flexboxgrid.min.css'
+import { Club } from '../Club/Club'
+import { TextBox } from '../Textbox/Textbox'
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
+import { IClubPageProps, IClubPageState } from './IClubPage'
+import Discovery from ********************
 import { Spinner } from '../Spinner/Spinner'
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import { Link } from 'react-router-dom'
-import InputIcon from '@material-ui/icons/Input'
+import { SketchPicker } from 'react-color'
 
-export class TableMatch extends Component<ITableMatchProps, any> {
-  classDate:any
-  constructor (props: ITableMatchProps) {
+class ClubPage extends Component<IClubPageProps, IClubPageState> {
+  constructor (props: IClubPageProps) {
     super(props)
     this.state = {
+      background: '#fff',
+      fontColor: 'black',
       loading: true,
-      pastArray: [],
-      futuArray: [],
-      showPast: false,
-      showFuture: false,
-      sortDirection: 'asc',
-      linkToPage: '/cms-MatchPage/' + this.getClubIdFromUrl() + '/',
-      configTableHeader: [
-        { name: 'clubATeam', showName: 'Heim' },
-        { name: 'clubBTeam', showName: 'Gast' },
-        { name: 'gameDay', showName: 'Datum' }
-      ],
-      rows: []
+      squadArray: [],
+      checked: false,
+      showPrimary: false,
+      showSecondary: false
     }
   }
 
-  getClubIdFromUrl () {
-    const url = window.location.href
-    const parts = url.split('/')
-    for (let i = 0; i < parts.length; i++) {
-      return parts[4].length > 0 ? parts[4] : null
-    }
-  }
-
-  getSquadFromUrl () {
-    const url = window.location.href
-    const parts = url.split('/')
-    for (let i = 0; i < parts.length; i++) {
-      return parts[5].length > 0 ? parts[5] : ''
-    }
-  }
-
-  getData = async () => {
-    axiosRetry(axios, { retries: 5 })
-    const url:any = await axios.post(
-      '*****************************************************************' +
-      this.getClubIdFromUrl())
-    url.data.container.map((item:any) => {
-      for (let i = 0; i < item?.tiles.length; i++) {
-        const arrayData = {
-          clubATeam: item?.tiles[i]?.Match?.clubAName,
-          clubBTeam: item?.tiles[i]?.Match?.clubBName,
-          gameDay: new Date(item?.tiles[i]?.Match?.startTime).toLocaleString(),
-          matchId: item?.tiles[i]?.Match?.matchId,
-          object: item?.tiles[i]?.Match
-        }
-        if (item?.information.includes(this.getSquadFromUrl())) {
-          if (item?.tiles[i]?.state === 'created') {
-            this.state.futuArray.push(arrayData)
-          } else if (item?.tiles[i]?.state === 'done') {
-            if (this.state.pastArray.length < 10) {
-              this.state.pastArray.push(arrayData)
-            }
-          }
-        }
-      }
-      return null
-    })
-    this.setState({
-      matchDataOne: url.data,
-      loading: false
-    })
-  }
-
-  componentDidMount () {
-    this.getData()
-  }
-
-  showHideTable = (show:any, rows:any) => {
-    const { linkToPage, configTableHeader, sortDirection } = this.state
+  setPrimaryColor = (show:any) => {
     return (
       show === true ? (
-        <table>
-          <thead>
-            <tr>
-              {configTableHeader.map((header:any, i:number) => (
-                <th
-                  key={i}
-                  className='sortHeader'
-                  onClick={() => this.sortArray(header.name)}
-                >
-                  <span>
-                    {header.showName}
-                    <span className='sortButton'>
-                      {sortDirection === 'asc'
-                        ? <ArrowDropDownIcon />
-                        : <ArrowDropUpIcon />}
-                    </span>
-                  </span>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row: any, i:number) => (
-              <tr key={i}>
-                <td>{row.clubATeam}</td>
-                <td>{row.clubBTeam}</td>
-                <td>{row.gameDay}</td>
-                <td>
-                  <Link
-                    to={{
-                      pathname: linkToPage + row.matchId,
-                      query: { matchData: row.object }
-                    }}
-                  >
-                    <InputIcon />
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className='primary'>
+          <SketchPicker
+            color={this.state.background}
+            onChangeComplete={this.handleColorChange}
+          />
+        </div>
       ) : null
     )
   }
 
-  sortArray = (headerString:string) => {
-    const { sortDirection, pastArray, futuArray } = this.state
-    const flipSort = sortDirection === 'asc' ? 'desc' : 'asc'
-    const sortedRowsPast = _.orderBy(pastArray, [headerString], [flipSort])
-    const sortedRowsFutu = _.orderBy(futuArray, [headerString], [flipSort])
-    this.setState({
-      sortDirection: flipSort,
-      pastArray: sortedRowsPast,
-      futuArray: sortedRowsFutu
-    })
+  setSecondaryColor = (show:any) => {
+    return (
+      show === true ? (
+        <div className='secondary'>
+          <SketchPicker
+            color={this.state.fontColor}
+            onChangeComplete={this.handleFontChange}
+          />
+        </div>
+      ) : null
+    )
   }
 
-  render () {
-    // TO DO: Double Clicks zum Sortieren
-    if (this.state.loading) {
-      return (
-        <>
-          <Spinner text='Spielplan wird geladen...' />
-        </>
-      )
-    }
+  colorPicker () {
     return (
       <>
         <div className='col-xs-12'>
           <div className='row'>
             <div className='col-xs-12 col-sm-12 col-md-6 col-center'>
               <div className='row'>
-                <div>
-                  <div className='col-xs-12 left-Side'>
+                <div className='col-xs-12 left-Side'>
+                  <div className='buttons'>
                     <button
-                      className='buttonz'
-                      onClick={() => {
+                      className='buttonRow' onClick={() => {
                         this.setState({
-                          showPast: !this.state.showPast
+                          showPrimary: !this.state.showPrimary
                         })
                       }}
                     >
-                      Spielplan vergangener Spiele
+                      Primärfarbe
                     </button>
+                    <div className='spacer-small' />
+                    <div className='col-xs-12'>
+                      {this.setPrimaryColor(this.state.showPrimary)}
+                    </div>
                   </div>
-                  <div className='spacer-small' />
-                  <div className='col-xs-12'>
-                    {this.showHideTable(this.state.showPast, this.state.pastArray)}
-                  </div>
-                  <div className='spacer-small' />
                 </div>
               </div>
             </div>
             <div className='col-xs-12 col-sm-12 col-md-6 col-center'>
               <div className='row'>
-                <div>
-                  <div className='col-xs-12 right-Side'>
+                <div className='col-xs-12 right-Side'>
+                  <div className='buttons'>
                     <button
-                      className='buttonz'
-                      onClick={() => {
+                      className='buttonRow' onClick={() => {
                         this.setState({
-                          showFuture: !this.state.showFuture
+                          showSecondary: !this.state.showSecondary
                         })
                       }}
                     >
-                      Spielplan künftiger Spiele
+                      Sekundärfarbe
                     </button>
                   </div>
                   <div className='spacer-small' />
                   <div className='col-xs-12'>
-                    {this.showHideTable(this.state.showFuture, this.state.futuArray)}
+                    {this.setSecondaryColor(this.state.showSecondary)}
                   </div>
-                  <div className='spacer-small' />
                 </div>
               </div>
             </div>
@@ -208,4 +103,155 @@ export class TableMatch extends Component<ITableMatchProps, any> {
       </>
     )
   }
+
+  handleColorChange = (color:any) => {
+    this.setState({
+      background: color.hex
+    })
+  }
+
+  handleFontChange = (color:any) => {
+    this.setState({
+      fontColor: color.hex
+    })
+  }
+
+  getClubIdFromUrl () {
+    const url = window.location.href
+    const id = url.substring(url.lastIndexOf('/') + 1)
+    return id.length > 0 ? id : null
+  }
+
+  getData = async () => {
+    axiosRetry(axios, { retries: 5 })
+    // Get Club API for Club Component
+    const clubAPI = Discovery.API_CLUB + '/info/' + this.getClubIdFromUrl()
+    const res = await Promise.all([
+      axios.get(clubAPI)
+    ])
+    const dataClub = res[0].data
+    this.setState({
+      dataClub,
+      loading: false
+    })
+    // Get Container Club API for Squad Component
+    const containerAPI:any = await
+    axios.post('********************' +
+    this.getClubIdFromUrl())
+    containerAPI.data.container.map((item:any) => {
+      let squadCategorie = ''
+      if (item?.tiles[0]?.Match?.clubAName === this.state.dataClub?.name) {
+        if (item?.type !== 'AllByState') {
+          squadCategorie = item?.tiles[0]?.Match?.clubATeam.baseTeamName
+          this.state.squadArray.push(squadCategorie)
+        }
+      } else if (item?.tiles[0]?.Match?.clubBName === this.state.dataClub?.name) {
+        if (item?.type !== 'AllByState') {
+          squadCategorie = item?.tiles[0]?.Match?.clubBTeam.baseTeamName
+          this.state.squadArray.push(squadCategorie)
+        }
+      }
+      this.setState({
+        squadArray: this.state.squadArray.reduce((unique:any, item:any) =>
+          unique.includes(item) ? unique : [...unique, item], [])
+      })
+      return null
+    })
+  }
+
+  componentDidMount () {
+    this.getData()
+  }
+
+  getToSquad () {
+    const linkToSquadPage:string = '/cms-squadpage/' + this.getClubIdFromUrl() + '/'
+    return (
+      <div className='buttons'>
+        {this.state.squadArray.map((name:string, index:number) => (
+          <Link
+            key={index} to={{
+              pathname: linkToSquadPage + name,
+              query: { teamName: name }
+            }}
+          >
+            <button className='buttonRow'>
+              {name}
+            </button>
+          </Link>
+        ))}
+      </div>
+    )
+  }
+
+  render () {
+    return (
+      <div
+        className='container-fluid' style={{
+          backgroundColor: this.state.background,
+          color: this.state.fontColor
+        }}
+      >
+        {this.state.loading && (
+          <div className='row'>
+            <div className='spacer-big' />
+            <Spinner />
+          </div>
+        )}
+        {!this.state.loading && (
+          <div className='row'>
+            <div className='spacer-big' />
+            <Club
+              name={
+                this.state.dataClub
+                  ? this.state.dataClub?.name
+                  : ''
+              }
+              logo={
+                this.state.dataClub
+                  ? this.state.dataClub?.thumbnail
+                  : ''
+              }
+              city={
+                this.state.dataClub
+                  ? this.state.dataClub?.city
+                  : ''
+              }
+            />
+            <div className='spacer-big' />
+            {this.colorPicker()}
+            <div className='spacer-big' />
+            <div className='col-xs-12'>
+              <div className='headline'>Vereinsbeschreibung (location als Filler)</div>
+              <TextBox editableText={
+                this.state.dataClub
+                  ? this.state.dataClub?.location
+                  : ''
+              }
+              />
+              <div className='headline'>Vereinsnachricht (location als Filler)</div>
+              <TextBox editableText={
+                this.state.dataClub
+                  ? this.state.dataClub?.location
+                  : ''
+              }
+              />
+            </div>
+            <div className='spacer-small' />
+            <div className='headline'>
+              Spielplan und Übersicht der Kader des {this.state.dataClub?.name}
+            </div>
+            <div className='spacer-small' />
+            <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12 col-center'>
+              <div className='row'>
+                <div className='spacer-small' />
+                {this.getToSquad()}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
 }
+
+export default ClubPage
