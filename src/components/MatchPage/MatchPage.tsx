@@ -8,7 +8,7 @@ import { TextBox } from '../Textbox/Textbox'
 import { IMatchPageState, IMatchPageProps } from './IMatchPage'
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
-import Discovery from '@soccerwatch/discovery'
+import Discovery from ********************
 import '../../../node_modules/flexboxgrid/css/flexboxgrid.min.css'
 import IconButton from '@material-ui/core/IconButton'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
