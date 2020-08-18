@@ -1,4 +1,4 @@
-declare module '@soccerwatch/discovery'
+declare module '********************/discovery'
 declare module 'react-router-dom'
 declare module 'react-native-nav'
 declare module 'react-object-list'
