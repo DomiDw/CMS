@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.scss'
 import Routing from './components/Routing/Routing'
 import * as serviceWorker from './serviceWorker'
-import Discovery from '@soccerwatch/discovery'
+import Discovery from ********************
 
 Discovery.init(process.env.REACT_APP_Environment || 'dev', true)
   .then(() => {
