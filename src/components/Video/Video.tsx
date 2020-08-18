@@ -30,7 +30,7 @@ export class Video extends Component<IVideoProps, IVideoState> {
   getData = async () => {
     axiosRetry(axios, { retries: 5 })
     const containerAPI:any = await
-    axios.post('https://api-container-dot-sw-sc-de-prod.appspot.com/rest/v1/de/containerCollection/club/' +
+    axios.post(******************** +
     this.getClubIdFromUrl())
     containerAPI.data.container.map((item:any) => {
       let getDate
