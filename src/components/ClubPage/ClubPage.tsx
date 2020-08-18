@@ -9,7 +9,6 @@ import { IClubPageProps, IClubPageState } from './IClubPage'
 import Discovery from '@soccerwatch/discovery'
 import { Spinner } from '../Spinner/Spinner'
 import { Link } from 'react-router-dom'
-// import { TableMatch } from '../TableMatch/TableMatch'
 import { SketchPicker } from 'react-color'
 
 class ClubPage extends Component<IClubPageProps, IClubPageState> {
@@ -142,12 +141,12 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
     containerAPI.data.container.map((item:any) => {
       let squadCategorie = ''
       if (item?.tiles[0]?.Match?.clubAName === this.state.dataClub?.name) {
-        if (item?.type !== 'Highlight') {
+        if (item?.type !== 'AllByState') {
           squadCategorie = item?.tiles[0]?.Match?.clubATeam.baseTeamName
           this.state.squadArray.push(squadCategorie)
         }
       } else if (item?.tiles[0]?.Match?.clubBName === this.state.dataClub?.name) {
-        if (item?.type !== 'Highlight') {
+        if (item?.type !== 'AllByState') {
           squadCategorie = item?.tiles[0]?.Match?.clubBTeam.baseTeamName
           this.state.squadArray.push(squadCategorie)
         }
@@ -248,8 +247,6 @@ class ClubPage extends Component<IClubPageProps, IClubPageState> {
                 {this.getToSquad()}
               </div>
             </div>
-            {/* <div className='spacer-small' />
-            <TableMatch /> */}
           </div>
         )}
       </div>
